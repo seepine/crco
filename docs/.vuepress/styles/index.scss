@@ -1,0 +1,42 @@
+:root {
+  // brand colors
+  --c-brand: rgb(32, 95, 236);
+  --c-brand-light: rgb(45, 108, 249);
+  --sidebar-width-mobile: calc(var(--sidebar-width) * 0.76);
+}
+
+html.dark {
+  --c-brand: rgb(45, 108, 249);
+  --c-brand-light: rgb(32, 95, 236);
+}
+.back-to-top {
+  width: 1.5rem !important;
+  height: 0.8rem !important;
+}
+.home .hero .action-button {
+  font-size: 1.0rem;
+  padding: 0.6rem 1rem;
+  min-width: 6rem;
+}
+
+table {
+  display: inline-table;
+  margin: 0;
+}
+
+tr {
+  border-top: unset;
+  transition: unset;
+
+  &:nth-child(2n) {
+    background-color:unset;
+    transition: unset;
+  }
+}
+
+th,
+td {
+  padding: unset;
+  border:unset;
+  transition: unset;
+}
