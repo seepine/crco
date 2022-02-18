@@ -12,6 +12,8 @@ import { CrcoOptions } from './util/types'
 import { filterValue as fValue } from './util/data-handle'
 import extend from './util/extend'
 import './css/flex.scss'
+import { setHttp } from './util/http'
+import './util/popstate'
 
 extend()
 
@@ -34,7 +36,7 @@ export function filterValue(record: any, column: any) {
 export default {
   install(app: App, options?: CrcoOptions) {
     if (options !== undefined && options.axios !== undefined) {
-      window.axios = options.axios
+      setHttp(options.axios)
     }
     Object.keys(components).forEach((key: string) => {
       app.use(components[key], options)

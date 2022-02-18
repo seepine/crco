@@ -3,7 +3,7 @@ module.exports = {
   title: 'crco',
   bundler: '@vuepress/bundler-webpack',
   description: '企业快速开发，个人外包必备',
-  logo:'logo.png',
+  logo: 'logo.png',
   locales: {
     '/': {
       lang: 'zh-CN'
@@ -13,7 +13,10 @@ module.exports = {
     //   lang: 'en-US'
     // }
   },
-  head: [['link', { rel: 'icon', href: '/favicon.png' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.png' }],
+    ['script', { src: '/dark-mode.js' }]
+  ],
   themeConfig: {
     locales: {
       '/': {
@@ -80,7 +83,7 @@ module.exports = {
         {
           text: '表格',
           isGroup: true,
-          children: ['base' ,'slot','popstate','ext']
+          children: ['base', 'slot', 'popstate', 'ext']
         }
       ]
     }

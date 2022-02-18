@@ -1,7 +1,6 @@
 /* eslint-disable func-names */
 /* eslint-disable no-extend-native */
 import beanUtil from './bean-util'
-import emitter from './emitter'
 
 export default () => {
   // @ts-ignore
@@ -18,18 +17,4 @@ export default () => {
     }
     return this
   }
-  const stack: Array<number> = []
-  window.addEventListener('popstate', () => {
-    if (stack.length > 0) {
-      emitter.emit('popstate', stack[stack.length - 1])
-    }
-  })
-
-  emitter.on('popstate-stack-in', (code: any) => {
-    window.history.pushState(null, '', document.URL)
-    stack.push(code)
-  })
-  emitter.on('popstate-stack-out', (code: any) => {
-    stack.splice(stack.indexOf(code), 1)
-  })
 }

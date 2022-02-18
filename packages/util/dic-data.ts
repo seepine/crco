@@ -1,7 +1,7 @@
-import axios from 'axios'
 import { filterProps } from './filter'
 import { isArray, isObject, isUndefined } from './is'
 import { deepClone } from './util'
+import { getHttp } from './http'
 
 export type DicItem = {
   value: any
@@ -16,10 +16,7 @@ export const initDicData = async (option: any): Promise<DicData> => {
   const dicProps = filterProps(option.props)
   if (option.dicUrl) {
     try {
-      let http = axios
-      if (window.axios) {
-        http = window.axios
-      }
+      const http = getHttp()
       if (isUndefined(option.params)) {
         return await http.get(option.dicUrl)
       }

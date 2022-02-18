@@ -9,8 +9,3 @@ declare interface Date {
   format: (p_format: string) => string
   lastMonth: () => Date
 }
-
-// eslint-disable-next-line no-unused-vars
-declare interface Window {
-  axios: any
-}

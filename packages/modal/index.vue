@@ -10,6 +10,7 @@
 import { Modal as AModal } from '@arco-design/web-vue'
 import { onMounted, onUnmounted, ref, watchEffect, withDefaults } from 'vue'
 import emitter from '../util/emitter'
+import '../util/popstate'
 
 const props = withDefaults(
   defineProps<{
@@ -22,8 +23,9 @@ const props = withDefaults(
 const visible = ref(props.modelValue)
 
 const code = Math.round(Math.random() * 100000000)
-const triggerBack = (e: any) => {
-  if (e === code) {
+let topCode = code
+const triggerBack = () => {
+  if (topCode === code) {
     if (visible.value) {
       visible.value = false
     }
@@ -36,11 +38,16 @@ watchEffect(() => {
     emitter.emit('popstate-stack-out', code)
   }
 })
+const setTopCode = (data: any) => {
+  topCode = data
+}
 onMounted(() => {
-  emitter.on('popstate', triggerBack)
+  emitter.on('top-code', setTopCode)
+  window.addEventListener('popstate', triggerBack)
 })
 onUnmounted(() => {
-  emitter.off('popstate', triggerBack)
+  emitter.off('top-code', setTopCode)
+  window.removeEventListener('popstate', triggerBack)
 })
 </script>
 <style lang="scss"></style>

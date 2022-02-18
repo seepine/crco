@@ -25,9 +25,10 @@
           v-if="filterBtnDisplay('add', myOption, props.permissions, {})"
           type="primary"
           @click="operation('add', {})"
+          >{{
+            isObject(myOption.addBtn) && myOption.addBtn.text ? myOption.addBtn.text : '新增'
+          }}</a-button
         >
-          {{ isObject(myOption.addBtn) && myOption.addBtn.text ? myOption.addBtn.text : '新增' }}
-        </a-button>
         <slot name="headerLeft"></slot>
       </div>
       <div class="crco-table-header-right md-row-column">
@@ -252,12 +253,16 @@ type TypeEnum = 'view' | 'add' | 'edit' | 'del' | ''
 const type = ref<TypeEnum>('')
 /** ==========================     处理物理返回逻辑     ================== */
 const code = Math.round(Math.random() * 100000000)
-const triggerBack = (e: any) => {
-  if (e === code) {
+let topCode = code
+const triggerBack = () => {
+  if (topCode === code) {
     if (type.value !== '') {
       type.value = ''
     }
   }
+}
+const setTopCode = (data: any) => {
+  topCode = data
 }
 watchEffect(() => {
   if (type.value !== '') {
@@ -267,10 +272,12 @@ watchEffect(() => {
   }
 })
 onMounted(() => {
-  emitter.on('popstate', triggerBack)
+  emitter.on('top-code', setTopCode)
+  window.addEventListener('popstate', triggerBack)
 })
 onUnmounted(() => {
-  emitter.off('popstate', triggerBack)
+  emitter.off('top-code', setTopCode)
+  window.removeEventListener('popstate', triggerBack)
 })
 /** ==========================     处理物理返回逻辑 end    ================== */
 type Btn = {

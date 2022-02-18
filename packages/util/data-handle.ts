@@ -2,6 +2,7 @@ import { RequestOption } from '@arco-design/web-vue/es/upload/interfaces'
 import axios from 'axios'
 import beanUtil from './bean-util'
 import { filterProps } from './filter'
+import { getHttp } from './http'
 import { isArray, isNull, isObject, isString, isUndefined } from './is'
 import { deepClone } from './util'
 
@@ -13,11 +14,15 @@ export const customRequest = (option: RequestOption) => {
   }
   const forms = new FormData()
   forms.append('file', fileItem.file)
-  let http = window.axios
-  if (isUndefined(http)) {
-    http = axios
-  }
+  const http = getHttp()
   let cancel = () => {}
+  if (!option.action) {
+    return {
+      abort() {
+        cancel()
+      }
+    }
+  }
   http
     .post(option.action, forms, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -46,10 +51,7 @@ export const initDicData = async (option: any): Promise<Array<any>> => {
   const dicProps = filterProps(option.props)
   if (option.dicUrl) {
     try {
-      let http = axios
-      if (window.axios) {
-        http = window.axios
-      }
+      const http = getHttp()
       if (isUndefined(option.params)) {
         return await http.get(option.dicUrl)
       }
