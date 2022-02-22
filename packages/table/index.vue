@@ -376,10 +376,13 @@ watch(
     searchForm.value = {}
     beanUtil.copyPropertiesNotEmpty(props.option, myOption.value)
     for (let i = 0; i < myOption.value.columns.length; i += 1) {
+      // 需要处理字典的话
       if (isString(myOption.value.columns[i].dicUrl)) {
+        // initDicData会处理props，所以此处应主动将props去除
         initDicData(myOption.value.columns[i]).then((res) => {
-          myOption.value.columns[i].dicData = res
           myOption.value.columns[i].dicUrl = undefined
+          myOption.value.columns[i].props = undefined
+          myOption.value.columns[i].dicData = res
         })
       }
       if (!isUndefined(myOption.value.columns[i].searchValue)) {
