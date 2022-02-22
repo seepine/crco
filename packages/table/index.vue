@@ -247,6 +247,7 @@ import CrcoDescriptions from '../descriptions/index.vue'
 import CrcoForm from '../form/index.vue'
 import CrcoPopconfirm from '../popconfirm/index.vue'
 import emitter from '../util/emitter'
+import crud from '../util/crud'
 
 type TypeEnum = 'view' | 'add' | 'edit' | 'del' | ''
 
@@ -300,6 +301,18 @@ type Option = {
     width?: number
   }
   viewProps?: any
+
+  // eg:/sys/system/menu
+  path?: string
+  // eg:page/res 前面会自动拼接上 `${path}/`
+  pagePath?: string
+  pageAfter?: Function
+  // eg:add 前面会自动拼接上 `${path}/`
+  addPath?: string
+  // eg:edit 前面会自动拼接上 `${path}/`
+  editPath?: string
+  // eg:del 前面会自动拼接上 `${path}/`
+  delPath?: string
 }
 type Permissions = {
   viewBtn: boolean
@@ -354,6 +367,8 @@ const myOption = ref<Option>({
   columns: []
 })
 
+let crudApi: any
+
 const searchForm = ref<any>({})
 watch(
   () => props.option,
@@ -370,6 +385,17 @@ watch(
       if (!isUndefined(myOption.value.columns[i].searchValue)) {
         searchForm.value[myOption.value.columns[i].prop] = myOption.value.columns[i].searchValue
       }
+    }
+
+    if (isString(myOption.value.path)) {
+      crudApi = crud({
+        path: myOption.value.path,
+        pagePath: myOption.value.pagePath,
+        pageAfter: myOption.value.pageAfter,
+        addPath: myOption.value.addPath,
+        editPath: myOption.value.editPath,
+        delPath: myOption.value.delPath
+      })
     }
   },
   {
@@ -402,28 +428,30 @@ const load = (reset = false, done?: Function) => {
   if (reset) {
     pagination.value.current = 1
   }
-  emit(
-    'load',
-    {
-      ...searchForm.value,
-      ...props.params,
-      ...myParams,
-      current: pagination.value.current,
-      size: pagination.value.pageSize
-    },
-    (res: any) => {
-      isDone = true
-      loading.value = false
-      if (isObject(res)) {
-        tableDatas.value = res.records
-        pagination.value.total = res.total
-        pagination.value.current = res.current
-      }
-      if (done) {
-        done(res)
-      }
+  const params = {
+    ...searchForm.value,
+    ...props.params,
+    ...myParams,
+    current: pagination.value.current,
+    size: pagination.value.pageSize
+  }
+  const loadResHandle = (res: any) => {
+    isDone = true
+    loading.value = false
+    if (isObject(res)) {
+      tableDatas.value = res.records
+      pagination.value.total = res.total
+      pagination.value.current = res.current
     }
-  )
+    if (done) {
+      done(res)
+    }
+  }
+  if (crudApi) {
+    crudApi.handleLoad(params, loadResHandle)
+  } else {
+    emit('load', params, loadResHandle)
+  }
 }
 const pageChange = (current: number) => {
   pagination.value.current = current
@@ -502,32 +530,39 @@ const handleSubmit = (val: any, done: Function) => {
       done()
     }
   }
-  switch (type.value) {
-    case 'add':
-      emit(type.value, val, handleDone)
-      break
-    case 'edit':
-      emit(type.value, val, handleDone)
-      break
-    case 'del':
-      emit(type.value, val, handleDone)
-      break
-    default:
+  if (crudApi) {
+    switch (type.value) {
+      case 'add':
+        crudApi.handleAdd(val, handleDone)
+        break
+      case 'edit':
+        crudApi.handleEdit(val, handleDone)
+        break
+      default:
+    }
+  } else if (type.value === 'add' || type.value === 'edit') {
+    // @ts-ignore
+    emit(type.value, val, handleDone)
   }
 }
 const handleSearch = (val: any, done: Function) => {
-  load(false, () => {
+  load(true, () => {
     done()
   })
 }
 const handleToDel = (record: any, done: (p_closed?: boolean) => void) => {
-  emit('del', record, (flag = true) => {
+  const handleDone = (flag = true) => {
     if (flag === true) {
       Message.success(`删除成功`)
       load()
     }
     done(flag)
-  })
+  }
+  if (crudApi) {
+    crudApi.handleDel(record, handleDone)
+  } else {
+    emit('del', record, handleDone)
+  }
 }
 
 defineExpose({
