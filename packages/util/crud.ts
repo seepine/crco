@@ -16,10 +16,13 @@ interface Option {
 export default (config: Option) => {
   const { path, pagePath, pageAfter, addPath, editPath, delPath } = config
   const axios = getHttp()
-
+  let apiPath = path
+  if (apiPath && !apiPath.startsWith('http')) {
+    apiPath = apiPath.startsWith('/') ? apiPath : `/${apiPath}`
+  }
   const handleLoad = (params: any, done: Function) => {
     axios
-      .post(`${path}/${pagePath || 'page'}`, params, {
+      .post(`${apiPath}/${pagePath || 'page'}`, params, {
         params: {
           current: params.current,
           size: params.size
@@ -36,7 +39,7 @@ export default (config: Option) => {
   }
   const handleAdd = (data: any, done: Function) => {
     axios
-      .post(`${path}/${addPath || ''}`, data)
+      .post(`${apiPath}/${addPath || ''}`, data)
       .then(() => {
         done()
       })
@@ -46,7 +49,7 @@ export default (config: Option) => {
   }
   const handleDel = (row: any, done: Function) => {
     axios
-      .delete(`${path}/${delPath || ''}${row.id}`)
+      .delete(`${apiPath}/${delPath || ''}${row.id}`)
       .then(() => {
         done()
       })
@@ -56,7 +59,7 @@ export default (config: Option) => {
   }
   const handleEdit = (data: any, done: Function) => {
     axios
-      .put(`${path}/${editPath || ''}`, data)
+      .put(`${apiPath}/${editPath || ''}`, data)
       .then(() => {
         done()
       })
