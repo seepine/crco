@@ -14,7 +14,6 @@ export const customRequest = (option: RequestOption) => {
   }
   const forms = new FormData()
   forms.append('file', fileItem.file)
-  const http = getHttp()
   let cancel = () => {}
   if (!option.action) {
     return {
@@ -23,7 +22,7 @@ export const customRequest = (option: RequestOption) => {
       }
     }
   }
-  http
+  getHttp()
     .post(option.action, forms, {
       headers: { 'Content-Type': 'multipart/form-data' },
       onUploadProgress: (progressEvent: ProgressEvent) => {
@@ -53,9 +52,10 @@ export const initDicData = async (option: any): Promise<Array<any>> => {
     try {
       const http = getHttp()
       if (isUndefined(option.params)) {
-        return await http.get(option.dicUrl)
+        dicData = await http.get(option.dicUrl)
+      } else {
+        dicData = await http.get(option.dicUrl, { params: option.params })
       }
-      dicData = await http.post(option.dicUrl, option.params)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('init dicData error:', error)

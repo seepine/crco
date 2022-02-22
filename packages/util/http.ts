@@ -1,12 +1,13 @@
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
+import { isNull, isUndefined } from './is'
 
-let http = axios
+let http: AxiosInstance = axios
 
 export const setHttp = (data: any) => {
-  if (data != null) {
+  if (!isNull(data) && !isUndefined(data)) {
     http = data
   }
 }
-export const getHttp = () => {
+export const getHttp = (): AxiosInstance => {
   return http
 }
