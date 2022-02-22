@@ -257,8 +257,5 @@ body[arco-theme='dark'] {
 }
 .crco-form-spin {
   width: 100%;
-  .crco-form-spin-content {
-    padding: 10px;
-  }
 }
 </style>
