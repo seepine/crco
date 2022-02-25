@@ -116,7 +116,7 @@ const props = withDefaults(
     style?: object | string
   }>(),
   {
-    modelValue: {},
+    modelValue: undefined,
     type: ''
   }
 )
@@ -156,10 +156,17 @@ const btnTextComputed = computed(() => {
   }
   return '提交'
 })
+let hasModelValue = true
+let init = false
 watch(
   () => props.modelValue,
   (val) => {
     form.value = val
+    if (isUndefined(val) && !init) {
+      init = true
+      hasModelValue = false
+      form.value = {}
+    }
   },
   {
     immediate: true,
@@ -169,7 +176,9 @@ watch(
 watch(
   () => form.value,
   () => {
-    emit('update:modelValue', form.value)
+    if (hasModelValue) {
+      emit('update:modelValue', form.value)
+    }
   },
   {
     deep: true
@@ -223,8 +232,6 @@ const handleSubmit = () => {
     }
   })
 }
-// ref.submit().then(({form,done})=>{ })
-// const {form,done} = await ref.submit()
 const submit = () => {
   return new Promise((RES: any, REJ) => {
     formRef.value.validate().then((res: any) => {
@@ -239,7 +246,7 @@ const submit = () => {
           }
         })
       } else {
-        REJ()
+        REJ(res)
       }
     })
   })
