@@ -26,19 +26,14 @@
     type="text"
     class="full-width"
   />
-  <c-radio
-    v-if="column.type === 'radio'"
-    v-model="form[column.prop]"
-    :option="column"
-    class="full-width"
-  ></c-radio>
+  <c-radio v-if="column.type === 'radio'" v-model="form[column.prop]" :option="column"></c-radio>
   <c-select
     v-if="column.type === 'select'"
     v-model="form[column.prop]"
     :option="column"
     class="full-width"
   ></c-select>
-  <a-switch v-if="column.type === 'switch'" v-model="form[column.prop]" class="full-width" />
+  <a-switch v-if="column.type === 'switch'" v-model="form[column.prop]" />
   <c-upload
     v-if="column.type === 'upload'"
     v-model="form[column.prop]"
@@ -50,7 +45,6 @@
     v-if="column.type === 'date' || column.type === 'datetime'"
     :show-time="column.type === 'datetime'"
     v-model="form[column.prop]"
-    class="full-width"
   />
   <a-week-picker
     v-bind="column"
@@ -58,30 +52,10 @@
     v-model="form[column.prop]"
     class="full-width"
   />
-  <a-month-picker
-    v-bind="column"
-    v-if="column.type === 'month'"
-    v-model="form[column.prop]"
-    class="full-width"
-  />
-  <a-year-picker
-    v-bind="column"
-    v-if="column.type === 'year'"
-    v-model="form[column.prop]"
-    class="full-width"
-  />
-  <a-quarter-picker
-    v-bind="column"
-    v-if="column.type === 'quarter'"
-    v-model="form[column.prop]"
-    class="full-width"
-  />
-  <a-range-picker
-    v-bind="column"
-    v-if="column.type === 'daterange'"
-    v-model="form[column.prop]"
-    class="full-width"
-  />
+  <a-month-picker v-bind="column" v-if="column.type === 'month'" v-model="form[column.prop]" />
+  <a-year-picker v-bind="column" v-if="column.type === 'year'" v-model="form[column.prop]" />
+  <a-quarter-picker v-bind="column" v-if="column.type === 'quarter'" v-model="form[column.prop]" />
+  <a-range-picker v-bind="column" v-if="column.type === 'daterange'" v-model="form[column.prop]" />
 </template>
 <script></script>
 

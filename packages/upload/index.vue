@@ -117,10 +117,10 @@ const uploadModelValue = (arr: Array<any>) => {
   }
   let val = tmpArr
   if (props.option.limit === 1) {
-    val = arr.length > 0 ? tmpArr[0] : {}
+    val = arr.length > 0 ? tmpArr[0] : undefined
   }
   try {
-    if (isStringify.value) {
+    if (isStringify.value && !isUndefined(val)) {
       let str: any = isString(val) ? val : JSON.stringify(val)
       if (str === '[]') {
         str = undefined
