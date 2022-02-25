@@ -121,13 +121,16 @@ const uploadModelValue = (arr: Array<any>) => {
   }
   try {
     if (isStringify.value) {
-      emit('update:modelValue', isString(val) ? val : JSON.stringify(val))
-      emit('change', isString(val) ? val : JSON.stringify(val))
+      let str: any = isString(val) ? val : JSON.stringify(val)
+      if (str === '[]') {
+        str = undefined
+      }
+      emit('update:modelValue', str)
+      emit('change', str)
       return
     }
     // eslint-disable-next-line no-empty
   } catch (e) {}
-
   emit('update:modelValue', val)
   emit('change', val)
 }
