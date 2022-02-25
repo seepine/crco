@@ -70,7 +70,9 @@ export const initDicData = async (option: any): Promise<Array<any>> => {
       return {
         value: item[dicProps.value],
         label: item[dicProps.label],
-        data: item
+        data: item,
+        // 兼容旧写法，下个大版本去除
+        ...item
       }
     }
     return {
