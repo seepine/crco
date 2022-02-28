@@ -74,6 +74,7 @@
             :title="column.name"
             :dataIndex="column.prop"
             v-if="filterDisplay('', column, tableDatas[index])"
+            :cell-style="filterCellStyle(column)"
           >
             <template #cell="{ record }">
               <slot :name="column.prop" :column="column" :record="record">
@@ -82,12 +83,13 @@
             </template>
           </a-table-column>
         </template>
-
         <a-table-column
           v-if="myOption.menuDisplay !== false"
           v-bind="myOption.menuProps"
+          :width="myOption.menuProps.width"
           title="操作"
-          :width="myOption.menuProps && myOption.menuProps.width ? myOption.menuProps.width : 220"
+          :fixed="myOption.menuProps.fixed"
+          :cell-style="filterCellStyle(myOption.menuProps)"
         >
           <template #cell="{ record, rowIndex }">
             <slot name="menuLeft" :record="record"></slot>
@@ -241,7 +243,7 @@ import {
 import { IconRefresh, IconArrowLeft } from '@arco-design/web-vue/es/icon'
 import { isFunction, isString, isUndefined, isObject } from '../util/is'
 import { initDicData } from '../util/data-handle'
-import { filterBtnDisplay, filterDisplay } from '../util/filter'
+import { filterBtnDisplay, filterDisplay, filterCellStyle } from '../util/filter'
 import beanUtil from '../util/bean-util'
 import FormatValueRender from '../_components/format-value-render/index.vue'
 import CrcoDescriptions from '../descriptions/index.vue'
@@ -298,8 +300,12 @@ type Option = {
   subtitle?: string
   menuDisplay?: boolean
   headerDisplay?: boolean
-  menuProps?: {
+  menuProps: {
     width?: number
+    maxWidth?: number
+    minWidth?: number
+    nowrap: boolean
+    fixed: 'left' | 'right' | undefined
   }
   viewProps?: any
 
@@ -362,7 +368,8 @@ const myOption = ref<Option>({
     text: '删除'
   },
   menuProps: {
-    width: 220
+    fixed: undefined,
+    nowrap: true
   },
   subtitle: '',
   columns: []

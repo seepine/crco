@@ -124,3 +124,24 @@ export const filterProps = (props: any): { value: string; label: string } => {
     label: isObject(props) && isString(props.label) ? props.label : 'label'
   }
 }
+
+export const filterCellStyle = (column: any) => {
+  const style: any = {
+    whiteSpace: column.nowrap === false ? 'unset' : 'nowrap'
+  }
+  if (column.minWidth) {
+    style.minWidth = `${column.minWidth}px`
+  }
+  if (!column.ellipsis) {
+    style.maxWidth = `300px`
+    style.textOverflow = 'ellipsis'
+    style.overflowX = 'hidden'
+  }
+  if (column.maxWidth) {
+    style.maxWidth = `${column.maxWidth}px`
+  }
+  return {
+    ...style,
+    ...column.cellStyle
+  }
+}
