@@ -1,5 +1,5 @@
 <template>
-  <a-select v-model="value" v-bind="option" :loading="loading" :disabled="props.disabled">
+  <a-select v-model="value" v-bind="option" :loading="loading" :disabled="props.option.disabled">
     <a-option :value="item.value" v-for="(item, index) in dicData" :key="index">
       <slot :item="item" :index="index" :dicData="dicData">
         {{ item.label }}
@@ -21,12 +21,10 @@ const props = withDefaults(
   defineProps<{
     option: any
     modelValue: ModelValueType
-    disabled?: boolean
   }>(),
   {
     option: {},
-    modelValue: '',
-    disabled: false
+    modelValue: ''
   }
 )
 

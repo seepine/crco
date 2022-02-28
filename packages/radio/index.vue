@@ -1,5 +1,10 @@
 <template>
-  <a-radio-group type="button" v-model="value" @change="handleChange">
+  <a-radio-group
+    type="button"
+    v-model="value"
+    @change="handleChange"
+    :disabled="props.option.disabled"
+  >
     <a-radio :value="item.value" v-for="(item, index) in dicData" :key="index">{{
       item.label
     }}</a-radio>
@@ -17,7 +22,6 @@ const props = withDefaults(
   defineProps<{
     option: any
     modelValue?: string | number
-    disabled?: boolean
   }>(),
   {
     option: {}

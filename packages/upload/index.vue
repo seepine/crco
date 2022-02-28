@@ -13,6 +13,7 @@
     :show-retry-button="readonly ? false : option.showRetryButton"
     :show-cancel-button="readonly ? false : option.showCancelButton"
     :show-upload-button="readonly ? false : option.showUploadButton"
+    :disabled="option.disabled"
     :class="{
       'crco-upload-readonly': readonly,
       'crco-upload-large': option.large
