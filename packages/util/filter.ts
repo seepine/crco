@@ -1,4 +1,4 @@
-import { isBlank, isFunction, isNumber, isObject, isString, isUndefined } from './is'
+import { isBlank, isFunction, isObject, isString, isUndefined } from './is'
 
 export const filterBtnDisplay = (
   type: string,
@@ -65,25 +65,22 @@ export const filterRules = (type: string, column: any, record: any) => {
   return rules
 }
 
-const getSpan = (field: string, column: any, record: any) => {
-  if (isFunction(column[field])) {
-    return column[field](record)
+const getSpan = (spanValue: any, record: any) => {
+  if (isFunction(spanValue)) {
+    return spanValue(record)
   }
-  if (isNumber(column[field])) {
-    return column[field]
-  }
-  return column[field]
+  return spanValue
 }
 export const filterSpan = (
-  column: any,
-  option: any,
+  column: any, // {name:'',prop:'',span:..}
+  option: any, // {span:.. ,columns:[...]}
   record: any,
   size: 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs',
-  defaultSpan: number
+  defaultSpan: number,
+  spanKey: string = 'span'
 ) => {
-  const key = 'span'
-  // key = span or addSpan or editSpan
-  const span = getSpan(key, column, record)
+  // 先取column的span来判断
+  const span = getSpan(column[spanKey], record)
   if (!isUndefined(span)) {
     // 非对象，可以直接返回
     if (!isObject(span)) {
@@ -95,12 +92,13 @@ export const filterSpan = (
     // :md="{ span: 12 }"
     // :sm="{ span: 24 }"
     // :xs="{ span: 24 }"
-    const sizeSpan = getSpan(size, span, record)
+    const sizeSpan = getSpan(span[size], record)
     if (!isUndefined(sizeSpan)) {
       return sizeSpan
     }
   }
-  const rootSpan = getSpan(key, option, record)
+  // 获取根span值
+  const rootSpan = getSpan(option[spanKey], record)
   if (!isUndefined(rootSpan)) {
     // 非对象，可以直接返回
     if (!isObject(rootSpan)) {
@@ -112,7 +110,7 @@ export const filterSpan = (
     // :md="{ span: 12 }"
     // :sm="{ span: 24 }"
     // :xs="{ span: 24 }"
-    const sizeSpan = getSpan(size, rootSpan, record)
+    const sizeSpan = getSpan(rootSpan[size], record)
     if (!isUndefined(sizeSpan)) {
       return sizeSpan
     }
