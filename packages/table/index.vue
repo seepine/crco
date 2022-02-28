@@ -64,6 +64,7 @@
       :data="tableDatas"
       :pagination="pagination"
       :loading="loading"
+      filter-icon-align-left
       :row-key="isString(myOption.rowKey) ? myOption.rowKey : 'id'"
     >
       <template #columns>
