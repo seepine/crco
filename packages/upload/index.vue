@@ -224,6 +224,12 @@ const imgList = computed(() => {
 // 预览
 
 const isImg = (url: string) => {
+  if (!url) {
+    return false
+  }
+  if (url.startsWith('data:image')) {
+    return true
+  }
   return /\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(url)
 }
 const isOffice = (url: string) => {
@@ -252,6 +258,8 @@ const handleDownloadFile = () => {
 const preview = (file: any) => {
   if (props.option.listType !== 'picture' && props.option.listType !== 'picture-card') {
     const url = file.response && file.response.url ? file.response.url : file.url
+    console.log('点击了', file, url)
+
     if (!isImg(url)) {
       if (!isPdf(url) && !isOffice(url) && !isTxt(url)) {
         window.open(url)
