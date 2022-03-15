@@ -333,6 +333,7 @@ const onBeforeUpload = (e: any) => {
   color: rgb(var(--link-6));
   text-decoration: none;
   text-overflow: ellipsis;
+  white-space: normal;
   cursor: pointer;
 }
 .crco-upload-readonly {
