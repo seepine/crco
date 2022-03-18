@@ -111,30 +111,6 @@ const isStringify = computed(() => {
     props.option.stringify === 'true'
   )
 })
-const uploadModelValue = (arr: Array<any>) => {
-  let tmpArr = arr
-  if (props.option.urlOnly === true) {
-    tmpArr = arr.map((item) => item.url)
-  }
-  let val = tmpArr
-  if (props.option.limit === 1) {
-    val = arr.length > 0 ? tmpArr[0] : undefined
-  }
-  try {
-    if (isStringify.value && !isUndefined(val)) {
-      let str: any = isString(val) ? val : JSON.stringify(val)
-      if (str === '[]') {
-        str = undefined
-      }
-      emit('update:modelValue', str)
-      emit('change', str)
-      return
-    }
-    // eslint-disable-next-line no-empty
-  } catch (e) {}
-  emit('update:modelValue', val)
-  emit('change', val)
-}
 
 const getFileList = () => {
   const val = props.modelValue
@@ -175,10 +151,42 @@ const getFileList = () => {
     return Object.assign(item, { uid: (index += 500) })
   })
 }
+
+const uploadModelValue = (arr: Array<any>, uploadFinish: boolean) => {
+  let tmpArr = arr
+  if (props.option.urlOnly === true) {
+    tmpArr = arr.map((item) => item.url)
+  }
+  let val = tmpArr
+  if (props.option.limit === 1) {
+    val = arr.length > 0 ? tmpArr[0] : undefined
+  }
+  try {
+    if (isStringify.value && !isUndefined(val)) {
+      let str: any = isString(val) ? val : JSON.stringify(val)
+      if (str === '[]') {
+        str = undefined
+      }
+      if (uploadFinish) {
+        emit('update:modelValue', str)
+      }
+      emit('change', str)
+      return
+    }
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
+  if (uploadFinish) {
+    emit('update:modelValue', val)
+  }
+  emit('change', val)
+}
+
 const defalutFileList = ref(getFileList())
+
 const fileList = computed({
   get: getFileList,
   set: (val) => {
+    let uploadFinish = true
     const arr = val.map((item: any) => {
       const res: any = {
         name: item.file.name,
@@ -189,10 +197,14 @@ const fileList = computed({
       }
       if (props.option.autoUpload === false) {
         res.file = item.file
+      } else if (props.option.action) {
+        if (!res.url || res.url.startsWith('data:')) {
+          uploadFinish = false
+        }
       }
       return res
     })
-    uploadModelValue(arr)
+    uploadModelValue(arr, uploadFinish)
   }
 })
 const preVisible = ref(false)
@@ -258,8 +270,6 @@ const handleDownloadFile = () => {
 const preview = (file: any) => {
   if (props.option.listType !== 'picture' && props.option.listType !== 'picture-card') {
     const url = file.response && file.response.url ? file.response.url : file.url
-    console.log('点击了', file, url)
-
     if (!isImg(url)) {
       if (!isPdf(url) && !isOffice(url) && !isTxt(url)) {
         window.open(url)
@@ -306,6 +316,7 @@ const preview = (file: any) => {
 }
 const change = (files: any) => {
   fileList.value = files
+  console.log('change', files)
 }
 const onBeforeRemove = (e: any) => {
   if (isFunction(props.option.onBeforeRemove)) {
