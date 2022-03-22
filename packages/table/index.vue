@@ -62,7 +62,7 @@
       @filter-change="filterChange"
       v-bind="myOption"
       :data="tableDatas"
-      :pagination="pagination"
+      :pagination="myOption.pagination === false ? false : pagination"
       :loading="loading"
       filter-icon-align-left
       :row-key="isString(myOption.rowKey) ? myOption.rowKey : 'id'"
@@ -300,6 +300,7 @@ type Option = {
   subtitle?: string
   menuDisplay?: boolean
   headerDisplay?: boolean
+  pagination?: boolean | Object
   menuProps: {
     width?: number
     maxWidth?: number
@@ -377,12 +378,24 @@ const myOption = ref<Option>({
 
 let crudApi: any
 
+const pagination = ref({
+  total: 0,
+  current: 1,
+  pageSize: 10,
+  showTotal: true,
+  showJumper: true,
+  showPageSize: true,
+  pageSizeOptions: [10, 20, 40, 50, 100]
+})
 const searchForm = ref<any>({})
 watch(
   () => props.option,
   () => {
     searchForm.value = {}
     beanUtil.copyPropertiesNotEmpty(props.option, myOption.value)
+    if (props.option.pagination) {
+      beanUtil.copyPropertiesNotEmpty(props.option.pagination, pagination.value)
+    }
     for (let i = 0; i < myOption.value.columns.length; i += 1) {
       // 需要处理字典的话
       if (isString(myOption.value.columns[i].dicUrl)) {
@@ -414,15 +427,6 @@ watch(
     deep: true
   }
 )
-const pagination = ref({
-  total: 0,
-  current: 1,
-  pageSize: 10,
-  showTotal: true,
-  showJumper: true,
-  showPageSize: true,
-  pageSizeOptions: [10, 20, 40, 50, 100]
-})
 const hasSearch = computed(() => {
   return myOption.value.columns.findIndex((column) => column.search === true) >= 0
 })
