@@ -1,5 +1,5 @@
 <template>
-  <a-select v-model="value" v-bind="option" :loading="loading" :disabled="props.option.disabled">
+  <a-select v-model="value" v-bind="option" :loading="loading" :disabled="undefined">
     <a-option :value="item.value" v-for="(item, index) in dicData" :key="index">
       <slot :item="item" :index="index" :dicData="dicData">
         {{ item.label }}
