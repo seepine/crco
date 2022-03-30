@@ -22,7 +22,7 @@
     <div class="justify-between align-start md-row-column" v-if="myOption.headerDisplay !== false">
       <div class="crco-table-header-left flex-row">
         <a-button
-          v-if="filterBtnDisplay('add', myOption, props.permissions, {})"
+          v-if="filterBtnDisplay('add', myOption, myPermissions, {})"
           type="primary"
           @click="operation('add', {})"
           >{{
@@ -86,7 +86,11 @@
         <a-table-column
           v-if="myOption.menuDisplay !== false"
           v-bind="myOption.menuProps"
-          :width="myOption.menuProps.width"
+          :width="
+            myOption.menuProps.width && myOption.menuProps.width > 0
+              ? myOption.menuProps.width
+              : 100
+          "
           title="操作"
           :fixed="myOption.menuProps.fixed"
           :cell-style="filterCellStyle(myOption.menuProps)"
@@ -94,7 +98,7 @@
           <template #cell="{ record, rowIndex }">
             <slot name="menuLeft" :record="record"></slot>
             <a-button
-              v-if="filterBtnDisplay('view', myOption, props.permissions, record)"
+              v-if="filterBtnDisplay('view', myOption, myPermissions, record)"
               type="text"
               @click="
                 operation('view', {
@@ -108,7 +112,7 @@
               }}
             </a-button>
             <a-button
-              v-if="filterBtnDisplay('edit', myOption, props.permissions, record)"
+              v-if="filterBtnDisplay('edit', myOption, myPermissions, record)"
               type="text"
               @click="
                 operation('edit', {
@@ -122,7 +126,7 @@
               }}
             </a-button>
             <crco-popconfirm
-              v-if="filterBtnDisplay('del', myOption, props.permissions, record)"
+              v-if="filterBtnDisplay('del', myOption, myPermissions, record)"
               content="请确认是否删除?"
               @ok="
                 (done: (p_closed?: boolean) => void) =>
@@ -289,6 +293,7 @@ type Btn = {
 }
 type Option = {
   dialog: boolean
+  permission?: string
   columns: Array<any>
   rowKey?: string
   searchTop?: boolean
@@ -333,6 +338,7 @@ const props = withDefaults(
     option: Option
     params?: any
     permissions?: Permissions
+    allPermissions?: any
     before?: Function
   }>(),
   {
@@ -374,6 +380,31 @@ const myOption = ref<Option>({
   },
   subtitle: '',
   columns: []
+})
+
+const myPermissions = computed(() => {
+  if (myOption.value.permission) {
+    console.log(myOption.value.permission)
+    console.log(props.allPermissions)
+
+    if (props.allPermissions) {
+      console.log('这里', !!props.allPermissions[`${myOption.value.permission}_view`])
+
+      return {
+        viewBtn: !!props.allPermissions[`${myOption.value.permission}_view`],
+        addBtn: !!props.allPermissions[`${myOption.value.permission}_add`],
+        editBtn: !!props.allPermissions[`${myOption.value.permission}_edit`],
+        delBtn: !!props.allPermissions[`${myOption.value.permission}_del`]
+      }
+    }
+    return {
+      viewBtn: false,
+      addBtn: false,
+      editBtn: false,
+      delBtn: false
+    }
+  }
+  return props.permissions
 })
 
 let crudApi: any
