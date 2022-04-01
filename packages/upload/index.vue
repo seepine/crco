@@ -15,7 +15,7 @@
     :show-upload-button="readonly ? false : option.showUploadButton"
     :disabled="option.disabled"
     :class="{
-      'crco-upload-readonly': readonly,
+      'crco-upload-readonly': readonly || option.readonly,
       'crco-upload-large': option.large
     }"
   >
