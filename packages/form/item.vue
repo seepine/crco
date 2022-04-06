@@ -12,6 +12,12 @@
     v-model="form[column.prop]"
     class="full-width"
   />
+  <a-input-tag
+    v-bind="column"
+    v-if="column.type === 'tag' || column.type === 'tags'"
+    v-model="form[column.prop]"
+    class="full-width"
+  />
   <a-textarea
     v-bind="column"
     v-if="column.type === 'textarea'"
