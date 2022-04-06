@@ -42,6 +42,12 @@ const option = {
       ]
     },
     {
+      name: '特长',
+      prop: 'specialty',
+      value: ['唱歌'],
+      type: 'tag'
+    },
+    {
       name: '介绍',
       span: 24,
       prop: 'description',
