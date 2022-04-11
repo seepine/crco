@@ -127,7 +127,9 @@
             </a-button>
             <crco-popconfirm
               v-if="filterBtnDisplay('del', myOption, myPermissions, record)"
-              content="请确认是否删除?"
+              :content="`请确认是否${
+                isObject(myOption.delBtn) && myOption.delBtn.text ? myOption.delBtn.text : '删除'
+              }?`"
               @ok="
                 (done: (p_closed?: boolean) => void) =>
                   handleToDel(
@@ -176,7 +178,7 @@
       v-model="form"
       v-if="type === 'view'"
     >
-      <template v-for="item in myOption.columns" v-slot:[item.prop]>
+      <template v-for="item in myOption.columns" v-slot:[slotViewName(item.prop)]>
         <slot :name="item.prop + 'View'" :record="form" v-if="$slots[item.prop + 'View']"></slot>
       </template>
       <slot name="viewFooter" :record="form" v-if="$slots.viewFooter"></slot>
@@ -207,6 +209,9 @@
       v-model="form"
       v-if="type === 'view'"
     >
+      <template v-for="item in myOption.columns" v-slot:[slotViewName(item.prop)]>
+        <slot :name="item.prop + 'View'" :record="form" v-if="$slots[item.prop + 'View']"></slot>
+      </template>
       <slot name="viewFooter" :record="form" v-if="$slots.viewFooter"></slot>
     </crco-descriptions>
     <crco-form
@@ -353,6 +358,9 @@ const props = withDefaults(
     }
   }
 )
+const slotViewName = (prop: string) => {
+  return `${prop}Value`
+}
 const emit = defineEmits<{
   (event: 'load', p_params: any, p_done: Function): void
   (event: 'add', p_data: any, p_done: Function): void
@@ -384,12 +392,7 @@ const myOption = ref<Option>({
 
 const myPermissions = computed(() => {
   if (myOption.value.permission) {
-    console.log(myOption.value.permission)
-    console.log(props.allPermissions)
-
     if (props.allPermissions) {
-      console.log('这里', !!props.allPermissions[`${myOption.value.permission}_view`])
-
       return {
         viewBtn: !!props.allPermissions[`${myOption.value.permission}_view`],
         addBtn: !!props.allPermissions[`${myOption.value.permission}_add`],
