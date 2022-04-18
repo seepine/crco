@@ -71,12 +71,17 @@ initDicData(props.option)
   .then((res: DicData) => {
     dicData.value = res
     loading.value = false
-    if (props.option.defaultSelectAll && props.option.multiple) {
-      onChange(
-        res.map((item: DicItem) => {
-          return item.value
-        })
-      )
+    // 设置默认值
+    if (res.length > 0) {
+      if (props.option.defaultSelectAll && props.option.multiple) {
+        onChange(
+          res.map((item: DicItem) => {
+            return item.value
+          })
+        )
+      } else if (props.option.defaultSelect) {
+        onChange(props.option.multiple ? [res[0].value] : res[0].value)
+      }
     }
   })
   .catch(() => {
