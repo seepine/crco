@@ -345,6 +345,7 @@ const props = withDefaults(
     permissions?: Permissions
     allPermissions?: any
     before?: Function
+    beforeSubmit?: Function
   }>(),
   {
     params: {},
@@ -579,19 +580,23 @@ const handleSubmit = (val: any, done: Function) => {
       done()
     }
   }
+  let formData = beanUtil.deepClone(val)
+  if (isFunction(props.beforeSubmit)) {
+    formData = props.beforeSubmit(type.value, formData)
+  }
   if (crudApi) {
     switch (type.value) {
       case 'add':
-        crudApi.handleAdd(val, handleDone)
+        crudApi.handleAdd(formData, handleDone)
         break
       case 'edit':
-        crudApi.handleEdit(val, handleDone)
+        crudApi.handleEdit(formData, handleDone)
         break
       default:
     }
   } else if (type.value === 'add' || type.value === 'edit') {
     // @ts-ignore
-    emit(type.value, val, handleDone)
+    emit(type.value, formData, handleDone)
   }
 }
 const handleSearch = (val: any, done: Function) => {
