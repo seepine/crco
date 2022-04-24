@@ -298,7 +298,7 @@ onUnmounted(() => {
 /** ==========================     处理物理返回逻辑 end    ================== */
 type Btn = {
   text: string
-  popfirmContent?: string | Function
+  popconfirmContent?: string | Function
 }
 type Option = {
   dialog: boolean
@@ -469,11 +469,11 @@ watch(
 
 const filterPopconfirmContent = (record: any) => {
   if (isObject(myOption.value.delBtn)) {
-    if (isString(myOption.value.delBtn.popfirmContent)) {
-      return myOption.value.delBtn.popfirmContent
+    if (isString(myOption.value.delBtn.popconfirmContent)) {
+      return myOption.value.delBtn.popconfirmContent
     }
-    if (isFunction(myOption.value.delBtn.popfirmContent)) {
-      return myOption.value.delBtn.popfirmContent(record)
+    if (isFunction(myOption.value.delBtn.popconfirmContent)) {
+      return myOption.value.delBtn.popconfirmContent(record)
     }
     if (isString(myOption.value.delBtn.text)) {
       return `请确认是否${myOption.value.delBtn.text}?`
