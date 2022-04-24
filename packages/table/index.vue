@@ -127,7 +127,12 @@
             </a-button>
             <crco-popconfirm
               v-if="filterBtnDisplay('del', myOption, myPermissions, record)"
-              :content="filterPopconfirmContent"
+              :content="
+                filterPopconfirmContent({
+                  ...record,
+                  rowIndex
+                })
+              "
               @ok="
                 (done: (p_closed?: boolean) => void) =>
                   handleToDel(
@@ -293,7 +298,7 @@ onUnmounted(() => {
 /** ==========================     处理物理返回逻辑 end    ================== */
 type Btn = {
   text: string
-  popfirmContent?: string
+  popfirmContent?: string | Function
 }
 type Option = {
   dialog: boolean
@@ -462,10 +467,13 @@ watch(
   }
 )
 
-const filterPopconfirmContent = () => {
+const filterPopconfirmContent = (record: any) => {
   if (isObject(myOption.value.delBtn)) {
     if (isString(myOption.value.delBtn.popfirmContent)) {
       return myOption.value.delBtn.popfirmContent
+    }
+    if (isFunction(myOption.value.delBtn.popfirmContent)) {
+      return myOption.value.delBtn.popfirmContent(record)
     }
     if (isString(myOption.value.delBtn.text)) {
       return `请确认是否${myOption.value.delBtn.text}?`
