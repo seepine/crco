@@ -188,15 +188,16 @@ const fileList = computed({
   set: (val) => {
     let uploadFinish = true
     const arr = val.map((item: any) => {
+      const hasFile = !isUndefined(item.file)
       const res: any = {
-        name: item.file.name,
-        size: item.file.size,
-        type: item.file.type,
+        name: hasFile ? item.file.name : item.name,
+        size: hasFile ? item.file.size : item.size,
+        type: hasFile ? item.file.type : item.type,
         filename: item.response && item.response.filename ? item.response.filename : item.name,
         url: item.response && item.response.url ? item.response.url : item.url
       }
       if (props.option.autoUpload === false) {
-        res.file = item.file
+        res.file = hasFile ? item.file : item
       } else if (props.option.action) {
         if (!res.url || res.url.startsWith('data:')) {
           uploadFinish = false
