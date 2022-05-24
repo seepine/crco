@@ -21,15 +21,15 @@ import { isUndefined } from '../util/is'
 const props = withDefaults(
   defineProps<{
     option: any
-    modelValue?: string | number
+    modelValue?: string | number | boolean
   }>(),
   {
     option: {}
   }
 )
 const emit = defineEmits<{
-  (event: 'update:modelValue', p_val: string | number | undefined): void
-  (event: 'change', p_val: string | number | undefined): void
+  (event: 'update:modelValue', p_val: string | number | boolean | undefined): void
+  (event: 'change', p_val: string | number | boolean | undefined): void
 }>()
 const dicData = ref<DicData>([])
 
@@ -42,19 +42,19 @@ const getDefaultValue = () => {
   }
   return ''
 }
-const value = ref<string | number | undefined>(getDefaultValue())
+const value = ref<string | number | boolean | undefined>(getDefaultValue())
 
 watchEffect(() => {
   value.value = props.modelValue
 })
 
-watch(value, (val: string | number | undefined) => {
+watch(value, (val: string | number | boolean | undefined) => {
   setTimeout(() => {
     emit('change', val)
   }, 0)
 })
 
-const handleChange = (val: string | number) => {
+const handleChange = (val: string | number | boolean, p_e: Event) => {
   value.value = val
   emit('update:modelValue', val)
 }
