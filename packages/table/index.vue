@@ -639,10 +639,9 @@ const handleTableChange = (p_data: TableData[], extra: TableChangeExtra) => {
     const toIdx = p_data.findIndex((item) => item[rowKey] === target[rowKey])
     if (idx >= 0 && toIdx >= 0) {
       emit('change', extra.type, {
-        targetData: target,
-        target: target[rowKey],
-        fromSort: idx,
-        targetSort: toIdx
+        element: target,
+        oldIndex: idx,
+        newIndex: toIdx
       })
     }
   } else {
