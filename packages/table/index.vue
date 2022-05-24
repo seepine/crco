@@ -637,11 +637,14 @@ const handleTableChange = (p_data: TableData[], extra: TableChangeExtra) => {
     const rowKey = isString(myOption.value.rowKey) ? myOption.value.rowKey : 'id'
     const idx = tableDatas.value.findIndex((item) => item[rowKey] === target[rowKey])
     const toIdx = p_data.findIndex((item) => item[rowKey] === target[rowKey])
-    if (idx >= 0 && toIdx >= 0) {
+    if (idx >= 0 && toIdx >= 0 && idx !== toIdx) {
       emit('change', extra.type, {
         element: target,
+        targetElement: tableDatas.value[toIdx],
         oldIndex: idx,
-        newIndex: toIdx
+        newIndex: toIdx,
+        page: extra.page,
+        pageSize: extra.pageSize
       })
     }
   } else {
