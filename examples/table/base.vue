@@ -53,20 +53,36 @@ const option = {
     }
   ]
 }
-const data = ref([
-  {
+const data = ref([])
+for (let i = 0; i < 11; i += 1) {
+  data.value.push({
+    id: i,
     fullName: '张三',
     gender: '男',
-    age: 28,
+    age: 20 + i,
     birthday: '2000-11-19'
+  })
+}
+
+const loadPage = (params: any, list: Array<any>) => {
+  const size = params.size || 10
+  const theCurrent = params.current && params.current > 0 ? params.current : 1
+  const start = (theCurrent - 1) * size
+  const end = theCurrent * size
+  const total = list.length
+  return {
+    records: end <= total ? list.slice(start, end) : list.slice(start, total),
+    total,
+    size,
+    current: theCurrent
   }
-])
+}
+
 const handleLoad = (params: any, done: Function) => {
+  console.log('load params:', params)
+
   setTimeout(() => {
-    done({
-      total: data.value.length,
-      records: data.value
-    })
+    done(loadPage(params, data.value))
   }, 1000)
 }
 

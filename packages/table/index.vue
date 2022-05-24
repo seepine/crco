@@ -501,7 +501,7 @@ const load = (reset = false, done?: Function) => {
     if (!isDone) {
       loading.value = true
     }
-  }, 400)
+  }, 100)
   if (reset) {
     pagination.value.current = 1
   }
@@ -514,15 +514,20 @@ const load = (reset = false, done?: Function) => {
   }
   const loadResHandle = (res: any) => {
     isDone = true
-    loading.value = false
     if (isObject(res)) {
       tableDatas.value = res.records
       pagination.value.total = res.total
       pagination.value.current = res.current
+      if (res.current > 1 && res.records.length === 0) {
+        pagination.value.current -= 1
+        load(false, done)
+        return
+      }
     }
     if (done) {
       done(res)
     }
+    loading.value = false
   }
   if (crudApi) {
     crudApi.handleLoad(params, loadResHandle)
