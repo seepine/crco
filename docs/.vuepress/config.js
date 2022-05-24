@@ -83,7 +83,7 @@ module.exports = {
         {
           text: '表格',
           isGroup: true,
-          children: ['base', 'slot', 'popstate', 'ext']
+          children: ['base', 'slot', 'popstate', 'draggable','ext']
         }
       ]
     }

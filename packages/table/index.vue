@@ -60,7 +60,9 @@
       @page-change="pageChange"
       @page-size-change="pageSizeChange"
       @filter-change="filterChange"
+      @change="handleTableChange"
       v-bind="myOption"
+      :draggable="myOption.draggable === true ? {} : myOption.draggable"
       :data="tableDatas"
       :pagination="myOption.pagination === false ? false : pagination"
       :loading="loading"
@@ -250,7 +252,10 @@ import {
   TableColumn as ATableColumn,
   Button as AButton,
   Breadcrumb as ABreadcrumb,
-  BreadcrumbItem as ABreadcrumbItem
+  BreadcrumbItem as ABreadcrumbItem,
+  TableDraggable,
+  TableChangeExtra,
+  TableData
 } from '@arco-design/web-vue'
 import { IconRefresh, IconArrowLeft } from '@arco-design/web-vue/es/icon'
 import { isFunction, isString, isUndefined, isObject } from '../util/is'
@@ -303,6 +308,7 @@ type Btn = {
 type Option = {
   dialog: boolean
   permission?: string
+  draggable?: TableDraggable | undefined
   columns: Array<any>
   rowKey?: string
   searchTop?: boolean
@@ -371,6 +377,7 @@ const emit = defineEmits<{
   (event: 'add', p_data: any, p_done: Function): void
   (event: 'edit', p_data: any, p_done: Function): void
   (event: 'del', p_data: any, p_done: Function): void
+  (event: 'change', p_type: string, p_data: any): void
 }>()
 // 设置option相关
 const myOption = ref<Option>({
@@ -623,6 +630,27 @@ const handleSearch = (val: any, done: Function) => {
   load(true, () => {
     done()
   })
+}
+const handleTableChange = (p_data: TableData[], extra: TableChangeExtra) => {
+  if (extra.type === 'drag' && extra.dragTarget) {
+    const target = extra.dragTarget || {}
+    const rowKey = isString(myOption.value.rowKey) ? myOption.value.rowKey : 'id'
+    const idx = tableDatas.value.findIndex((item) => item[rowKey] === target[rowKey])
+    const toIdx = p_data.findIndex((item) => item[rowKey] === target[rowKey])
+    if (idx >= 0 && toIdx >= 0) {
+      emit('change', extra.type, {
+        targetData: target,
+        target: target[rowKey],
+        fromSort: idx,
+        targetSort: toIdx
+      })
+    }
+  } else {
+    emit('change', extra.type, {
+      data: p_data,
+      extra
+    })
+  }
 }
 const handleToDel = (record: any, done: (p_closed?: boolean) => void) => {
   const handleDone = (flag = true) => {
