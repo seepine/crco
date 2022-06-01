@@ -8,7 +8,7 @@
   ></c-table>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 
 const option = {
   menuProps: {
@@ -80,10 +80,11 @@ const loadPage = (params: any, list: Array<any>) => {
 
 const handleLoad = (params: any, done: Function) => {
   console.log('load params:', params)
-
-  setTimeout(() => {
-    done(loadPage(params, data.value))
-  }, 1000)
+  nextTick(() => {
+    setTimeout(() => {
+      done(loadPage(params, data.value))
+    }, 1000)
+  })
 }
 
 const handleAdd = (record: any, done: Function) => {
