@@ -34,7 +34,11 @@
                 :type="undefined"
               >
                 <slot :name="column.prop" :form="form">
-                  <cl-form-item :column="column" v-model="form"></cl-form-item>
+                  <cl-form-item
+                    :column="column"
+                    :value="form"
+                    @change="handleChange"
+                  ></cl-form-item>
                 </slot>
               </a-form-item>
             </a-col>
@@ -56,7 +60,7 @@
               :type="undefined"
             >
               <slot :name="column.prop">
-                <cl-form-item :column="column" v-model="form"></cl-form-item>
+                <cl-form-item :column="column" :value="form" @change="handleChange"></cl-form-item>
               </slot>
             </a-form-item>
           </template>
@@ -161,6 +165,8 @@ let init = false
 watch(
   () => props.modelValue,
   (val) => {
+    console.log('充值')
+
     form.value = val
     if (isUndefined(val) && !init) {
       init = true
@@ -184,6 +190,9 @@ watch(
     deep: true
   }
 )
+const handleChange = (val: any) => {
+  form.value = val
+}
 watch(
   () => props.option,
   () => {

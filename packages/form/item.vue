@@ -36,6 +36,7 @@
   <c-select
     v-if="column.type === 'select'"
     v-model="form[column.prop]"
+    v-model:form="form"
     :option="column"
     class="full-width"
   ></c-select>
@@ -65,8 +66,8 @@
 </template>
 <script></script>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import {
   Input as AInput,
   InputNumber as AInputNumber,
@@ -83,44 +84,22 @@ import {
 import CRadio from '../radio/index.vue'
 import CSelect from '../select/index.vue'
 import CUpload from '../upload/index.vue'
-import type { PropType } from 'vue'
-export default defineComponent({
-  inheritAttrs: false,
-  components: {
-    AInput,
-    AInputNumber,
-    AInputPassword,
-    ATextarea,
-    ASwitch,
-    ADatePicker,
-    AWeekPicker,
-    AMonthPicker,
-    AYearPicker,
-    AQuarterPicker,
-    ARangePicker,
-    CRadio,
-    CSelect,
-    CUpload
+
+const props = defineProps<{
+  value: any
+  column: any
+}>()
+const emit = defineEmits<{
+  (event: 'upload:modelValue', p_val: any): void
+  (event: 'change', p_val: any): void
+}>()
+
+const form = computed({
+  get: () => {
+    return props.value
   },
-  props: {
-    modelValue: {
-      type: [Object, Array, String, Number] as PropType<any>
-    },
-    column: {
-      type: [Object, Array, String, Number] as PropType<any>
-    }
-  },
-  emits: ['upload:modelValue'],
-  setup(props, { emit }) {
-    const form = computed({
-      get: () => {
-        return props.modelValue
-      },
-      set: (value) => {
-        emit('upload:modelValue', value)
-      }
-    })
-    return { form }
+  set: (value) => {
+    emit('change', value)
   }
 })
 </script>

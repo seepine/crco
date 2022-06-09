@@ -1,5 +1,5 @@
 <template>
-  <a-select v-model="value" v-bind="option" :loading="loading" :disabled="undefined">
+  <a-select v-model="value" v-bind="myOption" :loading="loading" :disabled="undefined">
     <a-option :value="item.value" v-for="(item, index) in dicData" :key="index">
       <slot :item="item" :index="index" :dicData="dicData">
         {{ item.label }}
@@ -10,10 +10,11 @@
 <script setup lang="ts">
 import { Select as ASelect, Option as AOption } from '@arco-design/web-vue'
 import { withDefaults, computed, ref } from 'vue'
-import { isArray } from '../util/is'
+import { isArray, isFunction, isUndefined } from '../util/is'
 import { initDicData } from '../util/data-handle'
 import { filterProps } from '../util/filter'
 import { DicData, DicItem } from '../util/dic-data'
+import { deepClone } from '../util/util'
 
 type ModelValueType = string | number | Array<string | number> | undefined
 
@@ -21,15 +22,22 @@ const props = withDefaults(
   defineProps<{
     option: any
     modelValue: ModelValueType
+    form?: any
   }>(),
   {
     option: {},
     modelValue: ''
   }
 )
-
+const myOption = computed(() => {
+  return {
+    ...props.option,
+    onChange: undefined
+  }
+})
 const emit = defineEmits<{
   (event: 'update:modelValue', p_val: ModelValueType): void
+  (event: 'update:form', p_val: any): void
   (event: 'change', p_val: ModelValueType, p_item: any): void
 }>()
 const dicData = ref<DicData>([])
@@ -41,7 +49,7 @@ const loading = ref(false)
 
 const onChange = (val: any) => {
   emit('update:modelValue', val === '' ? undefined : val)
-  let find
+  let find: any
   if (isArray(val)) {
     find = dicData.value.filter((item: any) => {
       return (
@@ -55,6 +63,16 @@ const onChange = (val: any) => {
       return hasProps.value ? val === item[dicProps.value.value] : val === item
     })
   }
+  try {
+    if (isFunction(props.option.onChange)) {
+      const res = props.option.onChange(val === '' ? undefined : val, find, deepClone(props.form))
+      if (!isUndefined(res)) {
+        console.log('拿到结果', res)
+        emit('update:form', deepClone(res))
+      }
+    }
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
   emit('change', val === '' ? undefined : val, find)
 }
 
