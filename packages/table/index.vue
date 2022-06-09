@@ -168,7 +168,7 @@
   >
     <a-breadcrumb>
       <a-breadcrumb-item>
-        <a-button type="text" @click="type = ''">
+        <a-button type="text" @click="handleBack">
           <template #icon>
             <icon-arrow-left />
           </template>
@@ -300,6 +300,9 @@ onUnmounted(() => {
   emitter.off('top-code', setTopCode)
   window.removeEventListener('popstate', triggerBack)
 })
+const handleBack = () => {
+  window.history.back()
+}
 /** ==========================     处理物理返回逻辑 end    ================== */
 type Btn = {
   text: string
