@@ -165,8 +165,6 @@ let init = false
 watch(
   () => props.modelValue,
   (val) => {
-    console.log('充值')
-
     form.value = val
     if (isUndefined(val) && !init) {
       init = true
@@ -181,9 +179,9 @@ watch(
 )
 watch(
   () => form.value,
-  () => {
+  (val) => {
     if (hasModelValue) {
-      emit('update:modelValue', form.value)
+      emit('update:modelValue', val)
     }
   },
   {
@@ -191,7 +189,9 @@ watch(
   }
 )
 const handleChange = (val: any) => {
-  form.value = val
+  setTimeout(() => {
+    form.value = val
+  })
 }
 watch(
   () => props.option,

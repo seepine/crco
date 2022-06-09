@@ -14,7 +14,6 @@ import { isArray, isFunction, isUndefined } from '../util/is'
 import { initDicData } from '../util/data-handle'
 import { filterProps } from '../util/filter'
 import { DicData, DicItem } from '../util/dic-data'
-import { deepClone } from '../util/util'
 
 type ModelValueType = string | number | Array<string | number> | undefined
 
@@ -65,10 +64,9 @@ const onChange = (val: any) => {
   }
   try {
     if (isFunction(props.option.onChange)) {
-      const res = props.option.onChange(val === '' ? undefined : val, find, deepClone(props.form))
+      const res = props.option.onChange(val === '' ? undefined : val, find, props.form)
       if (!isUndefined(res)) {
-        console.log('拿到结果', res)
-        emit('update:form', deepClone(res))
+        emit('update:form', res)
       }
     }
     // eslint-disable-next-line no-empty

@@ -49,7 +49,13 @@ const option = {
         { value: 0, label: '唱歌' },
         { value: 1, label: '跳舞' },
         { value: 2, label: '打篮球' }
-      ]
+      ],
+      onChange: (val, item, record) => {
+        console.log('触发onChange', val, item, record)
+        // eslint-disable-next-line no-param-reassign
+        record.fullName = `姓名随着爱好变化：${item.label}`
+        return record
+      }
     }
   ]
 }
