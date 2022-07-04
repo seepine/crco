@@ -61,6 +61,7 @@
       @page-size-change="pageSizeChange"
       @filter-change="filterChange"
       @change="handleTableChange"
+      @selection-change="handleSelectionChange"
       v-bind="myOption"
       :draggable="myOption.draggable === true ? {} : myOption.draggable"
       :data="tableDatas"
@@ -381,6 +382,7 @@ const emit = defineEmits<{
   (event: 'edit', p_data: any, p_done: Function): void
   (event: 'del', p_data: any, p_done: Function): void
   (event: 'change', p_type: string, p_data: any): void
+  (event: 'selection-change', p_values: string[]): void
 }>()
 // 设置option相关
 const myOption = ref<Option>({
@@ -676,7 +678,9 @@ const handleToDel = (record: any, done: (p_closed?: boolean) => void) => {
     emit('del', record, handleDone)
   }
 }
-
+const handleSelectionChange = (rowKeys: string[]) => {
+  emit('selection-change', rowKeys)
+}
 defineExpose({
   load,
   add: (data?: any) => {
