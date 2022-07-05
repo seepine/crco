@@ -189,6 +189,8 @@
       </template>
       <slot name="viewFooter" :record="form" v-if="$slots.viewFooter"></slot>
     </crco-descriptions>
+    <slot name="addHeader" :record="form" v-if="$slots.addHeader && type === 'add'"></slot>
+    <slot name="editHeader" :record="form" v-if="$slots.editHeader && type === 'edit'"></slot>
     <crco-form
       :option="myOption"
       @submit="handleSubmit"
@@ -200,6 +202,8 @@
         <slot :name="item.prop + 'Form'" :record="form" v-if="$slots[item.prop + 'Form']"></slot>
       </template>
     </crco-form>
+    <slot name="addFooter" :record="form" v-if="$slots.addFooter && type === 'add'"></slot>
+    <slot name="editFooter" :record="form" v-if="$slots.editFooter && type === 'edit'"></slot>
   </a-space>
   <a-modal
     v-if="myOption.dialog === true"
@@ -220,6 +224,8 @@
       </template>
       <slot name="viewFooter" :record="form" v-if="$slots.viewFooter"></slot>
     </crco-descriptions>
+    <slot name="addHeader" :record="form" v-if="$slots.addHeader && type === 'add'"></slot>
+    <slot name="editHeader" :record="form" v-if="$slots.editHeader && type === 'edit'"></slot>
     <crco-form
       :option="myOption"
       @submit="handleSubmit"
@@ -231,6 +237,8 @@
         <slot :name="item.prop + 'Form'" :record="form"></slot>
       </template>
     </crco-form>
+    <slot name="addFooter" :record="form" v-if="$slots.addFooter && type === 'add'"></slot>
+    <slot name="editFooter" :record="form" v-if="$slots.editFooter && type === 'edit'"></slot>
   </a-modal>
 </template>
 
