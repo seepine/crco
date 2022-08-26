@@ -68,6 +68,7 @@ const handleLoad = (params: any, done: Function) => {
   }, 1000)
 }
 const handleSelectionChange = (rowKeys: string[]) => {
+  // eslint-disable-next-line no-console
   console.log(rowKeys)
 }
 </script>
