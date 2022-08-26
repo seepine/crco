@@ -5,6 +5,8 @@
 
 以用户管理为例，设计如下
 ### 1.接口设计
+> 所有接口的Method和路径都可以自定义，具体请看最后的TypeScript章节
+
 - 获取分页`/sys/system/user/page`
 - 新增POST：`/sys/system/user`
 - 编辑PUT:`/sys/system/user`
@@ -23,7 +25,13 @@
 ```ts
 export default {
   // 此处为后端路径
-  path: '/sys/system/user',
+  api: {
+    base: '/sys/user'
+  },
+  // 用户所拥有的所有权限
+  permissions: user.permissions,
+  // 当前模块权限前缀，最终会解析成 sys_user_add,sys_user_edit 对应到新增按钮、编辑按钮
+  permissionPrefix:'sys_user_',
   columns: [
     {
       name: '用户名',
@@ -54,20 +62,10 @@ export default {
 `user/index.vue`
 ```vue
 <template>
-  <c-table
-    :option="option"
-    :permissions="{
-      addBtn: permissions['sys_system_user_add'],
-      editBtn: permissions['sys_system_user_edit'],
-      delBtn: permissions['sys_system_user_del'],
-    }"
-  >
-  </c-table>
+  <c-table :option="option"></c-table>
 </template>
 <script setup lang="ts">
 import option from './option'
-
-const permissions = ref([]) // 用户的权限，根据自己实际获取
 </script>
 ```
 
@@ -79,10 +77,17 @@ const permissions = ref([]) // 用户的权限，根据自己实际获取
 `role/option.ts`
 ```ts
 export default {
-  path: '/sys/system/role',
-  pagePath:'page/res',  // 表示分页的接口地址为 GET：/sys/system/role/page/res
-  addPath: 'add', // 表示新增的接口地址为 POST：/sys/system/role/add
-  editPath: 'custom/edit/', // 表示修改的接口地址为 PUT：/sys/system/role/custom/edit/
+    // 此处为后端路径
+  api: {
+    base: '/sys/role',
+    page: '/page/res',  // 表示分页的接口地址为 GET：/sys/role/page/res
+    editPath: '/custom/edit', // 表示编辑的接口地址为 PUT：/sys/role/custom/edit
+    editMethod: 'POST',    // 编辑接口将改为POST请求
+  },
+  // 用户所拥有的所有权限
+  permissions: user.permissions,
+  // 当前模块权限前缀，最终会解析成 sys_role_add,sys_role_edit 对应到新增按钮、编辑按钮
+  permissionPrefix:'sys_role_',
   columns: [
     {
       name: '角色名',
@@ -100,23 +105,35 @@ export default {
 `role/index.vue`
 ```vue
 <template>
-  <c-table
-    :option="option"
-    :permissions="{
-      addBtn: permissions['sys_system_role_add'],
-      editBtn: permissions['sys_system_role_edit'],
-      delBtn: permissions['sys_system_role_del'],
-    }"
-  >
-  </c-table>
+  <c-table :option="option"></c-table>
 </template>
 <script setup lang="ts">
 import option from './option'
-
-const permissions = ref([]) // 用户的权限，根据自己实际获取
 </script>
 ```
 
-## 四、...
+## 四、全局自定义
+
+可以在main.js/ts中全局配置crud，例如将所有分页、新增、编辑、删除、字典等http请求，全部改为POST
+```js
+app.use(crco, {
+    axios,
+    method: 'POST'
+  })
+```
+更多支持请查看CrcoOptions中的method类型
+```ts
+export type { CrcoOptions } from 'crco/src/types'
+
+export interface CrcoOptions {
+  componentPrefix?: string
+  axios?: AxiosInstance
+  // default 'RESTFul'
+  method?: RequestMethod
+}
+```
+
+
+## 五、...
 
 到此相信你已经学会如何运用`crco`来快速实现表格功能了，enjoy!

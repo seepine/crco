@@ -4,7 +4,7 @@ import '@arco-design/web-vue/dist/arco.css'
 
 import { defineClientAppEnhance } from '@vuepress/client'
 
-import crco from '../../packages/index'
+import crco from '../../src/index'
 
 export default defineClientAppEnhance(({ app, router, siteData }) => {
   app.use(ArcoVue)

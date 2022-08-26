@@ -1,5 +1,5 @@
 ;(() => {
-  window.onload = ()=>{
+  // window.onload = () => {
     const hasClass = (classList, className) => {
       if (!classList || classList.length <= 0) {
         return false
@@ -24,9 +24,9 @@
     new MutationObserver(() => {
       setDark()
     }).observe(target, {
-      attributes: true, //观察node对象的属性
-      attributeFilter: ['class'] //只观察class属性
+      attributes: true,
+      attributeFilter: ['class']
     })
     setDark()
-  }
+  // }
 })()

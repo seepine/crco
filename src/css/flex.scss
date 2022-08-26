@@ -1,0 +1,219 @@
+.un-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  img {
+    -webkit-user-drag: none;
+  }
+}
+.flex-view {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+/* Flexbox 布局 */
+/* Flex Direction */
+.flex-row {
+  @extend .flex-view;
+  flex-direction: row;
+}
+.flex-row-reverse {
+  flex-direction: row-reverse !important;
+  @extend .flex-view;
+}
+.flex-column {
+  flex-direction: column !important;
+  @extend .flex-view;
+}
+.flex-column-reverse {
+  flex-direction: column-reverse !important;
+  @extend .flex-view;
+}
+/* Flex Wrap */
+.flex-nowrap {
+  flex-wrap: nowrap !important;
+  @extend .flex-view;
+}
+.flex-wrap {
+  flex-wrap: wrap !important;
+  @extend .flex-view;
+}
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse !important;
+  @extend .flex-view;
+}
+/* Align Items */
+.align-stretch {
+  align-items: stretch !important;
+  @extend .flex-view;
+}
+.align-start {
+  align-items: flex-start !important;
+  @extend .flex-view;
+}
+.align-center {
+  align-items: center !important;
+  @extend .flex-view;
+}
+.align-end {
+  align-items: flex-end !important;
+  @extend .flex-view;
+}
+/* Justify Content */
+.justify-start {
+  justify-content: flex-start !important;
+  @extend .flex-view;
+}
+.justify-center {
+  justify-content: center !important;
+  @extend .flex-view;
+}
+.justify-end {
+  justify-content: flex-end !important;
+  @extend .flex-view;
+}
+.justify-between {
+  justify-content: space-between !important;
+  @extend .flex-view;
+}
+.justify-around {
+  justify-content: space-around !important;
+  @extend .flex-view;
+}
+/* 字体粗细 */
+.text-bold {
+  font-weight: bold;
+}
+/* 文本对齐 */
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+/* 文本装饰 */
+.text-underline {
+  text-decoration: underline;
+}
+.text-through {
+  text-decoration: line-through;
+}
+/* flex */
+@for $i from 1 through 24 {
+  .flex-#{$i} { flex: $i !important; }
+}
+
+/* 文本大小 */
+.text-xs {
+  font-size: 12px !important;
+}
+.text-sm {
+  font-size: 14px !important;
+}
+.text-md {
+  font-size: 16px !important;
+}
+.text-lg {
+  font-size: 20px !important;
+}
+.text-xl {
+  font-size: 24px !important;
+}
+/* 行高 */
+.leading-xs {
+  line-height: 14px;
+}
+.leading-sm {
+  line-height: 16px;
+}
+.leading-md {
+  line-height: 20px;
+}
+.leading-lg {
+  line-height: 24px;
+}
+.leading-xl {
+  line-height: 28px;
+}
+
+@mixin lines($num) {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+  lines: $num;
+}
+/* 超出行省略 */
+.lines-1 {
+  @include lines(1);
+}
+.lines-2 {
+  @include lines(2);
+}
+.lines-3 {
+  @include lines(3);
+}
+.lines-4 {
+  @include lines(4);
+}
+.lines-5 {
+  @include lines(5);
+}
+/* 定位 */
+.absolute {
+  position: absolute !important;
+}
+.absolute-screen {
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 998;
+}
+.fixed {
+  position: fixed !important;
+}
+.fixed-screen {
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+}
+.sticky {
+  position: sticky !important;
+  top: 0;
+  z-index: 969;
+}
+/* 内外边距 */
+$margin-map:(
+        xs:8px,
+        sm:16px,
+        md:24px,
+        lg:32px,
+        xl:48px
+);
+@each $parameter in xs,sm,md,lg,xl {
+  .ma-#{$parameter} {margin: map-get($map: $margin-map, $key: $parameter);}
+  .mt-#{$parameter} {margin-top: map-get($map: $margin-map, $key: $parameter);}
+  .mb-#{$parameter} {margin-bottom: map-get($map: $margin-map, $key: $parameter);}
+  .ml-#{$parameter} {margin-left: map-get($map: $margin-map, $key: $parameter);}
+  .mr-#{$parameter} {margin-right: map-get($map: $margin-map, $key: $parameter);}
+  .mx-#{$parameter} {margin-left: map-get($map: $margin-map, $key: $parameter);margin-right: map-get($map: $margin-map, $key: $parameter);}
+  .my-#{$parameter} {margin-top: map-get($map: $margin-map, $key: $parameter);margin-bottom: map-get($map: $margin-map, $key: $parameter);}
+  .pa-#{$parameter} {padding: map-get($map: $margin-map, $key: $parameter);}
+  .pt-#{$parameter} {padding-top: map-get($map: $margin-map, $key: $parameter);}
+  .pb-#{$parameter} {padding-bottom: map-get($map: $margin-map, $key: $parameter);}
+  .pl-#{$parameter} {padding-left: map-get($map: $margin-map, $key: $parameter);}
+  .pr-#{$parameter} {padding-right: map-get($map: $margin-map, $key: $parameter);}
+  .px-#{$parameter} {padding-left: map-get($map: $margin-map, $key: $parameter);padding-right: map-get($map: $margin-map, $key: $parameter);}
+  .py-#{$parameter} {padding-top: map-get($map: $margin-map, $key: $parameter);padding-bottom: map-get($map: $margin-map, $key: $parameter);}
+}

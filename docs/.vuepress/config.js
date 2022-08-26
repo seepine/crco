@@ -41,6 +41,11 @@ module.exports = {
             activeMatch: '^/table/'
           },
           {
+            text: '其他组件',
+            link: '/components/row/',
+            activeMatch: '^/components/'
+          },
+          {
             text: 'Github',
             link: 'https://github.com/seepine/crco'
           }
@@ -76,14 +81,21 @@ module.exports = {
         {
           text: '表单',
           isGroup: true,
-          children: ['base', 'value', 'valid', 'dic', 'upload', 'slot', 'adapt']
+          children: ['base', 'value', 'valid', 'dic', 'upload', 'slot','group', 'adapt', 'typescript']
         }
       ],
       '/table/': [
         {
           text: '表格',
           isGroup: true,
-          children: ['base', 'slot', 'popstate', 'draggable','ext']
+          children: ['base', 'slot','search', 'popstate', 'draggable', 'selection', 'ext', 'typescript']
+        }
+      ],
+      '/components/': [
+        {
+          text: '其他组件',
+          isGroup: true,
+          children: ['row']
         }
       ]
     }
@@ -92,7 +104,7 @@ module.exports = {
     [
       'vuepress-plugin-demo-block-vue3',
       {
-        componentsDir: path.resolve(__dirname, './../../examples')
+        componentsDir: path.resolve(__dirname, './../examples')
       }
     ]
   ]

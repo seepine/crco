@@ -8,15 +8,7 @@
 table/popstate
 :::
 
-### 2.弹窗模式
-当一个页面同时出现多个`c-table`时，也可正常工作。
-
-例如请将表单1置于新增状态，再点击表单2的新增，而后点击浏览器返回
-::: demo
-table/popstate2
-:::
-
-### 3.主动返回
+### 2.主动返回
 当`c-table`处于例如查看状态时，可通过`vue-router.back()`或`window.history.back()`使其回到表格状态
 
 ::: demo

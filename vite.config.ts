@@ -1,17 +1,24 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    vueJsx()
+    // , dts()
+  ],
   css: {
     preprocessorOptions: { scss: { charset: false } }
   },
   build: {
     lib: {
-      entry: resolve(__dirname, './packages/index.ts'),
+      entry: resolve(__dirname, './src/index.ts'),
       name: 'crco',
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => {
+        return format === 'es' ? 'index.js' : `index.${format}.js`
+      }
     },
     cssCodeSplit: true,
     rollupOptions: {
