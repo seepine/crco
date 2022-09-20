@@ -58,6 +58,12 @@ const option = {
       span: 24,
       prop: 'description',
       type: 'textarea'
+    },
+    {
+      name: 'markdown介绍',
+      span: 24,
+      prop: 'mdDescription',
+      type: 'md'
     }
   ]
 }

@@ -27,6 +27,7 @@ export interface OnChange {
 export const FormTypes = ['add', 'edit', 'del', 'search']
 export type FormType = typeof FormTypes
 export type InputType = 'input' | 'text' | 'textarea' | 'password' | 'number' | 'tag'
+export type MarkdownType = 'markdown' | 'md'
 export type DatePickerType = 'date' | 'datetime'
 export type RangPickerType = 'daterange' | 'dateRange'
 export type OtherDatePickerType = 'week' | 'month' | 'year' | 'quarter'
@@ -208,5 +209,6 @@ export interface FormColumn extends ComponentColumn {
     | RangPickerType
     | TimePickerType
     | TimeSelectType
+    | MarkdownType
     | Function
 }

@@ -6,6 +6,7 @@ import CRadio from '../radio/index.vue'
 import CSelect from '../select/index.vue'
 import CUpload from '../upload/index.vue'
 import CDatePicker from '../date-picker/index.vue'
+import CMarkdown from '../markdown/index.vue'
 import { isString, isUndefined } from '../../util/is'
 import RenderFunction from '../_components/render'
 import { FormColumn } from '../../types/column'
@@ -13,9 +14,12 @@ import { FormColumn } from '../../types/column'
 export default defineComponent({
   components: {
     ASwitch,
+    CInput,
     CRadio,
     CSelect,
     CUpload,
+    CDatePicker,
+    CMarkdown,
     RenderFunction
   },
   props: {
@@ -108,6 +112,16 @@ export default defineComponent({
           onUpdate:modelValue={valueChange}
         />
       )
+    if (type.value === 'markdown' || type.value === 'md')
+      return () => (
+        // @ts-ignore
+        <CMarkdown
+          option={props.column}
+          modelValue={form.value[prop.value]}
+          onUpdate:modelValue={valueChange}
+        ></CMarkdown>
+      )
+
     if (
       type.value === 'date' ||
       type.value === 'datetime' ||
