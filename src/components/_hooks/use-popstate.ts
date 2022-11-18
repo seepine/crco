@@ -1,37 +1,44 @@
-import { onMounted, onUnmounted } from 'vue'
-import emitter from '../../util/emitter'
+import { onUnmounted, ref } from 'vue'
 
+const stack: Array<number> = []
+/**
+ * 返回回调
+ * @params triggerBack 返回回调
+ */
 export default (triggerBack: Function) => {
-  /** ==========================     处理物理返回逻辑     ================== */
-  const code = Math.round(Math.random() * 100000000)
-  let topCode = code
+  const code = Math.round(Math.random() * 1000000000)
+  const isIn = ref(false)
   const handleTriggerBack = () => {
-    if (topCode === code) {
-      triggerBack()
+    if (stack.length > 0) {
+      if (stack[stack.length - 1] === code) {
+        triggerBack()
+      }
     }
   }
-  const setTopCode = (data: any) => {
-    topCode = data
-  }
-  onMounted(() => {
-    emitter.on('top-code', setTopCode)
-    window.addEventListener('popstate', handleTriggerBack)
-  })
-  onUnmounted(() => {
-    emitter.off('top-code', setTopCode)
-    window.removeEventListener('popstate', handleTriggerBack)
-  })
   const back = () => {
     window.history.back()
   }
-  /** ==========================     处理物理返回逻辑 end    ================== */
+  const out = () => {
+    if (isIn.value) {
+      const idx = stack.indexOf(code)
+      if (idx >= 0) {
+        stack.splice(stack.indexOf(code), 1)
+      }
+      window.removeEventListener('popstate', handleTriggerBack)
+      isIn.value = false
+    }
+  }
+  onUnmounted(() => {
+    out()
+  })
   return {
     back,
     in: () => {
-      emitter.emit('popstate-stack-in', code)
+      window.history.pushState(null, '', document.URL)
+      window.addEventListener('popstate', handleTriggerBack)
+      stack.push(code)
+      isIn.value = true
     },
-    out: () => {
-      emitter.emit('popstate-stack-out', code)
-    }
+    out
   }
 }

@@ -1,8 +1,17 @@
 import { computed, Ref } from 'vue'
 import { isArray, isObject, isUndefined } from '../../util/is'
 import { TableOption } from '../../types/table'
+import { ListFormOption } from '../../types/list-form'
+import { Btn } from '../../types/btn'
 
-export default (myOption: Ref<TableOption>) => {
+const getPermission = (btn: false | Btn | undefined, permissions: any, prefix: string): boolean => {
+  if (btn === false || btn === undefined) {
+    return false
+  }
+  return !!permissions[`${prefix}${btn.permissionSuffix}`]
+}
+
+export default (myOption: Ref<TableOption | ListFormOption>) => {
   const myPermissions = computed(() => {
     let all: any = {}
     const { permissionPrefix } = myOption.value
@@ -24,10 +33,10 @@ export default (myOption: Ref<TableOption>) => {
     }
     return {
       ...all,
-      viewBtn: !!all[`${permissionPrefix}${myOption.value.viewBtn?.permissionSuffix}`],
-      addBtn: !!all[`${permissionPrefix}${myOption.value.addBtn?.permissionSuffix}`],
-      editBtn: !!all[`${permissionPrefix}${myOption.value.editBtn?.permissionSuffix}`],
-      delBtn: !!all[`${permissionPrefix}${myOption.value.delBtn?.permissionSuffix}`]
+      viewBtn: getPermission(myOption.value.viewBtn, all, permissionPrefix),
+      addBtn: getPermission(myOption.value.addBtn, all, permissionPrefix),
+      editBtn: getPermission(myOption.value.editBtn, all, permissionPrefix),
+      delBtn: getPermission(myOption.value.delBtn, all, permissionPrefix)
     }
   })
   return {

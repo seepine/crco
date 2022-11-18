@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { Modal as AModal } from '@arco-design/web-vue'
-import { computed, watchEffect, withDefaults } from 'vue'
+import { ref, watchEffect, withDefaults } from 'vue'
 import '../../util/popstate'
 import usePopstate from '../_hooks/use-popstate'
 
@@ -20,31 +20,21 @@ const props = withDefaults(
     modelValue: false
   }
 )
-const emit = defineEmits<{
-  (event: 'update:modelValue', data: boolean): void
-}>()
-const visible = computed({
-  get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val)
-})
 
-/**
- * 兼容物理返回
- */
+const visible = ref(props.modelValue)
+/** ==========================     处理物理返回逻辑     ================== */
 const popState = usePopstate(() => {
   if (visible.value) {
-    emit('update:modelValue', false)
+    visible.value = false
   }
 })
 watchEffect(() => {
   if (visible.value) {
-    popState.out()
-  } else {
     popState.in()
+  } else {
+    popState.out()
   }
 })
-/**
- * 物理返回end
- */
+/** ==========================     处理物理返回逻辑 end    ================== */
 </script>
 <style lang="scss"></style>

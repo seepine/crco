@@ -5,8 +5,9 @@ import { isFunction, isObject, isString, isUndefined } from '../../util/is'
 import { copyPropertiesNotEmpty } from '../../util/util'
 import { PageCallback } from '../../types/page'
 import { ApiConfig } from '../../types/api'
+import { ListFormOption } from '../../types/list-form'
 
-export default (emit: any, option: Ref<TableOption>) => {
+export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
   const api = computed<ApiConfig | undefined>(() => {
     const global = getApiConfig()
     if (isUndefined(option.value.api)) {
@@ -21,7 +22,29 @@ export default (emit: any, option: Ref<TableOption>) => {
     }
     return defaultApiConfig
   })
-
+  const requestFetch = (params: any, done: (newData?: any[]) => void) => {
+    if (api.value) {
+      request({
+        type: 'fetch',
+        method: api.value.fetchMethod,
+        url: api.value.base + api.value.fetch,
+        params,
+        autoEmptyBody: api.value.autoEmptyBody
+      })
+        .then((res: any) => {
+          if (isFunction(api.value?.fetchAfter)) {
+            api.value?.fetchAfter(res, done)
+          } else {
+            done(res)
+          }
+        })
+        .catch(() => {
+          done(undefined)
+        })
+    } else {
+      emit('load', params, done)
+    }
+  }
   const requestPage = (params: any, done: PageCallback) => {
     if (api.value) {
       request({
@@ -107,6 +130,7 @@ export default (emit: any, option: Ref<TableOption>) => {
   }
 
   return {
+    requestFetch,
     requestPage,
     requestAdd,
     requestEdit,

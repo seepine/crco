@@ -1,5 +1,5 @@
 <template>
-  <div ref="crcoTableDivRef">
+  <div class="crco-table-container" ref="crcoTableDivRef">
     <div v-show="!type">
       <search-box
         :option="myOption.searchOption"
@@ -16,7 +16,7 @@
         <div class="crco-table-header-left flex-row">
           <a-space>
             <a-button
-              v-if="filterBtnDisplay('add', myOption, myPermissions, {})"
+              v-if="filterBtnDisplay('add', myOption, myPermissions, {}) && myOption.addBtn"
               type="primary"
               @click="operation('add', {})"
               >{{ myOption.addBtn?.text }}</a-button
@@ -42,7 +42,7 @@
       </div>
       <a-table
         ref="aTableRef"
-        v-bind="{...myOption, columns:[]} as any"
+        v-bind="{ ...myOption, columns: [] }"
         class="crco-table"
         @page-change="pageChange"
         @page-size-change="pageSizeChange"
@@ -81,7 +81,7 @@
           </template>
           <a-table-column
             v-if="myOption.menuProps?.display !== false"
-            v-bind="myOption.menuProps as any"
+            v-bind="myOption.menuProps"
             title="操作"
             :fixed="myOption.menuProps?.fixed"
             :cell-style="filterCellStyle(myOption.menuProps)"
@@ -204,7 +204,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, withDefaults, defineExpose, computed, watch, watchEffect, provide } from 'vue'
+import { ref, withDefaults, computed, watch, watchEffect, provide } from 'vue'
 import {
   Message,
   Space as ASpace,
@@ -228,9 +228,9 @@ import CrcoPopConfirm from '../pop-confirm/index.vue'
 import usePopstate from '../_hooks/use-popstate'
 import { TableOption } from '../../types/table'
 import useOption from './use-option'
-import usePermission from './use-premission'
+import usePermission from '../_hooks/use-premission'
 import SearchBox from './search.vue'
-import useCrud from './use-crud'
+import useCrud from '../_hooks/use-crud'
 import { FormType } from '../../types/form'
 import useElementResize from '../_hooks/use-element-resize'
 
@@ -239,17 +239,17 @@ const { divWidth } = useElementResize(crcoTableDivRef)
 provide('crcoTableDivWidth', divWidth)
 const type = ref<FormType>()
 
+/** ==========================     处理物理返回逻辑     ================== */
 const popState = usePopstate(() => {
-  if (!isUndefined(type.value)) {
+  if (type.value !== undefined) {
     type.value = undefined
   }
 })
-/** ==========================     处理物理返回逻辑     ================== */
 watchEffect(() => {
-  if (isUndefined(type.value)) {
-    popState.out()
-  } else {
+  if (type.value !== undefined) {
     popState.in()
+  } else {
+    popState.out()
   }
 })
 const handleBack = () => {
@@ -400,7 +400,9 @@ const filterChange = (prop: string, filterValues: Array<any>) => {
   }
   load()
 }
-load()
+if (myOption.value.defaultLoadData) {
+  load()
+}
 // end
 
 // crud
@@ -450,7 +452,8 @@ const handleSubmit = (val: any, done: Function) => {
   const handleDone = (flag = true) => {
     if (flag === true) {
       Message.success(`${typeLabel.value}成功`)
-      type.value = undefined
+      // type.value = undefined
+      handleBack()
       load()
     } else {
       done()
@@ -527,6 +530,6 @@ defineExpose({
   }
 })
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 @import './index.scss';
 </style>
