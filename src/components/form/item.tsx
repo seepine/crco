@@ -10,6 +10,7 @@ import CMarkdown from '../markdown/index.vue'
 import { isString, isUndefined } from '../../util/is'
 import RenderFunction from '../_components/render'
 import { FormColumn } from '../../types/column'
+import { deepClone, runCallback } from '../../util/util'
 
 export default defineComponent({
   components: {
@@ -38,10 +39,26 @@ export default defineComponent({
     const type = computed(() => props.column.type)
     const prop = computed<string>(() => props.column.prop)
     const form = computed<any>(() => props.value)
-    const valueChange = (val: any) => {
+    const valueChangeOnly = (val: any) => {
       const old: any = props.value
       old[props.column.prop] = val
       emit('change', old)
+    }
+    const valueChange = (val: any) => {
+      if (!isUndefined(props.column.onChange)) {
+        runCallback(props.column.onChange, val, deepClone(props.value))
+          .then((newForm) => {
+            emit('change', newForm)
+          })
+          .catch(() => {
+            valueChangeOnly(val)
+          })
+      } else {
+        valueChangeOnly(val)
+      }
+    }
+    const onUpdateForm = (val: any) => {
+      emit('change', val)
     }
     const mergeAttrs = computed(() => {
       return {
@@ -51,6 +68,7 @@ export default defineComponent({
     })
     if (!isString(type.value) && !isUndefined(type.value)) {
       // @ts-ignore
+      // type: (form)=> h()
       return () => <RenderFunction render-func={type.value} record={form.value} />
     }
     if (
@@ -91,7 +109,8 @@ export default defineComponent({
           option={props.column}
           modelValue={form.value[prop.value]}
           form={form.value}
-          onChange={valueChange}
+          onChange={valueChangeOnly}
+          onUpdateForm={onUpdateForm}
         />
       )
     if (type.value === 'upload')
