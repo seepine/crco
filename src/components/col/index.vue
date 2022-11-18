@@ -36,6 +36,7 @@ const styleValue = computed(() => {
   if (gutter.value > 0) {
     styleObj.paddingLeft = `${gutter.value / 2}px`
     styleObj.paddingRight = `${gutter.value / 2}px`
+    styleObj.paddingBottom = `${gutter.value / 2}px`
   }
   return styleObj
 })
