@@ -1,5 +1,5 @@
 import { computed, ref, watch } from 'vue'
-import { isArray, isUndefined } from '../../util/is'
+import { isArray, isNull, isUndefined } from '../../util/is'
 import { FormOption, FormType } from '../../types/form'
 import { copyPropertiesNotEmpty } from '../../util/util'
 
@@ -38,8 +38,10 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
   watch(
     () => props.modelValue,
     (val) => {
-      form.value = val
-      if (isUndefined(val) && !init) {
+      const hasVal = !isUndefined(val) && !isNull(val)
+      if (hasVal) {
+        form.value = val
+      } else if (!hasVal && !init) {
         init = true
         hasModelValue = false
         form.value = {}
@@ -55,7 +57,7 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
     () => form.value,
     (val) => {
       if (hasModelValue) {
-        emit('update:modelValue', val)
+        emit('update:modelValue', val || {})
       }
     },
     {
