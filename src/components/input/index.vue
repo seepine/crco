@@ -3,28 +3,39 @@
     v-if="option.type === 'number'"
     v-bind="option"
     v-model="value"
-    @blur="onBlur"
+    :disabled="undefined"
     @change="handleChange"
   ></a-input-number>
   <a-input-password
     v-else-if="option.type === 'password'"
     v-bind="option"
     v-model="value"
+    :disabled="undefined"
     @change="handleChange"
   ></a-input-password>
   <a-textarea
     v-else-if="option.type === 'textarea'"
     v-bind="option"
     v-model="value"
+    :disabled="undefined"
     @change="handleChange"
   ></a-textarea>
   <a-input-tag
     v-else-if="option.type === 'tag'"
     v-bind="option"
     v-model="value"
+    :disabled="undefined"
     @change="handleChange"
   ></a-input-tag>
-  <a-input v-else v-bind="option" v-model="value" @blur="onBlur" @change="handleChange"> </a-input>
+  <a-input
+    v-else
+    v-bind="option"
+    v-model="value"
+    :disabled="undefined"
+    @blur="onBlur"
+    @change="handleChange"
+  >
+  </a-input>
 </template>
 
 <script setup lang="ts">
