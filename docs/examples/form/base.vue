@@ -19,7 +19,18 @@ const option = {
     {
       name: '年龄',
       prop: 'age',
-      type: 'number'
+      type: 'number',
+      onChange: (val, form) => {
+        return new Promise((RES) => {
+          console.log('触发年龄onChange', val, form)
+          setTimeout(() => {
+            RES({
+              ...form,
+              fullName: `姓名随年龄变化：${val}`
+            })
+          }, 1000)
+        })
+      }
     },
     {
       name: '生日',
@@ -40,11 +51,12 @@ const option = {
         { value: 1, label: '跳舞' },
         { value: 2, label: '打篮球' }
       ],
-      onChange: (item, record) => {
-        console.log('触发onChange', item, record)
-        // eslint-disable-next-line no-param-reassign
-        record.fullName = `姓名随着爱好变化：${item.label}`
-        return record
+      onChange: (item, form) => {
+        console.log('触发爱好onChange', item, form)
+        return {
+          ...form,
+          fullName: `姓名随着爱好变化：${item.label}`
+        }
       }
     },
     {
@@ -63,7 +75,15 @@ const option = {
       name: 'markdown介绍',
       span: 24,
       prop: 'mdDescription',
-      type: 'md'
+      type: 'md',
+      onUpload: (e) => {
+        return new Promise((RES, REJ) => {
+          console.log(e.files)
+          console.log(e.ctx.getValue())
+          console.log(e.ctx.setValue(`${e.ctx.getValue()},新增的`))
+          REJ(Error('上传失败'))
+        })
+      }
     }
   ]
 }
