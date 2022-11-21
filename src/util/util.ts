@@ -71,7 +71,7 @@ interface DebounceOption {
   leading?: boolean // 开始前调用,true
   trailing?: boolean // 结束后调用,false
 }
-export function debounce(func: Function, option: DebounceOption | number) {
+export function debounce(func: Function, option?: DebounceOption | number) {
   if (typeof func !== 'function') {
     throw new TypeError('debounce need a function arguments')
   }
@@ -144,14 +144,14 @@ export function dateFormat(date: Date, format = 'yyyy-MM-dd hh:mm:ss') {
  * @param data 需要传递给回调的值
  * @returns RES获取的值，REJ出错值
  */
-export function runCallback(callback: any, data?: any) {
+export function runCallback(callback: any, ...data: any): Promise<any> {
   return new Promise((RES, REJ) => {
     if (isUndefined(callback)) {
-      RES(undefined)
+      REJ(Error('value is undefined'))
     } else if (isFunction(callback)) {
-      RES(callback(data))
+      RES(callback(...data))
     } else if (isPromise(callback)) {
-      callback(data)
+      callback(...data)
         .then((res: any) => {
           RES(res)
         })
