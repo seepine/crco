@@ -11,6 +11,7 @@ import { isString, isUndefined } from '../../util/is'
 import RenderFunction from '../_components/render'
 import { FormColumn } from '../../types/column'
 import { deepClone, runCallback } from '../../util/util'
+import CTreeSelect from '../tree-select/index.vue'
 
 export default defineComponent({
   components: {
@@ -105,6 +106,18 @@ export default defineComponent({
       return () => (
         // @ts-ignore
         <CSelect
+          class="full-width"
+          option={props.column}
+          modelValue={form.value[prop.value]}
+          form={form.value}
+          onChange={valueChangeOnly}
+          onUpdateForm={onUpdateForm}
+        />
+      )
+    if (type.value === 'tree' || type.value === 'treeSelect')
+      return () => (
+        // @ts-ignore
+        <CTreeSelect
           class="full-width"
           option={props.column}
           modelValue={form.value[prop.value]}
