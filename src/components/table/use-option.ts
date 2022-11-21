@@ -25,11 +25,11 @@ export default (option: TableOption) => {
     },
     menuProps: {
       display: true,
-      fixed: 'right',
       width: 120,
       nowrap: true
     },
     rowKey: 'id',
+    defaultLoadData: true,
     bordered: false,
     filterIconAlignLeft: true,
     pagination: {
