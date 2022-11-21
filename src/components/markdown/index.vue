@@ -3,10 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import { isString } from 'markdown-it/lib/common/utils'
 import Vditor from 'vditor'
 import { withDefaults, ref, watch, onMounted, onUnmounted } from 'vue'
-import { isFunction, isNotBlank } from '../../util/is'
+import { isFunction, isNotBlank, isString } from '../../util/is'
 import { copyPropertiesNotEmpty, runCallback } from '../../util/util'
 import useTheme from './use-theme'
 
