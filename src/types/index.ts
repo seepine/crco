@@ -1,5 +1,7 @@
 import { AxiosInstance, Method } from 'axios'
 import { GlobalApiConfig } from './api'
+import { ListProps } from './list'
+import { TableProps } from './table'
 
 export interface Done {
   (close?: boolean): void
@@ -41,3 +43,15 @@ export interface Responsive {
   xxl?: number
 }
 export type ResponsiveValue = number | string | Responsive
+
+export interface TableOption {
+  tableProps?: TableProps
+}
+
+export interface FormOption {
+  tableProps?: TableProps
+}
+
+export interface ListFormOption {
+  listProps?: ListProps
+}

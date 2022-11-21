@@ -17,8 +17,18 @@ export type DicItem = {
   data: any
 }
 export interface OnChange {
-  (data: DicItem, form?: any, done?: (newForm: any) => void): any
-  (data: DicItem[], form?: any, done?: (newForm: any) => void): any
+  /**
+   * @return new form
+   */
+  (data: any, form?: any): any | Promise<any>
+  /**
+   * @return new form
+   */
+  (data: DicItem, form?: any): any | Promise<any>
+  /**
+   * @return new form
+   */
+  (data: DicItem[], form?: any): any | Promise<any>
 }
 
 /**
@@ -53,6 +63,8 @@ export type ComponentType =
   | 'checkbox'
   | 'checkboxbutton'
   | 'checkboxButton'
+  | 'tree'
+  | 'treeSelect'
 
 /**
  * 来源于a-form-item，既提供给column，也提供给formOption
@@ -181,6 +193,10 @@ export interface FormItemExt {
    * 若需要修改值，可直接return，或在done回调中使用
    */
   onChange?: OnChange
+  /**
+   * 是否显示
+   */
+  display?: boolean
 }
 export interface ComponentColumn extends FormItem, FormItemExt {
   // 接收额外任意未收录字段
@@ -200,6 +216,7 @@ export interface FormColumn extends ComponentColumn {
   name: string
   /**
    * 默认input，列类型
+   * 支持自定义 type : (form)=>h('input')
    */
   type?:
     | InputType

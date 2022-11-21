@@ -8,5 +8,5 @@ export interface PageRes {
   records: Array<any>
 }
 export interface PageCallback {
-  (res: PageRes | undefined): void
+  (res?: PageRes): void
 }

@@ -3,11 +3,19 @@ import { PageCallback, PageRes } from './page'
 
 export interface GlobalApiConfig {
   /**
+   * 分页接口地址，默认/fetch，即拼接后地址为 GET:/sys/user/fetch
+   */
+  fetch?: string
+  /**
+   * 默认GET
+   */
+  fetchMethod: Method
+  /**
    * 分页接口地址，默认/page，即拼接后地址为 GET:/sys/user/page
    */
   page?: string
   /**
-   * page接口请求方式
+   * 默认GET
    */
   pageMethod: Method
   /**
@@ -52,6 +60,32 @@ export interface ApiConfig {
    */
   base: string
   /**
+   * 获取数据地址，默认/fetch，即拼接后地址为 GET:/sys/user/fetch
+   */
+  fetch?: string
+  /**
+   * 默认GET
+   */
+  fetchMethod?: Method
+  /**
+   * 获得数据以后回调，一般用于前端修改后端返回数据用
+   *
+   * pageAfter:(data: any[], done: (newData?: any[]) => void)=>{
+   *
+   *    // 无需后端修改接口，前端拿到数据后，增加rowKey字段，值同id一样
+   *    const newData = data.map(item=>{
+   *       return {
+   *         ...item,
+   *         rowKey: item.id
+   *       }
+   *    })
+   *
+   *    done(newData)
+   * }
+   *
+   */
+  fetchAfter?: (data: any[], done: (newData?: any[]) => void) => void
+  /**
    * 分页接口地址，默认/page，即拼接后地址为 GET:/sys/user/page
    */
   page?: string
@@ -60,12 +94,12 @@ export interface ApiConfig {
    */
   pageMethod?: Method
   /**
-   * 分页接口获得数据以后回调，一般用于前端修改后端返回数据用
+   * 获得数据以后回调，一般用于前端修改后端返回数据用
    *
-   * pageAfter:(res: PageRes, done: PageCallback)=>{
+   * pageAfter:(data: PageRes, done: PageCallback)=>{
    *
    *    // 无需后端修改接口，前端拿到数据后，增加rowKey字段，值同id一样
-   *    const newRecords = res.records.map(item=>{
+   *    const newData = data.map(item=>{
    *       return {
    *         ...item,
    *         rowKey: item.id
@@ -73,13 +107,13 @@ export interface ApiConfig {
    *    })
    *
    *    done({
-   *       ...res,
-   *        records: newRecords
-   *    })
+   *      ...data,
+   *      records:newData
+   *    }})
    * }
    *
    */
-  pageAfter?: (res: PageRes, done: PageCallback) => void
+  pageAfter?: (data: PageRes, done: PageCallback) => void
   /**
    * 例如/add,默认空，即拼接后地址为 POST:/sys/user
    */
@@ -114,4 +148,6 @@ export interface ApiConfig {
    * 非GET接口，当body为null时，是否自动填充为{}，默认true
    */
   autoEmptyBody?: boolean
+  onBefore?: Function
+  onAfter?: Function
 }

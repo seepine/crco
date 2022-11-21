@@ -7,7 +7,7 @@ export type FormType = 'view' | 'add' | 'edit' | 'del' | undefined
 /**
  * a-form props 属性
  */
-export interface Form {
+export interface FormProps {
   /**
    * 'horizontal', 表单的布局方式，包括水平、垂直、多列
    */
@@ -70,7 +70,7 @@ export interface FormGroup {
   columns: FormColumn[]
 }
 
-export interface FormOption extends GlobalFormItem, Form, FormExt {
+export interface FormOption extends GlobalFormItem, FormProps, FormExt {
   /**
    * 分组配置
    */

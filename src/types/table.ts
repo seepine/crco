@@ -13,9 +13,9 @@ import { VirtualListProps } from '@arco-design/web-vue/es/_components/virtual-li
 import { CSSProperties } from 'vue'
 import { ResponsiveValue } from '.'
 import { ApiConfig } from './api'
-import { Btn } from './btn'
 import { FormColumn } from './column'
-import { Form, FormOption } from './form'
+import { FormProps, FormOption } from './form'
+import { MenuProps, PermissionProps } from './option'
 
 /**
  * a-table props属性
@@ -214,22 +214,6 @@ export type menuProps = { display?: boolean } & TableColumnProps
  */
 export interface TablePropsExt {
   /**
-   * 查看按钮配置
-   */
-  viewBtn?: Btn
-  /**
-   * 新增按钮配置
-   */
-  addBtn?: Btn
-  /**
-   * 编辑按钮配置
-   */
-  editBtn?: Btn
-  /**
-   * 删除按钮配置
-   */
-  delBtn?: Btn
-  /**
    * 菜单栏配置
    */
   menuProps?: menuProps
@@ -250,15 +234,7 @@ export interface TablePropsExt {
      */
     notBlank?: boolean
   }
-  /**
-   * 权限前缀，例如 sys_system_user_
-   * 对应到按钮上会被自动汇聚成 sys_system_user_add,sys_system_user_edit
-   */
-  permissionPrefix?: string
-  /**
-   * 用户所拥有的所有权限,一般为 ['a','b'] 或 {'a':true,'b':true}
-   */
-  permissions?: Array<string> | object
+
   /**
    * true
    * 是否显示为省略,列属性提权到全局
@@ -274,10 +250,20 @@ export interface TablePropsExt {
    * 是否不换行,列属性提权到全局
    */
   nowrap?: boolean
+  /**
+   * true
+   * 是否默认加载数据
+   */
+  defaultLoadData?: boolean
 }
 export type TableColumn = FormColumn & TableColumnProps
 
-export interface TableOption extends TableProps, TablePropsExt, Form {
+export interface TableOption
+  extends TableProps,
+    TablePropsExt,
+    FormProps,
+    MenuProps,
+    PermissionProps {
   /**
    * 列内容
    */
