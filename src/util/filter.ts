@@ -31,11 +31,17 @@ export const filterDisplay = (type: string | undefined, column: any, record: any
   if (type === 'search') {
     return column.search === true
   }
-  const key = isBlank(type) ? 'display' : `${type}Display`
-  if (isFunction(column[key])) {
-    return column[key](record)
+  let display
+  if (!isBlank(type)) {
+    display = column[`${type}Display`]
   }
-  return column[key] !== false
+  if (isUndefined(display)) {
+    display = column.display
+  }
+  if (isFunction(display)) {
+    return display(record)
+  }
+  return display !== false
 }
 
 export const filterDisabled = (column: any, record: any): boolean => {
