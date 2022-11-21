@@ -3,11 +3,11 @@
 </template>
 
 <script setup lang="ts">
+import { isString } from 'markdown-it/lib/common/utils'
 import Vditor from 'vditor'
-import 'vditor/dist/index.css'
 import { withDefaults, ref, watch, onMounted, onUnmounted } from 'vue'
 import { isFunction, isNotBlank } from '../../util/is'
-import { copyPropertiesNotEmpty } from '../../util/util'
+import { copyPropertiesNotEmpty, runCallback } from '../../util/util'
 import useTheme from './use-theme'
 
 const code = Math.round(Math.random() * 100000000)
@@ -40,36 +40,50 @@ const myOption = ref<IOptions>({
   mode: 'ir',
   theme: isDark.value ? 'dark' : 'classic',
   width: '100%',
+  minHeight: 240,
   preview: {
     actions: ['desktop', 'mobile'],
     theme: {
       current: isDark.value ? 'dark' : 'light'
+    },
+    hljs: {
+      lineNumber: false,
+      style: 'github',
+      enable: true
     }
   },
   after: () => {
-    if (isNotBlank(props.modelValue)) {
-      vditor.value!.setValue(props.modelValue)
-    }
     if (vditor.value) {
+      if (isNotBlank(props.modelValue)) {
+        vditor.value!.setValue(props.modelValue)
+      }
       vditor.value.setTheme(isDark.value ? 'dark' : 'classic', isDark.value ? 'dark' : 'light')
     }
   },
   upload: {
     handler: (files) => {
       return new Promise((RES) => {
-        console.log(files)
-        setTimeout(() => {
-          RES('错误')
-        }, 2000)
+        if (isFunction(props.option.onUpload)) {
+          runCallback(props.option.onUpload, { files, ctx: vditor.value })
+            .then(() => {})
+            .catch((err) => {
+              if (err instanceof Error) {
+                RES(err.message)
+              } else if (isString(err)) {
+                RES(err)
+              }
+            })
+        }
       })
     }
   },
   ...props.option,
   input: (val: string) => {
     if (isFunction(props.option.input)) {
-      props.option.input(val)
+      props.option.onInput(val)
     }
     emit('change', val)
+    emit('update:modelValue', val)
   }
 })
 watch(
@@ -84,14 +98,20 @@ watch(
 )
 onMounted(() => {
   vditor.value = new Vditor(divId.value, myOption.value)
-  watch(
-    () => props.modelValue,
-    () => {
-      if (vditor.value) {
-        vditor.value.setValue(props.modelValue)
-      }
+  if (props.modelValue) {
+    if (vditor.value) {
+      vditor.value.setValue(props.modelValue)
     }
-  )
+  }
+  // 不能双向绑定，光标会有问题
+  // watch(
+  //   () => props.modelValue,
+  //   () => {
+  //     if (vditor.value) {
+  //       // vditor.value.setValue(props.modelValue)
+  //     }
+  //   }
+  // )
 })
 
 onUnmounted(() => {
