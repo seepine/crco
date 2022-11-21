@@ -1,7 +1,7 @@
 import { RequestOption } from '@arco-design/web-vue/es/upload/interfaces'
 import axios from 'axios'
 import { getHttp } from './http'
-import { isArray, isBoolean, isNull, isString, isUndefined } from './is'
+import { isArray, isBoolean, isNull, isNumber, isString, isUndefined } from './is'
 import { deepClone } from './util'
 
 export const customRequest = (option: RequestOption) => {
@@ -88,12 +88,18 @@ const filterRangeValue = (item: any, val: any): string => {
   return tempVal
 }
 export const filterValue = (record: any, column: any): string => {
+  if (isUndefined(record) || isNull(record)) {
+    return ''
+  }
   const val = record[column.prop]
   if (isUndefined(val) || isNull(val)) {
     return ''
   }
   if (isBoolean(val)) {
     return val ? '是' : '否'
+  }
+  if (isNumber(val)) {
+    return val.toString()
   }
   if (isUndefined(column.type)) {
     return val.toString()
