@@ -6,7 +6,7 @@ import { ApiConfig } from '../types/api'
 let http: AxiosInstance = axios
 
 let globalMethod: RequestMethod = 'RESTFul'
-type RequestType = 'page' | 'add' | 'edit' | 'del' | 'dic'
+type RequestType = 'fetch' | 'page' | 'add' | 'edit' | 'del' | 'dic'
 
 export const setHttp = (data: any) => {
   if (!isNull(data) && !isUndefined(data)) {
@@ -23,6 +23,8 @@ export const getApiConfig = (): ApiConfig => {
   if (globalMethod === 'RESTFul') {
     return {
       base: '',
+      fetch: '/fetch',
+      fetchMethod: 'GET',
       page: '/page',
       pageMethod: 'GET',
       add: '',
@@ -38,6 +40,8 @@ export const getApiConfig = (): ApiConfig => {
   if (isString(globalMethod)) {
     return {
       base: '',
+      fetch: '/fetch',
+      fetchMethod: globalMethod,
       page: '/page',
       pageMethod: globalMethod,
       add: '/add',
@@ -52,6 +56,8 @@ export const getApiConfig = (): ApiConfig => {
   }
   return {
     base: '',
+    fetch: globalMethod.fetch || '/fetch',
+    fetchMethod: globalMethod.fetchMethod,
     page: globalMethod.page || '/page',
     pageMethod: globalMethod.pageMethod,
     add: globalMethod.add || '/add',
@@ -97,12 +103,16 @@ export const request = (config: RequestConfig) => {
     } else {
       req.data = config.params
     }
-    if (config.type === 'page') {
+    if (config.type === 'page' || config.type === 'fetch') {
       if (isUndefined(req.params)) {
         req.params = {}
       }
-      req.params.size = config.params.size
-      req.params.current = config.params.current
+      if (config.params.size) {
+        req.params.size = config.params.size
+      }
+      if (config.params.current) {
+        req.params.current = config.params.current
+      }
     }
   } else if (method !== 'GET') {
     req.data = {}
