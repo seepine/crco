@@ -16,9 +16,10 @@
 <script setup lang="ts">
 import { Select as ASelect, Option as AOption } from '@arco-design/web-vue'
 import { withDefaults, computed, ref, watch } from 'vue'
-import { isArray, isFunction, isUndefined } from '../../util/is'
+import { isArray, isUndefined } from '../../util/is'
 import { initDicData } from '../../util/dic-data'
 import { ComponentColumn, DicItem } from '../../types/column'
+import { runCallback } from '../../util/util'
 
 type ModelValueType = string | number | Array<string | number> | undefined
 
@@ -40,7 +41,7 @@ const myOption = computed<any>(() => {
 })
 const emit = defineEmits<{
   (event: 'update:modelValue', val: ModelValueType): void
-  (event: 'update:form', val: any): void
+  (event: 'update-form', val: any): void
   (event: 'change', val: ModelValueType, item: any): void
 }>()
 const dicData = ref<Array<DicItem>>([])
@@ -63,19 +64,14 @@ const onChange = (val: any) => {
       return val === item || val === item.value
     })
   }
-  try {
-    // 判断
-    if (isFunction(props.option.onChange)) {
-      const res = props.option.onChange(find, props.form, (callbackFormData: any) => {
-        emit('update:form', callbackFormData)
-      })
-      if (!isUndefined(res)) {
-        emit('update:form', res)
-      }
-    }
-    // eslint-disable-next-line no-empty
-  } catch (e) {}
   emit('change', val === '' ? undefined : val, find)
+  if (!isUndefined(props.option.onChange)) {
+    runCallback(props.option.onChange, find, props.form)
+      .then((res) => {
+        emit('update-form', res)
+      })
+      .catch(() => {})
+  }
 }
 
 watch(
