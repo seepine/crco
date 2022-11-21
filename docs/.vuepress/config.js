@@ -41,6 +41,11 @@ module.exports = {
             activeMatch: '^/table/'
           },
           {
+            text: '列表表单',
+            link: '/list-form/base/',
+            activeMatch: '^/list-form/'
+          },
+          {
             text: '其他组件',
             link: '/components/row/',
             activeMatch: '^/components/'
@@ -81,14 +86,40 @@ module.exports = {
         {
           text: '表单',
           isGroup: true,
-          children: ['base', 'value', 'valid', 'dic', 'upload', 'slot','group', 'adapt', 'typescript']
+          children: [
+            'base',
+            'value',
+            'valid',
+            'dic',
+            'upload',
+            'slot',
+            'group',
+            'adapt',
+            'typescript'
+          ]
         }
       ],
       '/table/': [
         {
           text: '表格',
           isGroup: true,
-          children: ['base', 'slot','search', 'popstate', 'draggable', 'selection', 'ext', 'typescript']
+          children: [
+            'base',
+            'slot',
+            'search',
+            'popstate',
+            'draggable',
+            'selection',
+            'ext',
+            'typescript'
+          ]
+        }
+      ],
+      '/list-form/': [
+        {
+          text: '列表表单',
+          isGroup: true,
+          children: ['base', 'tree']
         }
       ],
       '/components/': [

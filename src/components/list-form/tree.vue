@@ -1,0 +1,175 @@
+<template>
+  <a-skeleton :animation="true" :loading="loading">
+    <a-space direction="vertical" :style="{ width: '100%' }">
+      <a-skeleton-line :rows="16" :line-spacing="8" :line-height="24" />
+    </a-space>
+    <template #content>
+      <div
+        class="flex-row justify-end crco-list-form-tree-header px-xs pt-xs absolute"
+        style="right: 0; z-index: 1"
+        v-if="treeData.length !== 0"
+      >
+        <a-tooltip :content="isExpand ? '收缩' : '展开'">
+          <icon-menu-unfold @click="expandAll(true)" v-if="!isExpand" />
+          <icon-menu-fold @click="expandAll(false)" v-if="isExpand" />
+        </a-tooltip>
+      </div>
+      <a-scrollbar
+        class="pa-xs"
+        :style="{
+          maxHeight: `${option.treeProps?.maxHeight}px`,
+          minHeight: `${option.treeProps?.minHeight}px`
+        }"
+        style="overflow-y: auto"
+      >
+        <a-empty v-if="treeData.length === 0"></a-empty>
+        <a-tree
+          v-else
+          v-bind="option.treeProps"
+          ref="crcoTreeRef"
+          :field-names="treeProps"
+          :selected-keys="selectedKeys"
+          :data="treeData"
+          :default-expanded-keys="defaultExpandedKeys"
+          @select="handleSelect"
+        ></a-tree>
+      </a-scrollbar>
+    </template>
+  </a-skeleton>
+</template>
+<script setup lang="ts">
+import { TreeFieldNames, TreeNodeData } from '@arco-design/web-vue'
+import { computed, ref } from 'vue'
+import { TreeFieldProps } from '../../types/tree'
+import { ListFormOption } from '../../types/list-form'
+
+const props = defineProps<{
+  option: ListFormOption
+  requestFetch: Function
+  params: any
+}>()
+const emit = defineEmits<{
+  (event: 'select', item: any): void
+  (event: 'add'): void
+}>()
+
+const treeProps = computed<TreeFieldNames>(() => {
+  const fields = props.option.props as TreeFieldProps
+  return {
+    key: props.option.rowKey,
+    title: fields.name || 'name',
+    disabled: fields.disabled,
+    children: fields.children || 'children',
+    isLeaf: fields.isLeaf || 'isLeaf',
+    disableCheckbox: fields.disableCheckbox || 'disableCheckbox',
+    checkable: fields.checkable || 'checkable',
+    icon: fields.iconRender || 'iconRender'
+  }
+})
+
+const crcoTreeRef = ref()
+const loading = ref(false)
+const data = ref<any[]>([])
+const defaultExpandedKeys = ref<any[]>([])
+const selectedKeys = ref<Array<string | number>>([])
+
+const fetchData = (init: boolean = false) => {
+  if (loading.value) {
+    return
+  }
+  if (init) {
+    loading.value = true
+  }
+  props.requestFetch(
+    {
+      ...props.params
+    },
+    (res: any) => {
+      loading.value = false
+
+      if (props.option.treeProps?.defaultExpandRoot) {
+        const expandedKeys = []
+        try {
+          res.forEach((item: any) => expandedKeys.push(item[treeProps.value.key!]))
+          if (selectedKeys.value.length > 0) {
+            expandedKeys.push(...selectedKeys.value)
+          }
+          defaultExpandedKeys.value = expandedKeys
+          // eslint-disable-next-line no-empty
+        } catch (e) {}
+      }
+      if (res && res.length > 0) {
+        data.value = res
+      } else {
+        data.value = []
+      }
+    }
+  )
+}
+fetchData(true)
+const handleSelect = (
+  keys: Array<string | number>,
+  val: { selected?: boolean; selectedNodes: TreeNodeData[]; node?: TreeNodeData; e?: Event }
+) => {
+  if (val.node) {
+    selectedKeys.value = keys
+    emit('select', val.node)
+  }
+}
+
+const searchKey = ref<string>('')
+
+const searchData = () => {
+  const loop = (arr: any[]) => {
+    if (!searchKey.value) {
+      return arr
+    }
+    const result: any[] = []
+    arr.forEach((item) => {
+      if (item[treeProps.value.title!].toLowerCase().indexOf(searchKey.value.toLowerCase()) > -1) {
+        result.push({ ...item })
+      } else if (item.children) {
+        const filterData = loop(item.children)
+        if (filterData.length) {
+          result.push({
+            ...item,
+            children: filterData
+          })
+        }
+      }
+    })
+    return result
+  }
+  return loop(data.value)
+}
+
+const treeData = computed(() => {
+  if (!searchKey.value) return data.value
+  return searchData()
+})
+
+const isExpand = ref(false)
+const expandAll = (expand: boolean) => {
+  isExpand.value = expand
+  crcoTreeRef.value.expandAll(expand)
+}
+
+defineExpose({
+  search: (val?: string) => {
+    searchKey.value = val || ''
+  },
+  reload: () => {
+    fetchData()
+  }
+})
+</script>
+<style lang="scss">
+.crco-list-form-tree-header {
+  .arco-icon {
+    cursor: pointer;
+    padding: 4px;
+    padding-top: 8px;
+    padding-right: 6px;
+  }
+}
+</style>
