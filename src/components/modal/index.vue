@@ -9,7 +9,6 @@
 <script setup lang="ts">
 import { Modal as AModal } from '@arco-design/web-vue'
 import { ref, watchEffect, withDefaults } from 'vue'
-import '../../util/popstate'
 import usePopstate from '../_hooks/use-popstate'
 
 const props = withDefaults(
