@@ -117,9 +117,9 @@ module.exports = {
       ],
       '/list-form/': [
         {
-          text: '列表表单',
+          text: '列表',
           isGroup: true,
-          children: ['base', 'tree']
+          children: ['base', 'tree', 'tabs']
         }
       ],
       '/components/': [
