@@ -6,7 +6,7 @@
 }
 
 html.dark {
-  --c-bg:#141414;
+  --c-bg: #141414;
   --c-brand: rgb(45, 108, 249);
   --c-brand-light: rgb(32, 95, 236);
 }
@@ -15,7 +15,7 @@ html.dark {
   height: 0.8rem !important;
 }
 .home .hero .action-button {
-  font-size: 1.0rem;
+  font-size: 1rem;
   padding: 0.6rem 1rem;
   min-width: 6rem;
 }
@@ -30,7 +30,7 @@ tr {
   transition: unset;
 
   &:nth-child(2n) {
-    background-color:unset;
+    background-color: unset;
     transition: unset;
   }
 }
@@ -38,6 +38,19 @@ tr {
 th,
 td {
   padding: unset;
-  border:unset;
+  border: unset;
   transition: unset;
+}
+
+.theme-default-content {
+  .crco-markdown {
+    pre code {
+      color: unset;
+    }
+    .vditor-ir__node--expand .vditor-ir__marker--pre code {
+      color: var(--textarea-text-color);
+      height: auto;
+      text-align: left;
+    }
+  }
 }
