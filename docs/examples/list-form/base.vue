@@ -8,7 +8,10 @@
   <c-list-form :option="option" @load="handleLoad"> </c-list-form>
 </template>
 <script setup lang="ts">
-const option = {
+// 可引入类型，查看支持的参数
+import type { ListFormOption } from 'crco/src/types/list-form'
+
+const option: ListFormOption = {
   // 也和表格一样，支持api参数，无需自己写请求和事件
   // api: {
   //   base:'/xxx/xxx',
