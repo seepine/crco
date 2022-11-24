@@ -151,6 +151,12 @@ defineExpose({
         color: unset;
       }
     }
+    .arco-list-item-meta-description {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+    }
   }
   .arco-list-scroll-loading {
     font-size: 13px;

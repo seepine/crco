@@ -49,23 +49,73 @@
         </a-card>
       </c-col>
       <c-col :span="{ xs: 24, sm: 16, md: 18, lg: 18, xl: 19, xxl: 20 }">
-        <my-form
-          ref="myFormRef"
+        <my-add-form
+          v-if="isAdd"
+          v-model:form="addForm"
+          v-model:is-add="isAdd"
           :option="myOption"
-          :select-data="selectData"
-          :permissions="myPermissions"
           :request-add="requestAdd"
-          :request-edit="requestEdit"
-          :request-del="requestDel"
           @reload="handleReload"
-          @reset="handleReset"
-        ></my-form>
+        ></my-add-form>
+        <template v-else>
+          <a-tabs
+            v-if="myOption.tabsProps!.columns!.length > 0 && selectData"
+            v-model:active-key="tabsActiveKey"
+          >
+            <a-tab-pane key="listFormTabBaseInfoKey" :title="myOption.tabsProps!.baseTitle">
+              <my-form
+                v-model:is-add="isAdd"
+                ref="myFormRef"
+                :option="myOption"
+                :select-data="selectData"
+                :permissions="myPermissions"
+                :request-add="requestAdd"
+                :request-edit="requestEdit"
+                :request-del="requestDel"
+                @reload="handleReload"
+                @reset="handleReset"
+              ></my-form
+            ></a-tab-pane>
+            <template v-for="item in myOption.tabsProps!.columns" :key="item.slotName">
+              <a-tab-pane v-bind="item" :title="item.title" v-if="filterPermission(item)">
+                <slot :name="item.slotName" :record="selectData"></slot>
+              </a-tab-pane>
+            </template>
+          </a-tabs>
+          <my-form
+            v-else
+            v-model:is-add="isAdd"
+            ref="myFormRef"
+            :option="myOption"
+            :select-data="selectData"
+            :permissions="myPermissions"
+            :request-add="requestAdd"
+            :request-edit="requestEdit"
+            :request-del="requestDel"
+            @reload="handleReload"
+            @reset="handleReset"
+          ></my-form>
+        </template>
+
+        <a-result v-show="!selectData && !isAdd" title="未选择" style="margin: 100px 0">
+          <template #subtitle>
+            <div style="margin-top: 20px">
+              请先选择要查看的数据
+              <div v-if="myPermissions.addBtn">或点击下方按钮新增</div>
+            </div></template
+          >
+          <template #extra v-if="myPermissions.addBtn">
+            <a-space>
+              <a-button type="primary" @click="handleAdd">新增</a-button>
+            </a-space>
+          </template>
+        </a-result>
       </c-col>
     </c-row>
   </div>
 </template>
 <script setup lang="ts">
-import { nextTick, ref, withDefaults, watch } from 'vue'
+import { ref, withDefaults, watch } from 'vue'
 import { Card as ACard } from '@arco-design/web-vue'
 import { ListFormOption } from '../../types/list-form'
 import CRow from '../row/index.vue'
@@ -77,6 +127,10 @@ import Tree from './tree.vue'
 import usePermission from '../_hooks/use-premission'
 import useSearch from './use-search'
 import MyForm from './form.vue'
+import MyAddForm from './add-form.vue'
+import { isString, isUndefined } from '../../util/is'
+import { runCallback } from '../../util/util'
+import { tabsPaneProps } from '@/types/tabs'
 
 const props = withDefaults(
   defineProps<{
@@ -99,9 +153,22 @@ const { myOption } = useOption(props.option)
 const { requestFetch, requestAdd, requestEdit, requestDel } = useCrud(emit, myOption)
 const { myPermissions } = usePermission(myOption)
 
+const filterPermission = (item: tabsPaneProps) => {
+  if (isString(item.permission)) {
+    return myPermissions.value[item.permission]
+  }
+  return true
+}
+
+const isAdd = ref(false)
 const selectData = ref<object | undefined>()
+const tabsActiveKey = ref('listFormTabBaseInfoKey')
 const handleSelect = (data: object) => {
   selectData.value = data
+  isAdd.value = false
+  if (myOption.value.tabsProps?.autoSwitchToBase) {
+    tabsActiveKey.value = 'listFormTabBaseInfoKey'
+  }
 }
 
 const listRef = ref()
@@ -113,11 +180,19 @@ const { handleChange } = useSearch((val) => {
     listRef.value.search(val)
   }
 })
-const myFormRef = ref()
+
+const addForm = ref({})
 const handleAdd = () => {
-  nextTick(() => {
-    myFormRef.value.add()
-  })
+  if (props.option.addBtn !== false && !isUndefined(props.option.addBtn?.onBefore)) {
+    runCallback(props.option.addBtn?.onBefore, selectData.value)
+      .then((res) => {
+        addForm.value = res || {}
+        isAdd.value = true
+      })
+      .catch(() => {})
+  } else {
+    isAdd.value = true
+  }
 }
 
 const handleReload = (unselect?: boolean) => {

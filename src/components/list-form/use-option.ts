@@ -43,6 +43,11 @@ export default (option: ListFormOption) => {
       defaultExpandAll: false,
       defaultExpandRoot: true,
       defaultExpandSelected: true
+    },
+    tabsProps: {
+      baseTitle: '基础信息',
+      autoSwitchToBase: true,
+      columns: []
     }
   })
 

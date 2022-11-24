@@ -3,6 +3,7 @@ import { FormColumn } from './column'
 import { FormGroup } from './form'
 import { ListFieldProps, ListProps } from './list'
 import { MenuProps, PermissionProps } from './option'
+import { tabsProps } from './tabs'
 import { TreeFieldProps, treeProps } from './tree'
 
 export interface ListFormOption extends MenuProps, PermissionProps {
@@ -18,7 +19,13 @@ export interface ListFormOption extends MenuProps, PermissionProps {
    * tree组件属性，需开启isTree:true
    */
   treeProps?: treeProps
-
+  /**
+   * 自定义标签页
+   */
+  tabsProps?: tabsProps
+  /**
+   * 额外参数
+   */
   props?: TreeFieldProps | ListFieldProps
   /**
    * 是否为树形结构，

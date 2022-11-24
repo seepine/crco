@@ -1,68 +1,40 @@
 <template>
-  <div style="max-width: 1080px" v-show="selectData || isAdd">
+  <div style="max-width: 1080px" v-show="selectData">
     <a-space direction="vertical" fill size="medium">
-      <div
-        v-if="permissions.editBtn || permissions.delBtn || permissions.addBtn"
-        class="flex-row justify-between align-center"
-      >
+      <div class="flex-row justify-between align-center">
         <a-typography-title :heading="6" style="margin: 0; padding-top: 8px">{{
-          isAdd ? '新增' : isEdit ? '编辑' : '详情'
+          isEdit ? '编辑' : '详情'
         }}</a-typography-title>
 
-        <a-space>
-          <template v-if="isAdd"
-            ><a-button @click="isAdd = false">取消</a-button>
-            <c-button type="primary" @click="handleSave">提交</c-button></template
+        <a-space v-if="permissions.editBtn || permissions.delBtn">
+          <pop-confirm
+            content="请确认是否删除"
+            :okButtonProps="{ status: 'danger' }"
+            @ok="handleRemove"
           >
-          <template v-else>
-            <pop-confirm
-              content="请确认是否删除"
-              :okButtonProps="{ status: 'danger' }"
-              @ok="handleRemove"
-            >
-              <a-button status="danger" v-if="permissions.delBtn && !isEdit">删除</a-button>
-            </pop-confirm>
+            <a-button status="danger" v-if="permissions.delBtn && !isEdit">删除</a-button>
+          </pop-confirm>
 
-            <a-button type="primary" v-if="permissions.editBtn && !isEdit" @click="handleEdit"
-              >编辑</a-button
-            >
-            <a-button v-if="permissions.editBtn && isEdit" @click="isEdit = false">取消</a-button>
-            <c-button type="primary" v-if="permissions.editBtn && isEdit" @click="handleSave"
-              >保存</c-button
-            ></template
+          <a-button type="primary" v-if="permissions.editBtn && !isEdit" @click="handleEdit"
+            >编辑</a-button
+          >
+          <a-button v-if="permissions.editBtn && isEdit" @click="isEdit = false">取消</a-button>
+          <c-button type="primary" v-if="permissions.editBtn && isEdit" @click="handleSave"
+            >保存</c-button
           >
         </a-space>
       </div>
-      <c-form
-        ref="formRef"
-        v-model="addForm"
-        :option="{ ...option, btn: false }"
-        v-if="isAdd"
-        type="add"
-      ></c-form>
+
       <c-form
         ref="formRef"
         v-model="form"
         :option="{ ...option, btn: false }"
-        v-else-if="isEdit"
+        v-if="isEdit"
         type="edit"
       ></c-form>
       <c-descriptions v-else v-model="backForm" type="view" :option="option"></c-descriptions
     ></a-space>
   </div>
-  <a-result v-show="!selectData && !isAdd" title="未选择" style="margin: 100px 0">
-    <template #subtitle>
-      <div style="margin-top: 20px">
-        请先选择要查看的数据
-        <div v-if="permissions.addBtn">或点击下方按钮新增</div>
-      </div></template
-    >
-    <template #extra v-if="permissions.addBtn">
-      <a-space>
-        <a-button type="primary" @click="handleAdd">新增</a-button>
-      </a-space>
-    </template>
-  </a-result>
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue'
@@ -87,21 +59,16 @@ const emit = defineEmits<{
   (event: 'reload'): void
   (event: 'reload', unselect: boolean): void
   (event: 'reset', val: any): void
+  (event: 'update:isAdd', val: boolean): void
 }>()
 
 const form = ref({})
-const addForm = ref({})
 const formRef = ref()
 const backForm = ref({})
-const isAdd = ref(false)
 const isEdit = ref(false)
 watch(
   () => props.selectData,
   () => {
-    if (isAdd.value) {
-      isAdd.value = false
-      isEdit.value = false
-    }
     if (isUndefined(props.selectData)) {
       backForm.value = {}
       form.value = {}
@@ -148,20 +115,7 @@ const handleSave = (done: Function) => {
   formRef.value
     .submit()
     .then((res: any) => {
-      if (isAdd.value) {
-        props.requestAdd(res.form, (err: any) => {
-          if (err) {
-            res.done()
-            done()
-          } else {
-            res.done()
-            done()
-            isAdd.value = false
-            emit('reload')
-            Message.success('新增成功')
-          }
-        })
-      } else if (isEqual(res.form, backForm.value)) {
+      if (isEqual(res.form, backForm.value)) {
         res.done()
         done()
         isEdit.value = false
@@ -185,28 +139,4 @@ const handleSave = (done: Function) => {
       done()
     })
 }
-
-const handleAdd = () => {
-  if (isAdd.value) {
-    return
-  }
-  addForm.value = {}
-  if (props.option.addBtn !== false && !isUndefined(props.option.addBtn?.onBefore)) {
-    runCallback(props.option.addBtn?.onBefore, props.selectData)
-      .then((res) => {
-        addForm.value = res || {}
-        isAdd.value = true
-        isEdit.value = false
-      })
-      .catch(() => {})
-  } else {
-    isAdd.value = true
-    isEdit.value = false
-  }
-}
-defineExpose({
-  add: () => {
-    handleAdd()
-  }
-})
 </script>
