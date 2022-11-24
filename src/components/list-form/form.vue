@@ -12,10 +12,15 @@
             :okButtonProps="{ status: 'danger' }"
             @ok="handleRemove"
           >
-            <a-button status="danger" v-if="permissions.delBtn && !isEdit">删除</a-button>
+            <a-button status="danger" v-if="permissions.delBtn && !isEdit && delDisplay"
+              >删除</a-button
+            >
           </pop-confirm>
 
-          <a-button type="primary" v-if="permissions.editBtn && !isEdit" @click="handleEdit"
+          <a-button
+            type="primary"
+            v-if="permissions.editBtn && !isEdit && editDisplay"
+            @click="handleEdit"
             >编辑</a-button
           >
           <a-button v-if="permissions.editBtn && isEdit" @click="isEdit = false">取消</a-button>
@@ -37,7 +42,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import isEqual from 'lodash/isEqual'
 import { Message } from '@arco-design/web-vue'
 import { deepClone, runCallback } from '../../util/util'
@@ -46,6 +51,7 @@ import CDescriptions from '../descriptions/index.vue'
 import CForm from '../form/index.vue'
 import PopConfirm from '../pop-confirm/index.vue'
 import { isUndefined } from '../../util/is'
+import useBtn from '../_hooks/use-btn'
 
 const props = defineProps<{
   selectData: any
@@ -82,6 +88,8 @@ watch(
     immediate: true
   }
 )
+const myOption = computed(() => props.option)
+const { editDisplay, delDisplay } = useBtn(myOption, backForm)
 
 const handleEdit = () => {
   if (isEdit.value) {
