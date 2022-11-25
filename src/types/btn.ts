@@ -6,11 +6,11 @@ export interface Btn {
   /**
    * '提交',按钮文字
    */
-  text?: string | Callback<string>
+  text?: string | ((data?: any) => string)
   /**
    * true,是否显示按钮
    */
-  display?: boolean | Callback<boolean>
+  display?: boolean | ((data?: any) => boolean)
   /**
    * false,是否长按钮
    */

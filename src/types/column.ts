@@ -206,7 +206,7 @@ export interface FormItemExt {
    * eg:
    * dicData: ()=> axios.get('/sys/role/list')
    */
-  dicData?: any[] | (() => any[]) | (() => Promise<any>)
+  dicData?: readonly any[] | any[] | (() => any[]) | (() => readonly any[]) | (() => Promise<any>)
 }
 export interface ComponentColumn extends FormItem, FormItemExt {
   // 接收额外任意未收录字段
