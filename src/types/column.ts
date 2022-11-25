@@ -177,7 +177,7 @@ export interface FormItemExt {
    */
   value?: any
   /**
-   * 文字类型是否头尾去空格，input默认true，其他false
+   * 文字类型是否头尾去空格，input默认true，其他默认false
    */
   trim?: boolean
   /**
@@ -196,7 +196,17 @@ export interface FormItemExt {
   /**
    * 是否显示
    */
-  display?: boolean
+  display?: boolean | ((record: any) => boolean)
+  /**
+   * 后端字典接口地址，接口应返回[]
+   */
+  dicUrl?: string
+  /**
+   * 字典数据，填充数据，或函数式返回数据，支持异步，也可通过接口请求数据
+   * eg:
+   * dicData: ()=> axios.get('/sys/role/list')
+   */
+  dicData?: any[] | (() => any[]) | (() => Promise<any>)
 }
 export interface ComponentColumn extends FormItem, FormItemExt {
   // 接收额外任意未收录字段
