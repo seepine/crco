@@ -35,9 +35,6 @@ export const filterDisplay = (type: string | undefined, column: any, record: any
   if (!isBlank(type)) {
     display = column[`${type}Display`]
   }
-  if (isUndefined(display)) {
-    display = column.display
-  }
   if (isFunction(display)) {
     return display(record)
   }
