@@ -25,13 +25,14 @@
         <a-empty v-if="treeData.length === 0"></a-empty>
         <a-tree
           v-else
-          v-bind="option.treeProps"
           ref="crcoTreeRef"
-          :field-names="treeProps"
+          v-bind="treeProps"
+          :field-names="treeFieldProps"
           :selected-keys="selectedKeys"
           :data="treeData"
           :default-expanded-keys="defaultExpandedKeys"
           @select="handleSelect"
+          @drop="handleDrop"
         ></a-tree>
       </a-scrollbar>
     </template>
@@ -42,6 +43,8 @@ import { TreeFieldNames, TreeNodeData } from '@arco-design/web-vue'
 import { computed, ref } from 'vue'
 import { TreeFieldProps } from '../../types/tree'
 import { ListFormOption } from '../../types/list-form'
+import { isFunction } from '../../util/is'
+import { runCallback } from '../../util/util'
 
 const props = defineProps<{
   option: ListFormOption
@@ -52,8 +55,15 @@ const emit = defineEmits<{
   (event: 'select', item: any): void
   (event: 'add'): void
 }>()
+const treeProps = computed(() => {
+  return {
+    ...props.option.treeProps,
+    onDrop: undefined,
+    onDrag: undefined
+  }
+})
 
-const treeProps = computed<TreeFieldNames>(() => {
+const treeFieldProps = computed<TreeFieldNames>(() => {
   const fields = props.option.props as TreeFieldProps
   return {
     key: props.option.rowKey,
@@ -90,7 +100,7 @@ const fetchData = (init: boolean = false) => {
       if (props.option.treeProps?.defaultExpandRoot) {
         const expandedKeys = []
         try {
-          res.forEach((item: any) => expandedKeys.push(item[treeProps.value.key!]))
+          res.forEach((item: any) => expandedKeys.push(item[treeFieldProps.value.key!]))
           if (selectedKeys.value.length > 0) {
             expandedKeys.push(...selectedKeys.value)
           }
@@ -126,7 +136,9 @@ const searchData = () => {
     }
     const result: any[] = []
     arr.forEach((item) => {
-      if (item[treeProps.value.title!].toLowerCase().indexOf(searchKey.value.toLowerCase()) > -1) {
+      if (
+        item[treeFieldProps.value.title!].toLowerCase().indexOf(searchKey.value.toLowerCase()) > -1
+      ) {
         result.push({ ...item })
       } else if (item.children) {
         const filterData = loop(item.children)
@@ -152,6 +164,18 @@ const isExpand = ref(false)
 const expandAll = (expand: boolean) => {
   isExpand.value = expand
   crcoTreeRef.value.expandAll(expand)
+}
+
+const handleDrop = (e: any) => {
+  if (isFunction(props.option.treeProps?.onDrop)) {
+    runCallback(props.option.treeProps?.onDrop, e)
+      .then(() => {
+        fetchData()
+      })
+      .catch(() => {
+        fetchData()
+      })
+  }
 }
 
 defineExpose({

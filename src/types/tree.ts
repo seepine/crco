@@ -1,3 +1,5 @@
+import { TreeNodeData } from '@arco-design/web-vue'
+
 export interface TreeFieldProps {
   /**
    * 默认取item的name
@@ -45,6 +47,19 @@ export interface treeProps {
    * 是否可拖拽,false
    */
   draggable?: boolean
+  /**
+   * 拖拽时是否允许在某节点上释放
+   */
+  allowDrop?: (options: { dropNode: TreeNodeData; dropPosition: -1 | 0 | 1 }) => boolean
+  /**
+   * 拖拽释放事件
+   */
+  onDrop?: (data: {
+    e: DragEvent
+    dragNode: TreeNodeData
+    dropNode: TreeNodeData
+    dropPosition: number
+  }) => void
   /**
    * 是否默认展开所有,false
    */
