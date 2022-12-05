@@ -5,7 +5,7 @@
     </a-space>
     <template #content>
       <div
-        class="flex-row justify-end crco-list-form-tree-header px-xs pt-xs absolute"
+        class="crco-list-form-tree-header flex-row justify-end px-xs pt-xs absolute"
         style="right: 0; z-index: 1"
         v-if="treeData.length !== 0"
       >
@@ -33,7 +33,11 @@
           :default-expanded-keys="defaultExpandedKeys"
           @select="handleSelect"
           @drop="handleDrop"
-        ></a-tree>
+        >
+          <template #icon="{ node }" v-if="treeProps.iconRender">
+            <render-function :render-func="treeProps.iconRender!" :record="node"></render-function>
+          </template>
+        </a-tree>
       </a-scrollbar>
     </template>
   </a-skeleton>
@@ -45,6 +49,7 @@ import { TreeFieldProps } from '../../types/tree'
 import { ListFormOption } from '../../types/list-form'
 import { isFunction } from '../../util/is'
 import { runCallback } from '../../util/util'
+import RenderFunction from '../_components/render'
 
 const props = defineProps<{
   option: ListFormOption
@@ -194,6 +199,17 @@ defineExpose({
     padding: 4px;
     padding-top: 8px;
     padding-right: 6px;
+  }
+}
+.crco-list-form {
+  .arco-tree-node-icon {
+    margin-right: 6px;
+    padding-bottom: 2px;
+  }
+  .arco-tree-node-selected {
+    .arco-avatar {
+      background-color: rgb(var(--primary-5));
+    }
   }
 }
 </style>

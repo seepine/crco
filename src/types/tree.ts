@@ -1,4 +1,5 @@
 import { TreeNodeData } from '@arco-design/web-vue'
+import { VNode } from 'vue'
 
 export interface TreeFieldProps {
   /**
@@ -72,4 +73,8 @@ export interface treeProps {
    * 是否默认展开已选中节点的父节点,true
    */
   defaultExpandSelected?: boolean
+  /**
+   * 树节点图标自定义
+   */
+  iconRender?: (node: any) => VNode
 }
