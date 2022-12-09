@@ -2,7 +2,7 @@ import { RequestOption } from '@arco-design/web-vue/es/upload/interfaces'
 import axios from 'axios'
 import { getHttp } from './http'
 import { isArray, isBoolean, isNull, isNumber, isString, isUndefined } from './is'
-import { deepClone } from './util'
+import { copyPropertiesNotEmpty, deepClone } from './util'
 
 export const customRequest = (option: RequestOption) => {
   const { onProgress, onError, onSuccess, fileItem } = option
@@ -104,13 +104,15 @@ export const filterValue = (record: any, column: any): string => {
   if (isUndefined(column.type)) {
     return val.toString()
   }
-  // 处理范围
-  if (column.type.indexOf('range') > 0) {
-    return filterRangeValue(column, val)
-  }
-  // 处理tag
-  if (column.type.indexOf('tag') === 0 && val) {
-    return val.toString()
+  if (isString(column.type)) {
+    // 处理范围
+    if (column.type.indexOf('range') > 0) {
+      return filterRangeValue(column, val)
+    }
+    // 处理tag
+    if (column.type.indexOf('tag') === 0 && val) {
+      return val.toString()
+    }
   }
   // 没有字典的话直接返回
   if (!column.dicData) {
@@ -124,7 +126,7 @@ export const filterValue = (record: any, column: any): string => {
     children: 'children',
     data: 'data'
   }
-  // copyPropertiesNotEmpty(column.props, props)
+  copyPropertiesNotEmpty(column.props, props)
   // 及联选择
   if (val && column.type === 'cascader') {
     let dicData = JSON.parse(JSON.stringify(column.dicData))

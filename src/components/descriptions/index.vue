@@ -61,7 +61,7 @@ const data = computed(() => {
   const arr: Array<any> = []
   props.option.columns.forEach((item: any) => {
     if (filterDisplay(props.type, item, props.modelValue)) {
-      const column: Array<any> = {
+      const column: any = {
         ...item,
         large: item.type === 'upload' ? true : undefined
       }
