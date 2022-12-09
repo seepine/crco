@@ -1,6 +1,8 @@
 import { ref, watch } from 'vue'
+import { isArray, isUndefined } from '../../util/is'
 import { ListFormOption } from '../../types/list-form'
 import { copyPropertiesNotEmpty } from '../../util/util'
+import { runDicData } from '../../util/dic-data'
 
 export default (option: ListFormOption) => {
   const myOption = ref<ListFormOption>({
@@ -48,13 +50,27 @@ export default (option: ListFormOption) => {
       baseTitle: '基础信息',
       autoSwitchToBase: true,
       columns: []
-    }
+    },
+    columns: []
   })
 
   watch(
     () => option,
     () => {
       copyPropertiesNotEmpty(option, myOption.value)
+      if (isArray(myOption.value.columns)) {
+        for (let i = 0; i < myOption.value.columns.length; i += 1) {
+          if (
+            !isUndefined(myOption.value.columns[i].dicUrl) ||
+            !isUndefined(myOption.value.columns[i].dicData)
+          ) {
+            runDicData(myOption.value.columns[i]).then((res) => {
+              myOption.value.columns![i].dicUrl = undefined
+              myOption.value.columns![i].dicData = res
+            })
+          }
+        }
+      }
     },
     {
       immediate: true,
