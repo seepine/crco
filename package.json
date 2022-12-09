@@ -2,7 +2,7 @@
   "name": "crco",
   "author": "seepine",
   "license": "MIT",
-  "version": "2.2.5",
+  "version": "2.3.0",
   "description": "collect arco",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.js",
@@ -25,7 +25,8 @@
     "doc:build": "vuepress build docs",
     "build": "vite build",
     "prepare": "husky install",
-    "commit": "npx cz-customizable"
+    "commit": "npx cz-customizable",
+    "release": "standard-version"
   },
   "devDependencies": {
     "@arco-design/web-vue": "~2.39.0",
@@ -52,6 +53,7 @@
     "prettier": "~2.6.0",
     "sass": "~1.44.0",
     "sass-loader": "^12.4.0",
+    "standard-version": "^9.5.0",
     "typescript": "~4.7.4",
     "vditor": "^3.8.18",
     "vite": "~2.7.13",
