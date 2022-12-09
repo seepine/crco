@@ -8,6 +8,7 @@
   "module": "./dist/index.js",
   "keywords": [
     "crco",
+    "arco",
     "arco-design/web-vue",
     "vue",
     "vue3"
@@ -19,17 +20,17 @@
     "LICENSE"
   ],
   "scripts": {
+    "pre": "npm i --registry=https://registry.npmmirror.com",
     "doc": "vuepress dev docs",
     "doc:build": "vuepress build docs",
-    "build": "vite build"
-  },
-  "lint-staged": {
-    "*.{vue,js,ts}": "eslint --fix"
+    "build": "vite build",
+    "prepare": "husky install",
+    "commit": "npx cz-customizable"
   },
   "devDependencies": {
     "@arco-design/web-vue": "~2.39.0",
-    "@commitlint/cli": "~13.2.1",
-    "@commitlint/config-conventional": "~13.2.0",
+    "@commitlint/cli": "~17.3.0",
+    "@commitlint/config-conventional": "~17.3.0",
     "@types/element-resize-detector": "^1.1.3",
     "@types/lodash": "^4.14.186",
     "@types/node": "~16.11.11",
@@ -39,18 +40,16 @@
     "@vitejs/plugin-vue-jsx": "^1.3.10",
     "@vuepress/bundler-webpack": "2.0.0-beta.35",
     "axios": "~0.27.2",
-    "commitizen": "~4.2.4",
-    "cz-conventional-changelog": "~3.3.0",
-    "cz-customizable": "~6.3.0",
+    "cz-customizable": "~7.0.0",
     "eslint": "~7.32.0",
     "eslint-config-airbnb-base": "~14.2.1",
     "eslint-config-prettier": "~8.3.0",
     "eslint-plugin-import": "~2.25.3",
     "eslint-plugin-prettier": "~4.0.0",
     "eslint-plugin-vue": "~7.20.0",
-    "husky": "~7.0.4",
-    "lint-staged": "~11.2.6",
-    "prettier": "~2.5.0",
+    "husky": "~8.0.2",
+    "lint-staged": "~12.3.7",
+    "prettier": "~2.6.0",
     "sass": "~1.44.0",
     "sass-loader": "^12.4.0",
     "typescript": "~4.7.4",
@@ -63,17 +62,15 @@
     "vuepress-plugin-demo-block-vue3": "1.0.2",
     "webpack": "^5.0.0"
   },
-  "peerDependencies": {
-    "@arco-design/web-vue": "^2.34.0",
-    "axios": "^0.21.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-customizable"
-    }
-  },
   "dependencies": {
-    "element-resize-detector": "^1.2.4",
-    "lodash": "^4.17.21"
+    "element-resize-detector": "^1.2.4"
+  },
+  "peerDependencies": {
+    "@arco-design/web-vue": ">=2.39.2",
+    "axios": ">=0.20.0",
+    "lodash": ">=4.17.21"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts}": "eslint --fix"
   }
 }
