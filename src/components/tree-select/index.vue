@@ -12,7 +12,7 @@
 import { TreeFieldNames, TreeSelect as ATreeSelect } from '@arco-design/web-vue'
 import { withDefaults, computed, ref, watch } from 'vue'
 import { isArray, isUndefined } from '../../util/is'
-import { initTreeDicData } from '../../util/dic-data'
+import { runDicData } from '../../util/dic-data'
 import { ComponentColumn, DicItem } from '../../types/column'
 import { runCallback } from '../../util/util'
 
@@ -88,7 +88,7 @@ watch(
   myOption,
   () => {
     loading.value = true
-    initTreeDicData(props.option)
+    runDicData(props.option)
       .then((res) => {
         dicData.value = res
         loading.value = false

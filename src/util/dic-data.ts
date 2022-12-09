@@ -1,11 +1,18 @@
 import { filterProps } from './filter'
-import { isArray, isObject, isUndefined } from './is'
-import { deepClone, runCallback } from './util'
+import { isArray, isObject, isString, isUndefined } from './is'
+import { runCallback } from './util'
 import { request } from './http'
 import { DicItem } from '../types/column'
 
 export const initDicData = async (option: any): Promise<Array<DicItem>> => {
-  let dicData = deepClone(option.dicData)
+  let dicData
+  try {
+    dicData = await runCallback(option.dicData, option)
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
+  if (!isUndefined(dicData)) {
+    return dicData
+  }
   const dicProps = filterProps(option.props)
   if (!isUndefined(option.dicUrl)) {
     try {
@@ -44,17 +51,22 @@ export const initDicData = async (option: any): Promise<Array<DicItem>> => {
     }
   })
 }
-
-export const initTreeDicData = async (option: any): Promise<Array<any>> => {
+/**
+ * 解析dicData和dicUrl
+ *
+ * @param option
+ * @returns
+ */
+export const runDicData = async (option: any): Promise<any[]> => {
   let dicData
   try {
     dicData = await runCallback(option.dicData, option)
     // eslint-disable-next-line no-empty
   } catch (e) {}
-  if (!isUndefined(dicData)) {
+  if (isArray(dicData)) {
     return dicData
   }
-  if (!isUndefined(option.dicUrl)) {
+  if (isString(option.dicUrl)) {
     try {
       dicData = await request({
         type: 'dic',
@@ -67,8 +79,8 @@ export const initTreeDicData = async (option: any): Promise<Array<any>> => {
       return []
     }
   }
-  if (!isArray(dicData) || dicData.length <= 0) {
-    return []
+  if (isArray(dicData)) {
+    return dicData
   }
-  return dicData
+  return []
 }
