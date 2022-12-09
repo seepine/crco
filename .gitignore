@@ -1,6 +1,5 @@
 node_modules
 .DS_Store
-__MACOSX
 dist
 dist-ssr
 *.local
@@ -23,9 +22,8 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-# lock
-package-lock.json
-yarn.lock
-
+# vuepress
 .temp
 .cache
+
+yarn.lock
