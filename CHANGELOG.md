@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/seepine/crco/compare/v2.3.0...v2.3.1) (2022-12-12)
+
+
+### ⚡️ improvement | 功能优化
+
+* **dic:** improvement dicData and props ([754a27c](https://github.com/seepine/crco/commit/754a27c04510c8f854c7c9e69243a8808f62e560)), closes [#6](https://github.com/seepine/crco/issues/6)
+
+
+### 🚀 Chore | 构建/工程依赖/工具
+
+* **standard-version:** add custom config ([b70a1eb](https://github.com/seepine/crco/commit/b70a1eb162db56298fd1c12f71b1bd7f54d0d486))
+
 ## [2.3.0](https://github.com/seepine/crco/compare/v1.1.8...v2.3.0) (2022-12-09)
 
 
