@@ -47,7 +47,6 @@ const findValueByProps = (val: any, dicData: Array<any>, props: any) => {
   const findAll: Array<any> = []
   for (let i = 0; i < dicData.length; i += 1) {
     const item = dicData[i]
-
     if (isString(item) && i.toString() === val.toString()) {
       findAll.push(item)
     } else if (isArray(val) && val.indexOf(item[props.value]) >= 0) {
@@ -123,8 +122,7 @@ export const filterValue = (record: any, column: any): string => {
     // 字典的prop修改
     label: 'label',
     value: 'value',
-    children: 'children',
-    data: 'data'
+    children: 'children'
   }
   copyPropertiesNotEmpty(column.props, props)
   // 及联选择

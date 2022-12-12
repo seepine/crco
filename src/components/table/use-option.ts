@@ -2,7 +2,7 @@ import { ref, watch } from 'vue'
 import { isString } from '../../util/is'
 import { TableOption } from '../../types/table'
 import { copyPropertiesNotEmpty } from '../../util/util'
-import { initDicData } from '../../util/dic-data'
+import { runDicData } from '../../util/dic-data'
 
 export default (option: TableOption) => {
   // 设置option相关
@@ -56,7 +56,7 @@ export default (option: TableOption) => {
         // 需要处理字典的话
         if (isString(myOption.value.columns[i].dicUrl)) {
           // initDicData会处理props，所以此处应主动将props去除
-          initDicData(myOption.value.columns[i]).then((res) => {
+          runDicData(myOption.value.columns[i]).then((res) => {
             myOption.value.columns[i].dicUrl = undefined
             // myOption.value.columns[i].props = undefined
             myOption.value.columns[i].dicData = res
