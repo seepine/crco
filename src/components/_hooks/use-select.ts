@@ -18,7 +18,7 @@ export default (props: any, emit: any) => {
   })
 
   const fieldNames = computed<{ label: string; value: string; disabled: string }>(() => {
-    const fields = myOption.value.props as any
+    const fields = (myOption.value.props as any) || {}
     return {
       label: fields.label || 'label',
       value: fields.value || 'value',

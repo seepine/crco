@@ -41,7 +41,7 @@ const emit = defineEmits<{
 }>()
 
 const treeProps = computed<TreeFieldNames>(() => {
-  const fields = myOption.value.props as any
+  const fields = (myOption.value.props as any) || {}
   return {
     key: fields.key || 'key',
     title: fields.title || 'title',
