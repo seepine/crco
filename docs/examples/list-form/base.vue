@@ -5,7 +5,7 @@
     @edit="handleEdit"
     @del="handleDel"
    -->
-  <c-list-form :option="option" @load="handleLoad"> </c-list-form>
+  <c-list-form :option="option" @load="handleLoad" @edit="handleEdit"> </c-list-form>
 </template>
 <script setup lang="ts">
 // 可引入类型，查看支持的参数
@@ -78,5 +78,13 @@ const handleLoad = (params: any, done: Function) => {
     { id: '1', fullName: '张三', hobby: 0 },
     { id: '2', fullName: '李四', hobby: 2 }
   ])
+}
+
+const handleEdit = (data: any, done: Function) => {
+  // 请求后端进行数据修改
+  setTimeout(() => {
+    console.log(data)
+    done()
+  }, 1000)
 }
 </script>

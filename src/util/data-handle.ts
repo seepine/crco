@@ -1,7 +1,7 @@
 import { RequestOption } from '@arco-design/web-vue/es/upload/interfaces'
 import axios from 'axios'
 import { getHttp } from './http'
-import { isArray, isBoolean, isNull, isNumber, isString, isUndefined } from './is'
+import { isArray, isBoolean, isNull, isString, isUndefined } from './is'
 import { copyPropertiesNotEmpty, deepClone } from './util'
 
 export const customRequest = (option: RequestOption) => {
@@ -97,9 +97,6 @@ export const filterValue = (record: any, column: any): string => {
   if (isBoolean(val)) {
     return val ? '是' : '否'
   }
-  if (isNumber(val)) {
-    return val.toString()
-  }
   if (isUndefined(column.type)) {
     return val.toString()
   }
@@ -124,6 +121,7 @@ export const filterValue = (record: any, column: any): string => {
     value: 'value',
     children: 'children'
   }
+
   copyPropertiesNotEmpty(column.props, props)
   // 及联选择
   if (val && column.type === 'cascader') {
