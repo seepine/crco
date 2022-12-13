@@ -2,7 +2,7 @@
   <a-list
     v-bind="option.listProps"
     @reach-bottom="fetchData"
-    :data="data"
+    :data="realListData"
     :style="
       option.listProps?.minHeight
         ? {
@@ -18,10 +18,14 @@
         @click="handleSelect(item, index)"
       >
         <slot name="item" :item="item" :index="index">
-          <a-list-item-meta
-            :title="item[itemProps.title]"
-            :description="item[itemProps.description]"
-          >
+          <a-list-item-meta :description="item[itemProps.description]">
+            <template #title>
+              <item-node
+                :item-data="item"
+                :search-key="searchKey"
+                :title-field="itemProps.title"
+              ></item-node
+            ></template>
             <template #avatar v-if="item[itemProps.avatar]">
               <a-avatar shape="square">
                 <img alt="avatar" :src="item[itemProps.avatar]" />
@@ -42,6 +46,7 @@ import { List as AList } from '@arco-design/web-vue'
 import { computed, ref } from 'vue'
 import { ListFieldProps } from '../../types/list'
 import { ListFormOption } from '../../types/list-form'
+import ItemNode from './item-node.vue'
 
 const props = defineProps<{
   option: ListFormOption
@@ -71,6 +76,16 @@ const searchKey = ref('')
 
 const noMore = ref(false)
 const data = ref<Array<any>>([])
+const realListData = computed(() => {
+  if (!searchKey.value) return data.value
+  const result: any[] = []
+  data.value.forEach((item) => {
+    if (item[itemProps.value.title!].toLowerCase().indexOf(searchKey.value.toLowerCase()) > -1) {
+      result.push({ ...item })
+    }
+  })
+  return result
+})
 const current = ref(1)
 const loading = ref(false)
 
@@ -127,10 +142,6 @@ defineExpose({
   },
   search: (val?: string) => {
     searchKey.value = val || ''
-    data.value = []
-    noMore.value = false
-    current.value = 1
-    fetchData()
   },
   reload: () => {
     noMore.value = false

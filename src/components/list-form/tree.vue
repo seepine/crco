@@ -7,7 +7,7 @@
       <div
         class="crco-list-form-tree-header flex-row justify-end px-xs pt-xs absolute"
         style="right: 0; z-index: 1"
-        v-if="treeData.length !== 0"
+        v-if="realTreeData.length !== 0"
       >
         <a-tooltip :content="isExpand ? '收缩' : '展开'">
           <icon-menu-unfold @click="expandAll(true)" v-if="!isExpand" />
@@ -22,14 +22,14 @@
         }"
         style="overflow-y: auto"
       >
-        <a-empty v-if="treeData.length === 0"></a-empty>
+        <a-empty v-if="realTreeData.length === 0"></a-empty>
         <a-tree
           v-else
           ref="crcoTreeRef"
           v-bind="treeProps"
           :field-names="treeFieldProps"
           :selected-keys="selectedKeys"
-          :data="treeData"
+          :data="realTreeData"
           :default-expanded-keys="defaultExpandedKeys"
           @select="handleSelect"
           @drop="handleDrop"
@@ -37,19 +37,28 @@
           <template #icon="{ node }" v-if="treeProps.iconRender">
             <render-function :render-func="treeProps.iconRender!" :record="node"></render-function>
           </template>
+          <template #title="nodeData">
+            <item-node
+              :item-data="nodeData"
+              :search-key="searchKey"
+              :title-field="treeFieldProps.title"
+            ></item-node>
+          </template>
         </a-tree>
       </a-scrollbar>
     </template>
   </a-skeleton>
 </template>
 <script setup lang="ts">
-import { TreeFieldNames, TreeNodeData } from '@arco-design/web-vue'
+import { TreeNodeData } from '@arco-design/web-vue'
 import { computed, ref } from 'vue'
 import { TreeFieldProps } from '../../types/tree'
 import { ListFormOption } from '../../types/list-form'
 import { isFunction } from '../../util/is'
 import { runCallback } from '../../util/util'
 import RenderFunction from '../_components/render'
+import useTree from './use-tree'
+import ItemNode from './item-node.vue'
 
 const props = defineProps<{
   option: ListFormOption
@@ -68,12 +77,21 @@ const treeProps = computed(() => {
   }
 })
 
-const treeFieldProps = computed<TreeFieldNames>(() => {
-  const fields = props.option.props as TreeFieldProps
+const treeFieldProps = computed<{
+  key: string
+  title: string
+  disabled: string
+  children: string
+  isLeaf: string
+  disableCheckbox: string
+  checkable: string
+  icon: string
+}>(() => {
+  const fields = (props.option.props || {}) as TreeFieldProps
   return {
-    key: props.option.rowKey,
+    key: props.option.rowKey || 'id',
     title: fields.name || 'name',
-    disabled: fields.disabled,
+    disabled: fields.disabled || 'disabled',
     children: fields.children || 'children',
     isLeaf: fields.isLeaf || 'isLeaf',
     disableCheckbox: fields.disableCheckbox || 'disableCheckbox',
@@ -82,9 +100,10 @@ const treeFieldProps = computed<TreeFieldNames>(() => {
   }
 })
 
+const { searchKey, realTreeData, treeData } = useTree(treeFieldProps)
+
 const crcoTreeRef = ref()
 const loading = ref(false)
-const data = ref<any[]>([])
 const defaultExpandedKeys = ref<any[]>([])
 const selectedKeys = ref<Array<string | number>>([])
 
@@ -114,9 +133,9 @@ const fetchData = (init: boolean = false) => {
         } catch (e) {}
       }
       if (res && res.length > 0) {
-        data.value = res
+        treeData.value = res
       } else {
-        data.value = []
+        treeData.value = []
       }
     }
   )
@@ -131,39 +150,6 @@ const handleSelect = (
     emit('select', val.node)
   }
 }
-
-const searchKey = ref<string>('')
-
-const searchData = () => {
-  const loop = (arr: any[]) => {
-    if (!searchKey.value) {
-      return arr
-    }
-    const result: any[] = []
-    arr.forEach((item) => {
-      if (
-        item[treeFieldProps.value.title!].toLowerCase().indexOf(searchKey.value.toLowerCase()) > -1
-      ) {
-        result.push({ ...item })
-      } else if (item.children) {
-        const filterData = loop(item.children)
-        if (filterData.length) {
-          result.push({
-            ...item,
-            children: filterData
-          })
-        }
-      }
-    })
-    return result
-  }
-  return loop(data.value)
-}
-
-const treeData = computed(() => {
-  if (!searchKey.value) return data.value
-  return searchData()
-})
 
 const isExpand = ref(false)
 const expandAll = (expand: boolean) => {
