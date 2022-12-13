@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.2](https://github.com/seepine/crco/compare/v2.3.1...v2.3.2) (2022-12-13)
+
+
+### ⚡️ improvement | 功能优化
+
+* **list-form:** 左侧搜索关键词增加高亮显示 ([5965a3e](https://github.com/seepine/crco/commit/5965a3e744e421bf23d9fb2a7e87f3ff9804f448))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **descriptions:** 修复值为数字时，不展示字典问题 ([bd6c52f](https://github.com/seepine/crco/commit/bd6c52f9d48c6262f588735fd3c2b59f17ac2e97)), closes [#9](https://github.com/seepine/crco/issues/9)
+* **option:** props default {} ([9dedb80](https://github.com/seepine/crco/commit/9dedb80a5c284ce1efc8967963430a00539ec8ff)), closes [#7](https://github.com/seepine/crco/issues/7)
+
 ### [2.3.1](https://github.com/seepine/crco/compare/v2.3.0...v2.3.1) (2022-12-12)
 
 
