@@ -24,14 +24,6 @@ npm i @arco-design/web-vue -D
 ```shell
 npm i axios
 ```
-### 4.安装 mitt
-
-vue3 从 实例中 移除了 $on $off $once 方法，所以我们如果想要继续使用全局事件总线，需要通过第三方库。
-`crco`中通过`mitt`来使用全局事件，实现在各个地方的拦截返回，达到假页面的效果
-
-```shell
-npm i mitt
-```
 
 ## 引入 crco
 
