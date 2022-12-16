@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com/seepine/crco/compare/v2.3.2...v2.3.3) (2022-12-16)
+
+
+### 📝 Documentation | 文档
+
+* **license:** add MIT license file ([d645c23](https://github.com/seepine/crco/commit/d645c231a8f04512588c93d361ea83ac092c92a0))
+* **quickstart:** add title, fix install and add code example ([ff386f3](https://github.com/seepine/crco/commit/ff386f3a4188c5bdf6cdc3f4c5ff325e0697a848))
+
+
+### 💄 Styles | 风格
+
+* **type:** disabled和tooltip类型增加function支持 ([af53e76](https://github.com/seepine/crco/commit/af53e76dbbb72f6fa1b7500600785e44ad053d37)), closes [#10](https://github.com/seepine/crco/issues/10)
+
+
+### 🚀 Chore | 构建/工程依赖/工具
+
+* **deploy:** add deploy shell ([ea36d12](https://github.com/seepine/crco/commit/ea36d1235a9ecb7e148742cbf5a51c42c26491b6))
+* **deploy:** fix release order ([371eb3d](https://github.com/seepine/crco/commit/371eb3dd65f6cd255dad110e32c7c6e464c6e5c8))
+
 ### [2.3.2](https://github.com/seepine/crco/compare/v2.3.1...v2.3.2) (2022-12-13)
 
 
