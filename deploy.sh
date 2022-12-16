@@ -6,8 +6,8 @@ run(){
       exit 1
   fi
 }
+run npm run release
 run npm run build
 run npm publish
-run npm run release
 run git push
 run git push --tag
