@@ -94,7 +94,7 @@ export interface FormItem extends GlobalFormItem {
   /**
    * 是否禁用
    */
-  disabled?: boolean
+  disabled?: boolean | ((record: any) => boolean)
   /**
    * 帮助文案
    */
@@ -187,7 +187,7 @@ export interface FormItemExt {
   /**
    * 提示文字
    */
-  tooltip?: string
+  tooltip?: string | ((record: any) => string)
   /**
    * 若为select，则此属性生效
    * 若需要修改值，可直接return，或在done回调中使用

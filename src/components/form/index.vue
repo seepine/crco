@@ -74,8 +74,8 @@
                     >{{ column.name }}
                     <a-tooltip
                       style="max-width: 240px"
-                      v-if="column.tooltip"
-                      :content="column.tooltip"
+                      v-if="filterString(column.tooltip, form)"
+                      :content="filterString(column.tooltip, form)"
                     >
                       <icon-info-circle />
                     </a-tooltip>
@@ -112,8 +112,8 @@
                     >{{ column.name }}
                     <a-tooltip
                       style="max-width: 240px"
-                      v-if="column.tooltip"
-                      :content="column.tooltip"
+                      v-if="filterString(column.tooltip, form)"
+                      :content="filterString(column.tooltip, form)"
                     >
                       <icon-info-circle />
                     </a-tooltip>
@@ -150,7 +150,7 @@ import {
   Spin as ASpin
 } from '@arco-design/web-vue'
 import { ref, withDefaults } from 'vue'
-import { filterDisplay, filterDisabled, filterRules } from '../../util/filter'
+import { filterDisplay, filterDisabled, filterRules, filterString } from '../../util/filter'
 import ClFormItem from './item'
 import useElementResize from './element-resize'
 import { FormOption, FormType } from '../../types/form'

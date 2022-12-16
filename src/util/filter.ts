@@ -154,3 +154,16 @@ export const filterCellStyle = (column: any, sty?: { nowrap?: boolean }) => {
     ...column.cellStyle
   }
 }
+
+export const filterString = (
+  field: undefined | string | ((record: any) => string),
+  form: any
+): string | undefined => {
+  if (isString(field)) {
+    return field
+  }
+  if (isFunction(field)) {
+    return field(form)
+  }
+  return undefined
+}
