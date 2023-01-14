@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.4](https://github.com/seepine/crco/compare/v2.3.3...v2.3.4) (2023-01-14)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** 分组表单的标题样式优化，去除顶部间距，增加底部边框 ([f0e41d4](https://github.com/seepine/crco/commit/f0e41d4c83eda439757fbd6fd5f9fa13c45cc2d3)), closes [#13](https://github.com/seepine/crco/issues/13)
+* **form:** 分组表单的label多了一个2 ([c0e7b43](https://github.com/seepine/crco/commit/c0e7b43e9ca8dcad02b4ebe032801915c2d105d2)), closes [#11](https://github.com/seepine/crco/issues/11)
+* **form:** 修复分组表单tooltip无效问题 ([e6ae74f](https://github.com/seepine/crco/commit/e6ae74f5f19a974cfb3ff2674a0d5f41ad583171)), closes [#12](https://github.com/seepine/crco/issues/12)
+
 ### [2.3.3](https://github.com/seepine/crco/compare/v2.3.2...v2.3.3) (2022-12-16)
 
 
