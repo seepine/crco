@@ -34,7 +34,15 @@
                     :disabled="filterDisabled(column, form)"
                     :type="undefined"
                   >
-                    <template #label>{{ column.name }}</template>
+                    <template #label
+                      >{{ column.name
+                      }}<a-tooltip
+                        style="max-width: 240px"
+                        v-if="filterString(column.tooltip, form)"
+                        :content="filterString(column.tooltip, form)"
+                      >
+                        <icon-info-circle /> </a-tooltip
+                    ></template>
                     <slot :name="column.prop" :form="form">
                       <cl-form-item
                         :column="column"
