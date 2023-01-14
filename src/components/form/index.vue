@@ -12,7 +12,7 @@
         <template v-if="isGroup">
           <template v-for="group in myOption.groups" :key="group.title">
             <div style="padding-bottom: 10px">
-              <a-typography-title :heading="2" style="font-size: 16px">
+              <a-typography-title :heading="2" class="crco-form-group-title">
                 {{ group.title }}</a-typography-title
               >
             </div>
@@ -249,6 +249,12 @@ body[arco-theme='dark'] {
   }
   .full-width {
     width: 100%;
+  }
+  .crco-form-group-title {
+    font-size: 16px;
+    margin-top: 0;
+    border-bottom: 1px solid var(--color-neutral-3);
+    padding-bottom: 6px;
   }
 }
 </style>
