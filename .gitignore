@@ -26,4 +26,4 @@ pnpm-debug.log*
 .temp
 .cache
 
-yarn.lock
+package-lock.json

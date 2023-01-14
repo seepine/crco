@@ -20,12 +20,13 @@
     "LICENSE"
   ],
   "scripts": {
-    "pre": "npm i --registry=https://registry.npmmirror.com",
+    "pre": "yarn --registry=https://registry.npmmirror.com || echo Error: please 'npm i -g yarn' first",
     "doc": "vuepress dev docs",
     "doc:build": "vuepress build docs",
     "build": "vite build",
     "prepare": "husky install",
     "commit": "npx cz-customizable",
+    "cz": "npx cz-customizable",
     "release": "standard-version"
   },
   "devDependencies": {
