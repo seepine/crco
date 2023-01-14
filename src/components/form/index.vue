@@ -34,7 +34,7 @@
                     :disabled="filterDisabled(column, form)"
                     :type="undefined"
                   >
-                    <template #label> 2{{ column.name }} </template>
+                    <template #label>{{ column.name }}</template>
                     <slot :name="column.prop" :form="form">
                       <cl-form-item
                         :column="column"
