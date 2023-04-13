@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/seepine/crco/compare/v2.3.4...v2.4.0) (2023-04-13)
+
+
+### 🚀 Chore | 构建/工程依赖/工具
+
+* **git:** fix gitattributes ([8d55450](https://github.com/seepine/crco/commit/8d55450ea3df2092b7772e81bd46478c06fa3507))
+* **npm:** use yarn first ([d48bc39](https://github.com/seepine/crco/commit/d48bc39897288876d7b3f898c949c27d6bbccdd2))
+
+
+### ✨ Features | 新功能
+
+* **form:** 兼容arco form的tooltip ([80a041b](https://github.com/seepine/crco/commit/80a041b63bc76075440d9336856b81194cdd9054))
+
+
+### 📦‍ Build System | 打包构建
+
+* **deps:** upgrade arco to 2.45.0 ([c6fc0ca](https://github.com/seepine/crco/commit/c6fc0ca87ae8a59d814b2fd506f8e2098e7857c2))
+
 ### [2.3.4](https://github.com/seepine/crco/compare/v2.3.3...v2.3.4) (2023-01-14)
 
 
