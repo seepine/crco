@@ -30,7 +30,7 @@
     "release": "standard-version"
   },
   "devDependencies": {
-    "@arco-design/web-vue": "~2.39.0",
+    "@arco-design/web-vue": "~2.45.0",
     "@commitlint/cli": "~17.3.0",
     "@commitlint/config-conventional": "~17.3.0",
     "@types/element-resize-detector": "^1.1.3",
