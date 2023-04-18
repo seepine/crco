@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/seepine/crco/compare/v2.4.0...v2.4.1) (2023-04-18)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **select:** remove default value ([8f9b520](https://github.com/seepine/crco/commit/8f9b5200b105cf271ec52feb79a4dee2d1f36e23))
+
+
+### 📦‍ Build System | 打包构建
+
+* **npm:** upgrade yarn lock ([13edf07](https://github.com/seepine/crco/commit/13edf07300e088e8369e6d22e94c083df91b5c0b))
+* remove pnpm lock ([4a2c297](https://github.com/seepine/crco/commit/4a2c297457420d846c5875addda0e51d78cace58))
+
 ## [2.4.0](https://github.com/seepine/crco/compare/v2.3.4...v2.4.0) (2023-04-13)
 
 
