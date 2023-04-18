@@ -17,14 +17,14 @@
   dependencies:
     color "^3.1.3"
 
-"@arco-design/web-vue@~2.39.0":
-  version "2.39.2"
-  resolved "https://registry.npmmirror.com/@arco-design/web-vue/-/web-vue-2.39.2.tgz#3c494088b8cef4e7a6446323bb4fb36f2383a6a4"
-  integrity sha512-qsENvDxZhVj2WmeF+8/MJF+urq3mM+6PNwlgGnyQeoudkEyvGK74ogSSSEmdZoQug/5hP6YfjDotKnRlLWg1uA==
+"@arco-design/web-vue@~2.45.0":
+  version "2.45.1"
+  resolved "https://registry.yarnpkg.com/@arco-design/web-vue/-/web-vue-2.45.1.tgz#7661b37e65b0d13e5005f9728ff6eeebee8f652f"
+  integrity sha512-+p4wnj0X6UD8ehPaNhX96g3Sm8l9cgZgwsDseVJp1/JHIuG+JuhaIcvg0/3RTCrFl9GpU0j6Cve6J8v2LqpT+A==
   dependencies:
     "@arco-design/color" "^0.4.0"
     b-tween "^0.3.3"
-    b-validate "^1.3.1"
+    b-validate "^1.4.4"
     compute-scroll-into-view "^1.0.17"
     dayjs "^1.10.3"
     number-precision "^1.5.0"
@@ -1857,10 +1857,10 @@ b-tween@^0.3.3:
   resolved "https://registry.npmmirror.com/b-tween/-/b-tween-0.3.3.tgz#7a93ed199c98cd41a33ba4c711a0fa7e86db3fa2"
   integrity sha512-oEHegcRpA7fAuc9KC4nktucuZn2aS8htymCPcP3qkEGPqiBH+GfqtqoG2l7LxHngg6O0HFM7hOeOYExl1Oz4ZA==
 
-b-validate@^1.3.1:
-  version "1.4.4"
-  resolved "https://registry.npmmirror.com/b-validate/-/b-validate-1.4.4.tgz#084e8e1b1e2cdc5d9da72566b56d067bebae2dd7"
-  integrity sha512-E2tnSnxxKDyxP1G+TMTbVHA8XajfHHOJKeWm9YVRISSPtzTL7ZP/7tIYp01b+O83L5R/6i31+Su+vCOJBnQWFQ==
+b-validate@^1.4.4:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/b-validate/-/b-validate-1.4.6.tgz#950e2cf64e6e5ed74657f235cb81242ad341eb97"
+  integrity sha512-FLP1oaszKCOmDr1jv7yNAs7fTeEo6RFJhKre3jHbVi++jKZOZOMdhpDyTCh7jdndK7uoKRBznfdYnVh3VYdojg==
 
 balanced-match@^1.0.0:
   version "1.0.2"
