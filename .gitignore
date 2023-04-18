@@ -27,3 +27,4 @@ pnpm-debug.log*
 .cache
 
 package-lock.json
+pnpm-lock.yaml
