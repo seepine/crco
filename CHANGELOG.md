@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.1](https://github.com/seepine/crco/compare/v2.4.1...v2.5.1) (2023-04-22)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **types:** fix btn onClick type ([264a80e](https://github.com/seepine/crco/commit/264a80eb681f07d011336b7a010b1339a18103b9))
+
 ## [2.5.0](https://github.com/seepine/crco/compare/v2.4.1...v2.5.0) (2023-04-22)
 
 
