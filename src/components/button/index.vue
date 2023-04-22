@@ -9,10 +9,12 @@
     <template #icon v-if="$slots.icon">
       <slot name="icon"></slot>
     </template>
-    <template v-if="isCountdown">
-      {{ countdownTextComputed }}
-    </template>
-    <slot v-else></slot>
+    <template #default v-if="$slots.default"
+      ><template v-if="isCountdown">
+        {{ countdownTextComputed }}
+      </template>
+      <slot v-else></slot
+    ></template>
   </a-button>
 </template>
 <script setup lang="ts">
