@@ -149,7 +149,18 @@ export function runCallback(callback: any, ...data: any): Promise<any> {
     if (isUndefined(callback)) {
       REJ(Error('value is undefined'))
     } else if (isFunction(callback)) {
-      RES(callback(...data))
+      const func = callback(...data)
+      if (isPromise(func)) {
+        func
+          .then((res: any) => {
+            RES(res)
+          })
+          .catch((err: any) => {
+            REJ(err)
+          })
+      } else {
+        RES(func)
+      }
     } else if (isPromise(callback)) {
       callback(...data)
         .then((res: any) => {
