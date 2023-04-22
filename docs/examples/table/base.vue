@@ -11,6 +11,20 @@
 import { nextTick, ref } from 'vue'
 
 const option = {
+  exportBtn: {
+    onClick: (params: any, done: Function) => {
+      console.log(params)
+      // return new Promise<void>((RES, REJ) => {
+      //   console.log(params)
+      //   setTimeout(() => {
+      //     RES()
+      //   }, 2000)
+      // })
+      setTimeout(() => {
+        done()
+      }, 2000)
+    }
+  },
   columns: [
     {
       name: '姓名',

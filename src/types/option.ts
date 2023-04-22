@@ -17,6 +17,10 @@ export interface MenuProps {
    * 删除按钮配置
    */
   delBtn?: (Btn & { popConfirmContent?: string | ((form?: any) => string) }) | false
+  /**
+   * 导出按钮配置
+   */
+  exportBtn?: Btn
 }
 export interface PermissionProps {
   /**

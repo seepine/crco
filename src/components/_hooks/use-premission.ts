@@ -36,7 +36,8 @@ export default (myOption: Ref<TableOption | ListFormOption>) => {
       viewBtn: getPermission(myOption.value.viewBtn, all, permissionPrefix),
       addBtn: getPermission(myOption.value.addBtn, all, permissionPrefix),
       editBtn: getPermission(myOption.value.editBtn, all, permissionPrefix),
-      delBtn: getPermission(myOption.value.delBtn, all, permissionPrefix)
+      delBtn: getPermission(myOption.value.delBtn, all, permissionPrefix),
+      exportBtn: getPermission(myOption.value.exportBtn, all, permissionPrefix)
     }
   })
   return {

@@ -27,6 +27,21 @@
         <div class="crco-table-header-right md-row-column">
           <a-space>
             <slot name="headerRight" v-if="$slots['headerRight']"></slot>
+            <c-button
+              v-if="
+                myOption.exportBtn?.onClick &&
+                filterBtnDisplay('export', myOption, myPermissions, {})
+              "
+              type="outline"
+              @click="handleExport"
+              size="mini"
+              v-bind="myOption.exportBtn?.buttonProps"
+            >
+              <template #icon><icon-share-external /></template>
+              <template #default v-if="myOption.exportBtn?.text">{{
+                myOption.exportBtn?.text
+              }}</template>
+            </c-button>
             <a-button @click="() => load()" shape="circle">
               <template #icon>
                 <icon-refresh />
@@ -217,8 +232,13 @@ import {
   TableData,
   PaginationProps
 } from '@arco-design/web-vue'
-import { IconRefresh, IconArrowLeft, IconSearch } from '@arco-design/web-vue/es/icon'
-import { isFunction, isString, isUndefined, isObject } from '../../util/is'
+import {
+  IconRefresh,
+  IconArrowLeft,
+  IconSearch,
+  IconShareExternal
+} from '@arco-design/web-vue/es/icon'
+import { isFunction, isString, isUndefined, isObject, isPromise } from '../../util/is'
 import { filterBtnDisplay, filterDisplay, filterCellStyle } from '../../util/filter'
 import { deepClone } from '../../util/util'
 import FormatValueRender from '../_components/format-value-render/index.vue'
@@ -522,11 +542,36 @@ const sorterChange = (dataIndex: string, direction: string) => {
 }
 // 直接抛出a-table事件  end
 
+const handleExport = (done: Function) => {
+  if (!isFunction(myOption.value.exportBtn?.onClick)) {
+    return
+  }
+  const params = {
+    ...searchParams.value,
+    ...props.params,
+    ...myParams
+  }
+  const res = myOption.value.exportBtn?.onClick(params, done)
+  if (res && isPromise(res)) {
+    // @ts-ignore
+    res.then(() => {
+      done()
+    })
+  }
+}
+
 defineExpose({
   aTableRef,
   load,
   add: (data?: any) => {
     operation('add', isUndefined(data) ? {} : data)
+  },
+  getParams: () => {
+    return {
+      ...searchParams.value,
+      ...props.params,
+      ...myParams
+    }
   }
 })
 </script>

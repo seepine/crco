@@ -1,6 +1,12 @@
+import { ButtonProps } from '@arco-design/web-vue'
+
 export interface Callback<T> {
   (form?: any): T
   (form?: any): Promise<T>
+}
+export interface BtnOnClick {
+  (params: any, done?: Function): void
+  (params: any, done?: Function): Promise<void>
 }
 export interface Btn {
   /**
@@ -36,4 +42,14 @@ export interface Btn {
    * }
    */
   onBefore?: Callback<any>
+  /**
+   * 点击事件，部分按钮会触发
+   * @param params 搜索相关参数
+   * @returns Promise
+   */
+  onClick?: BtnOnClick
+  /**
+   * 按钮的属性
+   */
+  buttonProps?: ButtonProps
 }

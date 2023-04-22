@@ -23,6 +23,10 @@ export default (option: TableOption) => {
       text: '删除',
       permissionSuffix: 'del'
     },
+    exportBtn: {
+      text: '导出',
+      permissionSuffix: 'export'
+    },
     menuProps: {
       display: true,
       width: 120,
