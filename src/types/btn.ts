@@ -1,13 +1,17 @@
 import { ButtonProps } from '@arco-design/web-vue'
 
+export interface Done {
+  (): void
+}
+
 export interface Callback<T> {
   (form?: any): T
   (form?: any): Promise<T>
 }
-export interface BtnOnClick {
-  (params: any, done?: Function): void
-  (params: any, done?: Function): Promise<void>
-}
+export type BtnOnClick =
+  | ((params: any, done: Done) => void)
+  | ((params: any, done: Done) => Promise<void>)
+
 export interface Btn {
   /**
    * '提交',按钮文字
