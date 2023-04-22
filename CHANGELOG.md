@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/seepine/crco/compare/v2.4.1...v2.5.0) (2023-04-22)
+
+
+### ⚡️ improvement | 功能优化
+
+* **utils:** impr runCallback ([d1377de](https://github.com/seepine/crco/commit/d1377de3636025009e565877fe8d965f7974450b))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **button:** fix default slot ([a27f28a](https://github.com/seepine/crco/commit/a27f28abd9cf94dd45ce8c3bf7cd96c133994e30))
+
+
+### ✨ Features | 新功能
+
+* **table:** add export btn ([71df840](https://github.com/seepine/crco/commit/71df840f946a5e6edb7f61e140a189031f31ab79))
+
 ### [2.4.1](https://github.com/seepine/crco/compare/v2.4.0...v2.4.1) (2023-04-18)
 
 
