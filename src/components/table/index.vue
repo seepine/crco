@@ -21,12 +21,6 @@
               @click="operation('add', {})"
               >{{ myOption.addBtn?.text }}</a-button
             >
-            <slot name="headerLeft" v-if="$slots['headerLeft']"></slot>
-          </a-space>
-        </div>
-        <div class="crco-table-header-right md-row-column">
-          <a-space>
-            <slot name="headerRight" v-if="$slots['headerRight']"></slot>
             <c-button
               v-if="
                 myOption.exportBtn?.onClick &&
@@ -34,14 +28,18 @@
               "
               type="outline"
               @click="handleExport"
-              size="mini"
               v-bind="myOption.exportBtn?.buttonProps"
             >
-              <template #icon><icon-share-external /></template>
               <template #default v-if="myOption.exportBtn?.text">{{
                 myOption.exportBtn?.text
               }}</template>
             </c-button>
+            <slot name="headerLeft" v-if="$slots['headerLeft']"></slot>
+          </a-space>
+        </div>
+        <div class="crco-table-header-right md-row-column">
+          <a-space>
+            <slot name="headerRight" v-if="$slots['headerRight']"></slot>
             <a-button @click="() => load()" shape="circle">
               <template #icon>
                 <icon-refresh />
@@ -232,12 +230,7 @@ import {
   TableData,
   PaginationProps
 } from '@arco-design/web-vue'
-import {
-  IconRefresh,
-  IconArrowLeft,
-  IconSearch,
-  IconShareExternal
-} from '@arco-design/web-vue/es/icon'
+import { IconRefresh, IconArrowLeft, IconSearch } from '@arco-design/web-vue/es/icon'
 import { isFunction, isString, isUndefined, isObject, isPromise } from '../../util/is'
 import { filterBtnDisplay, filterDisplay, filterCellStyle } from '../../util/filter'
 import { deepClone } from '../../util/util'
