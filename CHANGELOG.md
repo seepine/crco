@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.2](https://github.com/seepine/crco/compare/v2.5.1...v2.5.2) (2023-04-25)
+
+
+### ⚡️ improvement | 功能优化
+
+* **table:** 优化导出按钮样式 ([16d4e94](https://github.com/seepine/crco/commit/16d4e94231bb59c2f8b32bfd09d210ddf093680d))
+
 ## [2.5.1](https://github.com/seepine/crco/compare/v2.4.1...v2.5.1) (2023-04-22)
 
 
