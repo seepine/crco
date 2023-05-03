@@ -459,11 +459,14 @@ const operation = (val: FormType, data: any) => {
   }
   if (isFunction(props.before)) {
     props.before(val, form.value, callback)
-  }
-  // @ts-ignore
-  else if (val && isObject(myOption[`${val}Btn`]) && isFunction(myOption[`${val}Btn`].onBefore)) {
+  } else if (
+    val &&
+    isObject(myOption.value[`${val}Btn`]) &&
     // @ts-ignore
-    runDone(myOption[`${val}Btn`].onBefore, form.value, callback).then((res) => {
+    isFunction(myOption.value[`${val}Btn`].onBefore)
+  ) {
+    // @ts-ignore
+    runDone(myOption.value[`${val}Btn`].onBefore, form.value, callback).then((res) => {
       callback(res)
     })
   } else {
