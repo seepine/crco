@@ -162,6 +162,8 @@ export default defineComponent({
       type.value === 'year' ||
       type.value === 'daterange' ||
       type.value === 'dateRange' ||
+      type.value === 'timerange' ||
+      type.value === 'timeRange' ||
       type.value === 'quarter'
     )
       return () => (

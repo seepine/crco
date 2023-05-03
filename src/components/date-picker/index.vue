@@ -29,9 +29,12 @@
     @change="handleChange"
   ></a-year-picker>
   <a-range-picker
-    v-if="type === 'daterange' || type === 'dateRange'"
+    v-if="
+      type === 'daterange' || type === 'dateRange' || type === 'timerange' || type === 'timeRange'
+    "
     v-bind="option"
     v-model="value"
+    :show-time="type === 'timerange' || type === 'timeRange'"
     :class="customClass"
     @change="handleChange"
   ></a-range-picker>
