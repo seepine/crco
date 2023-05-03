@@ -9,5 +9,4 @@ run(){
 run npm run release
 run npm run build
 run npm publish
-run git push
-run git push --tag
+run git push --follow-tags
