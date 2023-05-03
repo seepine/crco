@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.7.2](https://github.com/seepine/crco/compare/v2.7.1...v2.7.2) (2023-05-03)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** fix type of timerange ([28cadfe](https://github.com/seepine/crco/commit/28cadfebce6ca84290273884adde983d4300a99c))
+
 ### [2.7.1](https://github.com/seepine/crco/compare/v2.7.0...v2.7.1) (2023-05-03)
 
 
