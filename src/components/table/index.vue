@@ -231,9 +231,9 @@ import {
   PaginationProps
 } from '@arco-design/web-vue'
 import { IconRefresh, IconArrowLeft, IconSearch } from '@arco-design/web-vue/es/icon'
-import { isFunction, isString, isUndefined, isObject, isPromise } from '../../util/is'
+import { isFunction, isString, isUndefined, isObject } from '../../util/is'
 import { filterBtnDisplay, filterDisplay, filterCellStyle } from '../../util/filter'
-import { deepClone } from '../../util/util'
+import { deepClone, runDone } from '../../util/util'
 import FormatValueRender from '../_components/format-value-render/index.vue'
 import CrcoDescriptions from '../descriptions/index.vue'
 import CrcoForm from '../form/index.vue'
@@ -445,8 +445,8 @@ const operation = (val: FormType, data: any) => {
   form.value = {
     ...data
   }
-  if (isFunction(props.before)) {
-    props.before(val, form.value, (callbackData: any) => {
+  const callback = (callbackData: any) => {
+    if (callbackData !== false) {
       // 有回传值，替换上去
       if (!isUndefined(callbackData)) {
         form.value = {
@@ -455,6 +455,16 @@ const operation = (val: FormType, data: any) => {
         }
       }
       type.value = val
+    }
+  }
+  if (isFunction(props.before)) {
+    props.before(val, form.value, callback)
+  }
+  // @ts-ignore
+  else if (val && isObject(myOption[`${val}Btn`]) && isFunction(myOption[`${val}Btn`].onBefore)) {
+    // @ts-ignore
+    runDone(myOption[`${val}Btn`].onBefore, form.value, callback).then((res) => {
+      callback(res)
     })
   } else {
     type.value = val
@@ -544,13 +554,16 @@ const handleExport = (done: Function) => {
     ...props.params,
     ...myParams
   }
-  const res = myOption.value.exportBtn?.onClick(params, done)
-  if (res && isPromise(res)) {
-    // @ts-ignore
-    res.then(() => {
-      done()
-    })
-  }
+  runDone(myOption.value.exportBtn?.onClick, params, done).then(() => {
+    done()
+  })
+  // const res = myOption.value.exportBtn?.onClick(params, done)
+  // if (res && isPromise(res)) {
+  //   // @ts-ignore
+  //   res.then(() => {
+  //     done()
+  //   })
+  // }
 }
 
 defineExpose({

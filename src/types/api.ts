@@ -1,5 +1,6 @@
 import { Method } from 'axios'
 import { PageCallback, PageRes } from './page'
+import { Callback } from '.'
 
 export interface GlobalApiConfig {
   /**
@@ -148,6 +149,27 @@ export interface ApiConfig {
    * 非GET接口，当body为null时，是否自动填充为{}，默认true
    */
   autoEmptyBody?: boolean
-  onBefore?: Function
-  onAfter?: Function
+  /**
+   * 获得数据以后回调，一般用于前端修改后端返回数据用
+   *
+   * addAfter:(data: {data:any,response:any}, done: (data:any)=>void)=>{
+   *    done({
+   *      ...data,
+   *      newName:'hello'
+   *    }})
+   * }
+   *
+   * addAfter:(data: any)=>{
+   *    return new Promise((RES)=>{
+   *       RES({
+   *          ...data,
+   *          newName:'hello'
+   *       }})
+   *    })
+   * }
+   *
+   */
+  addAfter?: Callback<{ data: any; response: any }, any>
+  editAfter?: Callback<{ data: any; response: any }, any>
+  delAfter?: Callback<{ data: any; response: any }, any>
 }

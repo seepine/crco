@@ -2,7 +2,7 @@ import { computed, Ref } from 'vue'
 import { getApiConfig, request } from '../../util/http'
 import { TableOption } from '../../types/table'
 import { isFunction, isObject, isString, isUndefined } from '../../util/is'
-import { copyPropertiesNotEmpty } from '../../util/util'
+import { copyPropertiesNotEmpty, runDone } from '../../util/util'
 import { PageCallback } from '../../types/page'
 import { ApiConfig } from '../../types/api'
 import { ListFormOption } from '../../types/list-form'
@@ -77,8 +77,25 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
         params: data,
         autoEmptyBody: api.value.autoEmptyBody
       })
-        .then(() => {
-          done()
+        .then((res) => {
+          if (isFunction(api.value?.addAfter)) {
+            runDone(
+              api.value?.addAfter,
+              {
+                data,
+                response: res
+              },
+              done
+            )
+              .then(() => {
+                done()
+              })
+              .catch(() => {
+                done(false)
+              })
+          } else {
+            done(res)
+          }
         })
         .catch((err) => {
           done(err)
@@ -96,8 +113,25 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
         params: data,
         autoEmptyBody: api.value.autoEmptyBody
       })
-        .then(() => {
-          done()
+        .then((res) => {
+          if (isFunction(api.value?.editAfter)) {
+            runDone(
+              api.value?.editAfter,
+              {
+                data,
+                response: res
+              },
+              done
+            )
+              .then(() => {
+                done()
+              })
+              .catch(() => {
+                done(false)
+              })
+          } else {
+            done(res)
+          }
         })
         .catch((err) => {
           done(err)
@@ -118,8 +152,25 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
         params: api.value.delPathVariable ? undefined : data,
         autoEmptyBody: api.value.autoEmptyBody
       })
-        .then(() => {
-          done()
+        .then((res) => {
+          if (isFunction(api.value?.delAfter)) {
+            runDone(
+              api.value?.delAfter,
+              {
+                data,
+                response: res
+              },
+              done
+            )
+              .then(() => {
+                done()
+              })
+              .catch(() => {
+                done(false)
+              })
+          } else {
+            done(res)
+          }
         })
         .catch((err) => {
           done(err)

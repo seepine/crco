@@ -174,3 +174,52 @@ export function runCallback(callback: any, ...data: any): Promise<any> {
     }
   })
 }
+
+/**
+ *
+ * callback: (a,b,done)=>{
+ *    // ...
+ *    done()
+ * }
+ *
+ * callback: (a,b)=>{
+ *    return new Promise((RES)=>{
+ *       RES()
+ *    })
+ * }
+ *
+ * 提供方法执行异步
+ * @param callback 可能是基础类型、函数、promise等
+ * @param data 数据
+ * @returns primise
+ */
+export function runDone(callback: any, ...data: any): Promise<any> {
+  return new Promise((RES, REJ) => {
+    if (isUndefined(callback)) {
+      REJ(Error('value is undefined'))
+    } else if (isFunction(callback)) {
+      const func = callback(...data)
+      if (isPromise(func)) {
+        func
+          .then((res: any) => {
+            RES(res)
+          })
+          .catch((err: any) => {
+            REJ(err)
+          })
+      } else if (!isUndefined(func)) {
+        RES(func)
+      }
+    } else if (isPromise(callback)) {
+      callback(...data)
+        .then((res: any) => {
+          RES(res)
+        })
+        .catch((err: any) => {
+          REJ(err)
+        })
+    } else {
+      RES(callback)
+    }
+  })
+}
