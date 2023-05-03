@@ -35,6 +35,9 @@
     v-bind="option"
     v-model="value"
     :show-time="type === 'timerange' || type === 'timeRange'"
+    :placeholder="
+      isPlaceholderArray ? option.placeholder : [option.placeholder, option.placeholder]
+    "
     :class="customClass"
     @change="handleChange"
   ></a-range-picker>
@@ -57,6 +60,7 @@ import {
   RangePicker as ARangePicker
 } from '@arco-design/web-vue'
 import { withDefaults, computed } from 'vue'
+import { isArray } from '../../util/is'
 
 const props = withDefaults(
   defineProps<{
@@ -75,6 +79,10 @@ const emit = defineEmits<{
 
 const type = computed(() => {
   return props.option.type
+})
+
+const isPlaceholderArray = computed(() => {
+  return isArray(props.option.placeholder)
 })
 
 const value = computed({
