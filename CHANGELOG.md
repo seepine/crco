@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/seepine/crco/compare/v2.6.0...v2.7.0) (2023-05-03)
+
+
+### ⚡️ improvement | 功能优化
+
+* **type:** fix callback type ([00250be](https://github.com/seepine/crco/commit/00250be6bf89b66806ecc247820b9c75e764d5a2))
+
+
+### ✨ Features | 新功能
+
+* **table:** btn add onBefore and api add after ([afe2f5e](https://github.com/seepine/crco/commit/afe2f5ee9c882db21e75189d1ade59d23b8e2739))
+
 ## [2.6.0](https://github.com/seepine/crco/compare/v2.5.2...v2.6.0) (2023-05-03)
 
 
