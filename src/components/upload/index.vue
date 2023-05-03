@@ -27,14 +27,26 @@
     v-if="imgList.length > 0 && option.limit === 1"
     :src="imgList[0]"
     v-model:visible="preVisible"
-  />
+  >
+    <template #actions>
+      <image-preview-action name="下载" @click="download(imgList[0])"
+        ><icon-download
+      /></image-preview-action>
+    </template>
+  </image-preview>
   <image-preview-group
     v-if="props.option.limit !== 1"
     v-model:visible="preVisible"
     v-model:current="preCurrent"
     infinite
     :srcList="imgList"
-  />
+  >
+    <template #actions="{ url }">
+      <image-preview-action name="下载" @click="download(url)"
+        ><icon-download
+      /></image-preview-action>
+    </template>
+  </image-preview-group>
   <modal
     v-model:visible="modalVisible"
     :title="clickFile.name"
@@ -60,11 +72,12 @@ import {
   Notification,
   Upload,
   ImagePreview,
-  ImagePreviewGroup,
   Modal,
-  Spin
+  Spin,
+  ImagePreviewAction
 } from '@arco-design/web-vue'
 import { withDefaults, ref, computed, nextTick } from 'vue'
+import ImagePreviewGroup from './preview-group.vue'
 import { deepClone } from '../../util/util'
 import { customRequest } from '../../util/data-handle'
 import {
@@ -337,6 +350,44 @@ const onBeforeUpload = (e: any) => {
     return props.option.onBeforeUpload(e)
   }
   return Promise.resolve(true)
+}
+
+const downloadIamge = (imgsrc: string, name: string) => {
+  // // 下载图片地址和图片名
+  // const image = new Image()
+  // // 解决跨域 Canvas 污染问题
+  // image.setAttribute('crossOrigin', 'anonymous')
+  // image.onload = () => {
+  //   const canvas = document.createElement('canvas')
+  //   canvas.width = image.width
+  //   canvas.height = image.height
+  //   const context = canvas.getContext('2d')
+  //   if (context) {
+  //     context.drawImage(image, 0, 0, image.width, image.height)
+  //     const isJpg = /\.(jpg|jpeg|JPG)$/.test(imgsrc)
+  //     const url = canvas.toDataURL(isJpg ? 'image/jpg' : 'image/png') // 得到图片的base64编码数据
+  //     const a = document.createElement('a') // 生成一个a元素
+  //     const event = new MouseEvent('click') // 创建一个单击事件
+  //     a.download = name // 设置图片名称
+  //     a.href = url // 将生成的URL设置为a.href属性
+  //     a.dispatchEvent(event) // 触发a的单击事件
+  //   }
+  // }
+  // image.src = imgsrc
+  const a = document.createElement('a') // 生成一个a元素
+  const event = new MouseEvent('click') // 创建一个单击事件
+  a.download = name // 设置图片名称
+  a.href = imgsrc // 将生成的URL设置为a.href属性
+  a.dispatchEvent(event) // 触发a的单击事件
+}
+
+const download = (url: string) => {
+  let name = 'image'
+  if (isArray(fileList.value)) {
+    const find = fileList.value.find((item) => item === url || item.url === url)
+    name = find.name || find.filename || name
+  }
+  downloadIamge(url, name)
 }
 </script>
 <style scoped lang="scss">
