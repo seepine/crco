@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/seepine/crco/compare/v2.5.2...v2.6.0) (2023-05-03)
+
+
+### ✨ Features | 新功能
+
+* **upload:** add preview-group ([3e2a2e7](https://github.com/seepine/crco/commit/3e2a2e74ad4a7e8f80402e40e670d4f6c1c98076))
+* **upload:** image preview add download action ([f552f22](https://github.com/seepine/crco/commit/f552f222f13c50f163ead0f42f8abc06cdb74db7))
+
 ### [2.5.2](https://github.com/seepine/crco/compare/v2.5.1...v2.5.2) (2023-04-25)
 
 
