@@ -50,7 +50,7 @@ import CrcoButton from '../button/index.vue'
 import useTransitionEvent from './use-transition-event'
 import { Done } from '../../types/index'
 import { setStore, getStore } from '../../util/storage'
-import { isNotBlank } from '../../util/is'
+import { isUndefined } from '../../util/is'
 
 const transitionEvent = useTransitionEvent()
 const props = defineProps<{
@@ -114,7 +114,7 @@ const handleSearch = (done: Done) => {
         for (const i in res.form) {
           // eslint-disable-next-line no-prototype-builtins
           if (res.form.hasOwnProperty(i)) {
-            if (isNotBlank(res.form[i])) {
+            if (!isUndefined(res.form[i]) && res.form[i] !== '') {
               copyForm[i] = res.form[i]
             }
           }
