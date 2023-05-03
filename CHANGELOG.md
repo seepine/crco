@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.7.1](https://github.com/seepine/crco/compare/v2.7.0...v2.7.1) (2023-05-03)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix btn onBefore handle ([67c2848](https://github.com/seepine/crco/commit/67c2848ac59a630c4b60a05f28c2000991e7d7f4))
+
 ## [2.7.0](https://github.com/seepine/crco/compare/v2.6.0...v2.7.0) (2023-05-03)
 
 
