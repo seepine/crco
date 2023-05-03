@@ -1,13 +1,8 @@
 import { ButtonProps } from '@arco-design/web-vue'
+import { Callback } from '.'
 
-export interface Done {
-  (): void
-}
+export type Done = () => void
 
-export interface Callback<T> {
-  (form?: any): T
-  (form?: any): Promise<T>
-}
 export type BtnOnClick =
   | ((params: any, done: Done) => void)
   | ((params: any, done: Done) => Promise<void>)
@@ -34,7 +29,7 @@ export interface Btn {
    * onBefore: (form)=>{
    *   return {
    *     ...form,
-   *     name: 'new'
+   *     name: 'newName'
    *   }
    * }
    * 也可通过Promise异步返回或控制不继续执行
@@ -45,7 +40,7 @@ export interface Btn {
    *   })
    * }
    */
-  onBefore?: Callback<any>
+  onBefore?: Callback<any, any>
   /**
    * 点击事件，部分按钮会触发
    * @param params 搜索相关参数

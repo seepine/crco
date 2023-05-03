@@ -7,6 +7,10 @@ export interface Done {
   (close?: boolean): void
 }
 
+export type DoneRes<T> = (modifyForm?: T) => void
+
+export type Callback<T, R> = ((form: T, done: DoneRes<R>) => void) | ((form: any) => Promise<R>)
+
 export type RequestMethod = Method | (GlobalApiConfig & { dicMethod?: Method }) | 'RESTFul'
 
 export interface CrcoOptions {
