@@ -47,16 +47,26 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
   }
   const requestPage = (params: any, done: PageCallback) => {
     if (api.value) {
+      const url = api.value.base + api.value.page
+      const method = api.value.pageMethod
       request({
         type: 'page',
-        method: api.value.pageMethod,
-        url: api.value.base + api.value.page,
+        method,
+        url,
         params,
         autoEmptyBody: api.value.autoEmptyBody
       })
         .then((res: any) => {
           if (isFunction(api.value?.pageAfter)) {
-            api.value?.pageAfter(res, done)
+            runDone(api.value?.pageAfter, { method, url, data: params, response: res }, done)
+              .then(() => {
+                done()
+              })
+              .catch(() => {
+                done()
+              })
+          } else if (isFunction(api.value?.pageAfterOld)) {
+            api.value?.pageAfterOld(res, done)
           } else {
             done(res)
           }
@@ -71,9 +81,11 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
 
   const requestAdd = (data: any, done: Function) => {
     if (api.value) {
+      const url = api.value.base + api.value.add
+      const method = api.value.addMethod
       request({
-        method: api.value.addMethod,
-        url: api.value.base + api.value.add,
+        method,
+        url,
         params: data,
         autoEmptyBody: api.value.autoEmptyBody
       })
@@ -82,6 +94,8 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
             runDone(
               api.value?.addAfter,
               {
+                method,
+                url,
                 data,
                 response: res
               },
@@ -107,22 +121,17 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
 
   const requestEdit = (data: any, done: Function) => {
     if (api.value) {
+      const url = api.value.base + api.value.edit
+      const method = api.value.editMethod
       request({
-        method: api.value.editMethod,
-        url: api.value.base + api.value.edit,
+        method,
+        url,
         params: data,
         autoEmptyBody: api.value.autoEmptyBody
       })
         .then((res) => {
           if (isFunction(api.value?.editAfter)) {
-            runDone(
-              api.value?.editAfter,
-              {
-                data,
-                response: res
-              },
-              done
-            )
+            runDone(api.value?.editAfter, { method, url, data, response: res }, done)
               .then(() => {
                 done()
               })
@@ -143,25 +152,20 @@ export default (emit: any, option: Ref<TableOption | ListFormOption>) => {
 
   const requestDel = (data: any, done: Function) => {
     if (api.value) {
+      const url =
+        api.value.base +
+        api.value.del +
+        (api.value.delPathVariable ? `/${data[option.value.rowKey!]}` : '')
+      const method = api.value.delMethod
       request({
-        method: api.value.delMethod,
-        url:
-          api.value.base +
-          api.value.del +
-          (api.value.delPathVariable ? `/${data[option.value.rowKey!]}` : ''),
+        method,
+        url,
         params: api.value.delPathVariable ? undefined : data,
         autoEmptyBody: api.value.autoEmptyBody
       })
         .then((res) => {
           if (isFunction(api.value?.delAfter)) {
-            runDone(
-              api.value?.delAfter,
-              {
-                data,
-                response: res
-              },
-              done
-            )
+            runDone(api.value?.delAfter, { method, url, data, response: res }, done)
               .then(() => {
                 done()
               })

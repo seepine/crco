@@ -54,7 +54,16 @@ export interface GlobalApiConfig {
    */
   autoEmptyBody?: boolean
 }
-
+export type AfterData = {
+  /** 请求url */
+  url: string
+  /** 请求方式 */
+  method?: string
+  /** 请求参数 */
+  data: any
+  /** 相应值 */
+  response: any
+}
 export interface ApiConfig {
   /**
    * 基础接口地址，例如/sys/user
@@ -114,7 +123,8 @@ export interface ApiConfig {
    * }
    *
    */
-  pageAfter?: (data: PageRes, done: PageCallback) => void
+  pageAfterOld?: (data: PageRes, done: PageCallback) => void
+
   /**
    * 例如/add,默认空，即拼接后地址为 POST:/sys/user
    */
@@ -169,7 +179,8 @@ export interface ApiConfig {
    * }
    *
    */
-  addAfter?: Callback<{ data: any; response: any }, any>
-  editAfter?: Callback<{ data: any; response: any }, any>
-  delAfter?: Callback<{ data: any; response: any }, any>
+  pageAfter?: Callback<AfterData, any>
+  addAfter?: Callback<AfterData, any>
+  editAfter?: Callback<AfterData, any>
+  delAfter?: Callback<AfterData, any>
 }
