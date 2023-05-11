@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.7.4](https://github.com/seepine/crco/compare/v2.7.3...v2.7.4) (2023-05-11)
+
+
+### ⚡️ improvement | 功能优化
+
+* **table:** fix table crud request after event ([63ace18](https://github.com/seepine/crco/commit/63ace1822ac65f4def81ac51451acf05e68ab436))
+
 ### [2.7.3](https://github.com/seepine/crco/compare/v2.7.2...v2.7.3) (2023-05-03)
 
 
