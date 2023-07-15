@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/seepine/crco/compare/v2.7.4...v2.8.0) (2023-07-15)
+
+
+### ✨ Features | 新功能
+
+* **components:** add column types support ([4c37ebd](https://github.com/seepine/crco/commit/4c37ebd7708054afba32d9231baddc8603911d3a))
+
+
+### 📦‍ Build System | 打包构建
+
+* **deps:** upgrade arco to 2.48.1 ([0f01d41](https://github.com/seepine/crco/commit/0f01d416fc935a383907b76c801dd15d91504abc))
+
 ### [2.7.4](https://github.com/seepine/crco/compare/v2.7.3...v2.7.4) (2023-05-11)
 
 
