@@ -1,5 +1,29 @@
 import { FieldRule } from '@arco-design/web-vue'
+import { VNode } from 'vue'
 import { ResponsiveValue } from './index'
+import { InputType } from './components/input'
+import { InputNumberType } from './components/input-number'
+import { TextareaType } from './components/textarea'
+import { SelectType } from './components/select'
+import { RadioType } from './components/radio'
+import { SwitchType } from './components/switch'
+import { SliderType } from './components/slider'
+import { AutoCompleteType } from './components/auto-complete'
+import { UploadType } from './components/upload'
+import {
+  DatePickerType,
+  MonthPickerType,
+  QuarterPickerType,
+  WeekPickerType,
+  YearPickerType,
+  RangePickerType
+} from './components/date-picker'
+import { CheckboxType } from './components/checkbox'
+import { InputTagType } from './components/input-tag'
+import { RateType } from './components/rate'
+import { MentionType } from './components/mention'
+import { TimePickerType } from './components/time-picker'
+import { TreeSelectType } from './components/tree-select'
 
 export type DicItem = {
   /**
@@ -36,35 +60,6 @@ export interface OnChange {
  */
 export const FormTypes = ['add', 'edit', 'del', 'search']
 export type FormType = typeof FormTypes
-export type InputType = 'input' | 'text' | 'textarea' | 'password' | 'number' | 'tag'
-export type MarkdownType = 'markdown' | 'md'
-export type DatePickerType = 'date' | 'datetime'
-export type RangPickerType = 'daterange' | 'dateRange'
-export type OtherDatePickerType = 'week' | 'month' | 'year' | 'quarter'
-export type TimePickerType = 'time' | 'timerange' | 'timeRange'
-export type TimeSelectType = 'timeselect' | 'timeSelect'
-/**
- * 列类型，输入框、数字输入框、选择器等
- */
-export type ComponentType =
-  | 'input'
-  | 'text'
-  | 'textarea'
-  | 'select'
-  | 'radio'
-  | 'radiobutton'
-  | 'radioButton'
-  | 'switch'
-  | 'number'
-  | 'cascader'
-  | 'slider'
-  | 'upload'
-  | 'file'
-  | 'checkbox'
-  | 'checkboxbutton'
-  | 'checkboxButton'
-  | 'tree'
-  | 'treeSelect'
 
 /**
  * 来源于a-form-item，既提供给column，也提供给formOption
@@ -212,10 +207,42 @@ export interface ComponentColumn extends FormItem, FormItemExt {
   // 接收额外任意未收录字段
   [propName: string]: any
 }
+
+export type ComponentType =
+  | {
+      /**
+       * 自定义类型
+       * @param form 表单值，可双向绑定
+       * @returns VNode
+       */
+      type: (form: any) => VNode
+    }
+  | { type?: 'markdown' | 'md' }
+  | InputType
+  | InputNumberType
+  | TextareaType
+  | SelectType
+  | RadioType
+  | SwitchType
+  | SliderType
+  | AutoCompleteType
+  | UploadType
+  | DatePickerType
+  | MonthPickerType
+  | QuarterPickerType
+  | WeekPickerType
+  | YearPickerType
+  | RangePickerType
+  | CheckboxType
+  | InputTagType
+  | MentionType
+  | RateType
+  | TimePickerType
+  | TreeSelectType
 /**
  * 表单column
  */
-export interface FormColumn extends ComponentColumn {
+export type FormColumn = ComponentColumn & {
   /**
    * 属性，需要保证唯一
    */
@@ -228,14 +255,4 @@ export interface FormColumn extends ComponentColumn {
    * 默认input，列类型
    * 支持自定义 type : (form)=>h('input')
    */
-  type?:
-    | InputType
-    | ComponentType
-    | DatePickerType
-    | OtherDatePickerType
-    | RangPickerType
-    | TimePickerType
-    | TimeSelectType
-    | MarkdownType
-    | Function
-}
+} & ComponentType

@@ -21,6 +21,13 @@
     :class="customClass"
     @change="handleChange"
   ></a-month-picker>
+  <a-quarter-picker
+    v-if="type === 'quarter'"
+    v-bind="option"
+    v-model="value"
+    :class="customClass"
+    @change="handleChange"
+  ></a-quarter-picker>
   <a-year-picker
     v-if="type === 'year'"
     v-bind="option"
@@ -29,25 +36,12 @@
     @change="handleChange"
   ></a-year-picker>
   <a-range-picker
-    v-if="
-      type === 'daterange' || type === 'dateRange' || type === 'timerange' || type === 'timeRange'
-    "
+    v-if="type === 'range'"
     v-bind="option"
     v-model="value"
-    :show-time="type === 'timerange' || type === 'timeRange'"
-    :placeholder="
-      isPlaceholderArray ? option.placeholder : [option.placeholder, option.placeholder]
-    "
     :class="customClass"
     @change="handleChange"
   ></a-range-picker>
-  <a-quarter-picker
-    v-if="type === 'quarter'"
-    v-bind="option"
-    v-model="value"
-    :class="customClass"
-    @change="handleChange"
-  ></a-quarter-picker>
 </template>
 
 <script setup lang="ts">
@@ -60,7 +54,6 @@ import {
   RangePicker as ARangePicker
 } from '@arco-design/web-vue'
 import { withDefaults, computed } from 'vue'
-import { isArray } from '../../util/is'
 
 const props = withDefaults(
   defineProps<{
@@ -81,14 +74,11 @@ const type = computed(() => {
   return props.option.type
 })
 
-const isPlaceholderArray = computed(() => {
-  return isArray(props.option.placeholder)
-})
-
 const value = computed({
   get: () => props.modelValue,
   set: (val: any) => emit('update:modelValue', val)
 })
+
 const handleChange = (val: any) => {
   emit('change', val)
 }

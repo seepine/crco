@@ -1,25 +1,23 @@
 <template>
-  <a-radio-group
+  <a-checkbox-group
     v-model="myValue"
-    :type="option.radioType === 'radio' ? 'radio' : 'button'"
-    :disabled="myOption.disabled"
-    :size="myOption.size"
     :direction="myOption.direction"
+    :indeterminate="myOption.indeterminate"
   >
-    <a-radio :value="item[fieldNames.value]" v-for="(item, index) in dicData" :key="index">{{
+    <a-checkbox :value="item[fieldNames.value]" v-for="(item, index) in dicData" :key="index">{{
       item[fieldNames.label]
-    }}</a-radio>
-  </a-radio-group>
+    }}</a-checkbox>
+  </a-checkbox-group>
 </template>
 
 <script setup lang="ts">
-import { RadioGroup as ARadioGroup, Radio as ARadio } from '@arco-design/web-vue'
+import { CheckboxGroup as ACheckboxGroup, Checkbox as ACheckbox } from '@arco-design/web-vue'
 import useSelect from '../_hooks/use-select'
-import { RadioType } from '../../types/components/radio'
+import { CheckboxType } from '../../types/components/checkbox'
 
 const props = defineProps<{
-  option: RadioType & { [propName: string]: any }
-  modelValue?: string | number | boolean
+  option: CheckboxType & { [propName: string]: any }
+  modelValue?: (string | number | boolean)[]
 }>()
 
 const emit = defineEmits<{

@@ -77,6 +77,10 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
           ) {
             form.value[myOption.value.columns[i].prop] = myOption.value.columns[i].value
           }
+          // 将所有组件fallbackOption默认为false
+          if (isUndefined(myOption.value.columns[i].fallbackOption)) {
+            myOption.value.columns[i].fallbackOption = false
+          }
           // 转化type,如将addRules覆盖给rules，或multiple:true被searchMultiple:false覆盖
           if (!isUndefined(type)) {
             Object.keys(myOption.value.columns[i]).forEach((key: any) => {

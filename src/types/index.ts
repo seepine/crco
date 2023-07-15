@@ -3,6 +3,7 @@ import { GlobalApiConfig } from './api'
 import { ListProps } from './list'
 import { TableProps } from './table'
 
+export type { FormOption } from './form'
 export interface Done {
   (close?: boolean): void
 }
@@ -52,10 +53,6 @@ export interface Responsive {
 export type ResponsiveValue = number | string | Responsive
 
 export interface TableOption {
-  tableProps?: TableProps
-}
-
-export interface FormOption {
   tableProps?: TableProps
 }
 

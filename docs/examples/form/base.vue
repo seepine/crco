@@ -66,6 +66,22 @@ const option = {
       type: 'tag'
     },
     {
+      name: '特长2',
+      prop: 'specialty2',
+      value: [0, 2],
+      dicData: [
+        { value: 0, label: '唱歌' },
+        { value: 1, label: '跳舞' },
+        { value: 2, label: '打篮球' }
+      ],
+      type: 'checkbox'
+    },
+    {
+      name: '进度',
+      prop: 'progress',
+      type: 'slider'
+    },
+    {
       name: '介绍',
       span: 24,
       prop: 'description',

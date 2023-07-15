@@ -1,6 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { h, computed, defineComponent, PropType } from 'vue'
-import { Switch as ASwitch } from '@arco-design/web-vue'
+import {
+  Switch as ASwitch,
+  Slider as ASlider,
+  Mention as AMention,
+  Rate as ARate,
+  TimePicker as ATimePicker
+} from '@arco-design/web-vue'
 import CInput from '../input/index.vue'
 import CRadio from '../radio/index.vue'
 import CSelect from '../select/index.vue'
@@ -9,19 +15,25 @@ import CDatePicker from '../date-picker/index.vue'
 import CMarkdown from '../markdown/index.vue'
 import { isString, isUndefined } from '../../util/is'
 import RenderFunction from '../_components/render'
-import { FormColumn } from '../../types/column'
+import { ComponentType, FormColumn } from '../../types/column'
 import { deepClone, runCallback } from '../../util/util'
 import CTreeSelect from '../tree-select/index.vue'
+import CCheckbox from '../checkbox/index.vue'
 
 export default defineComponent({
   components: {
     ASwitch,
+    AMention,
+    ASlider,
+    ARate,
+    ATimePicker,
     CInput,
     CRadio,
     CSelect,
     CUpload,
     CDatePicker,
     CMarkdown,
+    CCheckbox,
     RenderFunction
   },
   props: {
@@ -37,7 +49,8 @@ export default defineComponent({
   },
   emits: ['change'],
   setup(props, { emit }) {
-    const type = computed(() => props.column.type)
+    // @ts-ignore
+    const type = computed<ComponentType>(() => props.column.type)
     const prop = computed<string>(() => props.column.prop)
     const form = computed<any>(() => props.value)
     const valueChangeOnly = (val: any) => {
@@ -61,7 +74,7 @@ export default defineComponent({
     const onUpdateForm = (val: any) => {
       emit('change', val)
     }
-    const mergeAttrs = computed(() => {
+    const mergeAttrs = computed<any>(() => {
       return {
         ...props.column,
         class: 'full-width'
@@ -101,6 +114,16 @@ export default defineComponent({
           default-value={form.value[prop.value]}
         />
       )
+    if (type.value === 'checkbox')
+      return () => (
+        // @ts-ignore
+        <CCheckbox
+          option={props.column}
+          modelValue={form.value[prop.value]}
+          onUpdate:modelValue={valueChange}
+          default-value={form.value[prop.value]}
+        />
+      )
 
     if (type.value === 'select')
       return () => (
@@ -114,7 +137,7 @@ export default defineComponent({
           onUpdateForm={onUpdateForm}
         />
       )
-    if (type.value === 'tree' || type.value === 'treeSelect')
+    if (type.value === 'tree')
       return () => (
         // @ts-ignore
         <CTreeSelect
@@ -153,18 +176,52 @@ export default defineComponent({
           onUpdate:modelValue={valueChange}
         ></CMarkdown>
       )
-
+    if (type.value === 'slider') {
+      return () => (
+        <ASlider
+          {...mergeAttrs}
+          modelValue={form.value[prop.value]}
+          onUpdate:modelValue={valueChange}
+        ></ASlider>
+      )
+    }
+    if (type.value === 'mention') {
+      return () => (
+        <AMention
+          {...mergeAttrs}
+          modelValue={form.value[prop.value]}
+          onUpdate:modelValue={valueChange}
+          type={mergeAttrs.value?.mode === 'textarea' ? 'textarea' : undefined}
+        ></AMention>
+      )
+    }
+    if (type.value === 'rate') {
+      return () => (
+        <ARate
+          {...mergeAttrs}
+          modelValue={form.value[prop.value]}
+          onUpdate:modelValue={valueChange}
+        ></ARate>
+      )
+    }
+    if (type.value === 'cascader') {
+      return () => (
+        <ASlider
+          {...mergeAttrs}
+          modelValue={form.value[prop.value]}
+          onUpdate:modelValue={valueChange}
+        ></ASlider>
+      )
+    }
+    // 'date' | 'year' | 'quarter' | 'month' | 'week'
     if (
       type.value === 'date' ||
       type.value === 'datetime' ||
       type.value === 'week' ||
       type.value === 'month' ||
+      type.value === 'quarter' ||
       type.value === 'year' ||
-      type.value === 'daterange' ||
-      type.value === 'dateRange' ||
-      type.value === 'timerange' ||
-      type.value === 'timeRange' ||
-      type.value === 'quarter'
+      type.value === 'range'
     )
       return () => (
         // @ts-ignore
@@ -175,6 +232,16 @@ export default defineComponent({
           onUpdate:modelValue={valueChange}
         />
       )
+    if (type.value === 'time') {
+      return () => (
+        <ATimePicker
+          {...mergeAttrs}
+          type={mergeAttrs.value.mode === 'time-range' ? 'time-range' : undefined}
+          modelValue={form.value[prop.value]}
+          onUpdate:modelValue={valueChange}
+        ></ATimePicker>
+      )
+    }
     return () => <div>unknown div</div>
   }
 })
