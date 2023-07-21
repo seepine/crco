@@ -193,6 +193,10 @@ export interface FormItemExt {
    */
   display?: boolean | ((record: any) => boolean)
   /**
+   * 是否禁用
+   */
+  disabled?: boolean | ((record: any) => boolean)
+  /**
    * 后端字典接口地址，接口应返回[]
    */
   dicUrl?: string
@@ -202,6 +206,12 @@ export interface FormItemExt {
    * dicData: ()=> axios.get('/sys/role/list')
    */
   dicData?: readonly any[] | any[] | (() => any[]) | (() => readonly any[]) | (() => Promise<any>)
+  /**
+   * 自定义值展示
+   * @param record 数据
+   * @returns 渲染节点
+   */
+  formatValue?: (record: any) => VNode | VNode[]
 }
 export interface ComponentColumn extends FormItem, FormItemExt {
   // 接收额外任意未收录字段
