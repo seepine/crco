@@ -79,12 +79,6 @@ export type DatePickerCommonProps = {
    */
   placeholder?: string
   /**
-   * @zh 是否禁用
-   * @en Whether to disable
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
    * @zh 不可选取的日期
    * @en Unselectable date
    */

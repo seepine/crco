@@ -36,12 +36,6 @@ export type AutoCompleteType = {
    */
   options?: CascaderOption[]
   /**
-   * @zh 是否禁用
-   * @en Whether to disable
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
    * @zh 是否为错误状态
    * @en Whether it is an error state
    * @defaultValue false

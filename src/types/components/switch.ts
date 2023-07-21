@@ -9,12 +9,6 @@ export type SwitchType = {
    */
   switchType?: 'circle' | 'round' | 'line'
   /**
-   * @zh 是否禁用
-   * @en Whether to disable
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
    * @zh 单选框组的尺寸
    * @en The size of the radio group
    * @values 'mini','small','medium','large'

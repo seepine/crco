@@ -29,12 +29,6 @@ export type SelectType = {
    */
   placeholder?: string
   /**
-   * @zh 是否禁用
-   * @en Whether to disabled
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
    * @zh 是否为错误状态
    * @en Whether it is an error state
    */
@@ -104,11 +98,6 @@ export type SelectType = {
    * @en Option data
    */
   options?: (string | number | SelectOptionData | SelectOptionGroup)[]
-  /**
-   * @zh 选项数据
-   * @en Option data
-   */
-  dicData?: (string | number | SelectOptionData | SelectOptionGroup)[]
   /**
    * @zh 传递虚拟列表属性，传入此参数以开启虚拟滚动 [VirtualListProps](#VirtualListProps)
    * @en Pass the virtual list attribute, pass in this parameter to turn on virtual scrolling [VirtualListProps](#VirtualListProps)

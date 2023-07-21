@@ -44,11 +44,6 @@ export type TreeSelectType = {
    */
   options?: TreeNodeData[]
   /**
-   * @zh 数据
-   * @en Data
-   */
-  dicData?: TreeNodeData[]
-  /**
    * @zh 设置value格式。默认是string，设置为true时候，value格式为： { label: string, value: string }
    * @en Set the value format. The default is string, when set to true, the value format is: {label: string, value: string}
    * @defaultValue false

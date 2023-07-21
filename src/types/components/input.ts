@@ -17,12 +17,6 @@ export type InputType =
        */
       allowClear?: boolean
       /**
-       * @zh 是否禁用
-       * @en Whether to disabled
-       * @defaultValue false
-       */
-      disabled?: boolean
-      /**
        * @zh 是否为只读状态
        * @en Whether it is read-only
        * @defaultValue false

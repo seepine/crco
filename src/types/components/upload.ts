@@ -19,12 +19,6 @@ export type UploadType = {
    */
   action?: string
   /**
-   * @zh 是否禁用
-   * @en Whether to disable
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
    * @zh 是否支持多文件上传
    * @en Whether to support multiple file upload
    * @defaultValue false

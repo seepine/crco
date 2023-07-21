@@ -10,12 +10,6 @@ export type RadioType = {
    */
   radioType?: 'radio' | 'button'
   /**
-   * @zh 是否禁用
-   * @en Whether to disable
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
    * @zh 单选框组的尺寸
    * @en The size of the radio group
    * @values 'mini','small','medium','large'
@@ -26,11 +20,6 @@ export type RadioType = {
    * @en Option data
    */
   options?: (string | number | RadioOption)[]
-  /**
-   * @zh 选项数据
-   * @en Option data
-   */
-  dicData?: (string | number | RadioOption)[]
   /**
    * @zh 单选框组的方向,radioType=radio时生效
    * @en The direction of the radio group

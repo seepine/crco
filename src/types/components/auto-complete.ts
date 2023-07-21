@@ -8,12 +8,6 @@ import {
 export type AutoCompleteType = {
   type?: 'autoComplete'
   /**
-   * @zh 是否禁用
-   * @en Whether to disabled
-   * @defaultValue false
-   */
-  disabled?: boolean
-  /**
    * @zh 用于自动提示的数据
    * @en Data used for auto-complete
    */
