@@ -13,9 +13,35 @@ export interface Done {
 
 export type DoneRes<T> = (modifyForm?: T) => void
 
+/**
+ * // 1. 普通返回
+ * (form)=>{
+ *   // 返回新值
+ *   return {
+ *     ...form,
+ *     name: 'newName'
+ *   }
+ *   // 终止
+ *   return false
+ * }
+ * // 2. Promise异步返回
+ * (form)=>{
+ *   return new Promise((RES,REJ)=>{
+ *      RES(form) 返回新值
+ *      REJ() // 终止
+ *   })
+ * }
+ * // 3. 回调返回
+ * (form,done)=>{
+ *   // 返回新值
+ *   done(form)
+ *   // 终止
+ *   done(false)
+ * }
+ */
 export type Callback<T, R> =
-  | ((form: T) => R)
-  | ((form: T, done: DoneRes<R>) => void)
+  | ((form: T) => R | false)
+  | ((form: T, done: DoneRes<R | false>) => void)
   | ((form: any) => Promise<R>)
 
 export type RequestMethod = Method | (GlobalApiConfig & { dicMethod?: Method }) | 'RESTFul'

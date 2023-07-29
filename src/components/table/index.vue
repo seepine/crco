@@ -475,6 +475,11 @@ const operation = (val: FormType, data: any) => {
 }
 
 const handleSubmit = (val: any, done: Function) => {
+  if (!type.value) {
+    // eslint-disable-next-line no-console
+    console.error('type is undefined, can not submit')
+    return
+  }
   const handleDone = (flag = true) => {
     if (flag === true) {
       Message.success(`${typeLabel.value}成功`)
@@ -489,14 +494,37 @@ const handleSubmit = (val: any, done: Function) => {
   if (isFunction(props.beforeSubmit)) {
     formData = props.beforeSubmit(type.value, formData)
   }
-  switch (type.value) {
-    case 'add':
-      requestAdd(formData, handleDone)
-      break
-    case 'edit':
-      requestEdit(formData, handleDone)
-      break
-    default:
+  const callback = (newVal: any) => {
+    switch (type.value) {
+      case 'add':
+        requestAdd(newVal, handleDone)
+        break
+      case 'edit':
+        requestEdit(newVal, handleDone)
+        break
+      default:
+    }
+  }
+
+  if (
+    isObject(myOption.value[`${type.value}Btn`]) &&
+    // @ts-ignore
+    isFunction(myOption.value[`${type.value}Btn`].onAfter)
+  ) {
+    // @ts-ignore
+    runDone(myOption.value[`${type.value}Btn`].onAfter, formData, callback)
+      .then((res) => {
+        if (res === false) {
+          handleDone(false)
+        } else {
+          callback(res)
+        }
+      })
+      .catch(() => {
+        handleDone(false)
+      })
+  } else {
+    callback(formData)
   }
 }
 const handleSearch = (val: any, done: Function) => {

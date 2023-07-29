@@ -1,5 +1,5 @@
 import { ButtonProps } from '@arco-design/web-vue'
-import { Callback } from '.'
+import { AnyObject, Callback } from '.'
 
 export type Done = () => void
 
@@ -25,22 +25,25 @@ export interface Btn {
    */
   permissionSuffix?: string
   /**
-   * 可控制事件执行之前，例如编辑前改变参数等
+   * 可控制事件执行之前，例如编辑前改变参数等，更多写法查看Callback
    * onBefore: (form)=>{
    *   return {
    *     ...form,
    *     name: 'newName'
    *   }
    * }
-   * 也可通过Promise异步返回或控制不继续执行
+   */
+  onBefore?: Callback<AnyObject, AnyObject>
+  /**
+   * 可控制事件执行之后，例如新增提交后，修改或判断值，再决定要不要传给后端，更多写法查看Callback
    * onBefore: (form)=>{
-   *   return new Promise((RES,REJ)=>{
-   *      // RES(form) 返回正确值
-   *      REJ()
-   *   })
+   *   return {
+   *     ...form,
+   *     name: 'newName'
+   *   }
    * }
    */
-  onBefore?: Callback<any, any>
+  onAfter?: Callback<AnyObject, AnyObject>
   /**
    * 点击事件，部分按钮会触发
    * @param params 搜索相关参数
