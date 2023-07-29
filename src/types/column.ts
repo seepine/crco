@@ -1,6 +1,6 @@
 import { FieldRule } from '@arco-design/web-vue'
-import { VNode } from 'vue'
-import { ResponsiveValue } from './index'
+import { Component, VNode } from 'vue'
+import { AnyObject, ResponsiveValue } from './index'
 import { InputType } from './components/input'
 import { InputNumberType } from './components/input-number'
 import { TextareaType } from './components/textarea'
@@ -211,7 +211,7 @@ export interface FormItemExt {
    * @param record 数据
    * @returns 渲染节点
    */
-  formatValue?: (record: any) => VNode | VNode[]
+  formatValue?: (record: AnyObject) => Component
 }
 export interface ComponentColumn extends FormItem, FormItemExt {
   // 接收额外任意未收录字段
