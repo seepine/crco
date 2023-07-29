@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.9.0](https://github.com/seepine/crco/compare/v2.8.0...v2.9.0) (2023-07-29)
+
+
+### ⚡️ improvement | 功能优化
+
+* **types:** add formatValue ([51532c2](https://github.com/seepine/crco/commit/51532c259df626044c127ed3e89777683792b186))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **type:** add anyObject ([3b03b71](https://github.com/seepine/crco/commit/3b03b7126438db32584641d8167e76c5802d2fb7))
+* **type:** fix format type ([6d2275f](https://github.com/seepine/crco/commit/6d2275f842c24a3a299741b805e267747b6bbb94))
+* **types:** remove disabled and dicData ([ed11c17](https://github.com/seepine/crco/commit/ed11c17f1f7f7b22baab2d2fb01417ba24ea6bb5))
+
+
+### ✨ Features | 新功能
+
+* **table:** 按钮增加onAfter事件 ([58eb220](https://github.com/seepine/crco/commit/58eb22039442dbcc1d8825ad8e9263a58179fa8b))
+
 ## [2.8.0](https://github.com/seepine/crco/compare/v2.7.4...v2.8.0) (2023-07-15)
 
 
