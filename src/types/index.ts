@@ -3,6 +3,9 @@ import { GlobalApiConfig } from './api'
 import { ListProps } from './list'
 import { TableProps } from './table'
 
+export type AnyObject = {
+  [propName: string]: any
+}
 export type { FormOption } from './form'
 export interface Done {
   (close?: boolean): void
