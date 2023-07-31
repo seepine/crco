@@ -90,23 +90,23 @@ import {
   isBlank,
   isNumber
 } from '../../util/is'
+import { UploadType } from '../../types/components/upload'
+import { AnyObject } from '../../types'
 
 type ModelValueType = string | object | Array<string | object> | null | File
 
 const props = withDefaults(
   defineProps<{
-    option: any
+    option: UploadType & AnyObject
     modelValue?: ModelValueType
     readonly?: boolean
   }>(),
   {
-    option: {
-      limit: 0,
-      showRemoveButton: true,
-      showRetryButton: true,
-      showCancelButton: true,
-      showUploadButton: true,
-      large: false
+    option: () => {
+      return {
+        limit: 0,
+        large: false
+      }
     },
     readonly: false
   }
@@ -118,11 +118,7 @@ const emit = defineEmits<{
 }>()
 
 const isStringify = computed(() => {
-  return (
-    isString(props.modelValue) ||
-    props.option.stringify === true ||
-    props.option.stringify === 'true'
-  )
+  return isString(props.modelValue) || props.option.stringify === true
 })
 
 const getFileList = () => {

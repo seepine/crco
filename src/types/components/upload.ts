@@ -23,7 +23,7 @@ export type UploadType = {
    * @en Whether to support multiple file upload
    * @defaultValue false
    */
-  multiple?: string
+  multiple?: boolean
   /**
    * @zh 是否支持文件夹上传（需要浏览器支持）
    * @en Whether to support folder upload (requires browser support)
@@ -178,4 +178,31 @@ export type UploadType = {
    * @en Click the upload button to trigger (if the Promise is returned, the default input upload will be closed)
    */
   onButtonClick?: (event: Event) => Promise<FileList> | void
+
+  /** ******************** 以下为扩展属性 ******************** */
+
+  /**
+   * @zh 是否序列号为字符串
+   * @default false
+   */
+  stringify?: boolean
+  /**
+   * @zh 是否仅返回url
+   * @default false
+   */
+  urlOnly?: boolean
+  /**
+   * @zh 限制大小，若文件超过此大小则 Notification.warning 提示
+   */
+  limitSize?: number
+  /**
+   * @zh 是否只读
+   * @default false
+   */
+  readonly?: boolean
+  /**
+   * @zh 图片模式时是否显示大图，默认40px，为true则80px
+   * @default false
+   */
+  large?: boolean
 }
