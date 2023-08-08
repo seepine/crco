@@ -5,7 +5,8 @@ import {
   Slider as ASlider,
   Mention as AMention,
   Rate as ARate,
-  TimePicker as ATimePicker
+  TimePicker as ATimePicker,
+  Cascader as ACascader
 } from '@arco-design/web-vue'
 import CInput from '../input/index.vue'
 import CRadio from '../radio/index.vue'
@@ -206,11 +207,11 @@ export default defineComponent({
     }
     if (type.value === 'cascader') {
       return () => (
-        <ASlider
+        <ACascader
           {...mergeAttrs}
           modelValue={form.value[prop.value]}
           onUpdate:modelValue={valueChange}
-        ></ASlider>
+        ></ACascader>
       )
     }
     // 'date' | 'year' | 'quarter' | 'month' | 'week'

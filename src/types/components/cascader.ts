@@ -1,11 +1,11 @@
 import { CascaderFieldNames, CascaderOption, Size, TriggerProps } from '@arco-design/web-vue'
 
-export type AutoCompleteType = {
+export type CascaderType = {
   /**
    * 级联选择器
    * @href <a href="https://arco.design/vue/component/cascader">ArcoCascader</a>
    */
-  type?: 'cascader'
+  type: 'cascader'
   /**
    * @zh 绑定值是否为路径
    * @en Whether the value is a path
