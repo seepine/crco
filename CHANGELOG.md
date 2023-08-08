@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.2](https://github.com/seepine/crco/compare/v2.9.1...v2.9.2) (2023-08-08)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **cascader:** fix cascader type support bug ([c428f0d](https://github.com/seepine/crco/commit/c428f0d99f1aa33229a9e80fdbc8e71bd1e48fa6))
+* **select:** fix default value of modalValue ([cdd4262](https://github.com/seepine/crco/commit/cdd4262c8dd00b7c3cb9149aa82fedf755d022a7))
+
+
+### ⚡️ improvement | 功能优化
+
+* **types:** impr type export ([0c404a9](https://github.com/seepine/crco/commit/0c404a9e9a9d4357854032cc00a2d1034d3c7d32))
+
 ### [2.9.1](https://github.com/seepine/crco/compare/v2.9.0...v2.9.1) (2023-07-31)
 
 
