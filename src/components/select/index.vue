@@ -29,7 +29,7 @@ const props = withDefaults(
     form?: any
   }>(),
   {
-    modelValue: null
+    modelValue: undefined
   }
 )
 const emit = defineEmits<{
