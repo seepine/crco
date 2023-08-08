@@ -159,14 +159,14 @@ export type DatePickerType = DatePickerCommonProps & {
   /**
    * @zh 日期选择器
    */
-  type?: 'date' | 'datetime'
+  type: 'date' | 'datetime'
 }
 
 export type MonthPickerType = DatePickerCommonProps & {
   /**
    * @zh 月份选择器
    */
-  type?: 'month'
+  type: 'month'
   /**
    * @zh 展示日期的格式，参考字符串解析格式(https://arco.design/vue/component/date-picker#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%90%E6%A0%BC%E5%BC%8F)   * @en Display the format of the date, refer to [String Parsing Format](#String Parsing Format)
    * @defaultValue 'YYYY-MM'
@@ -178,7 +178,7 @@ export type QuarterPickerType = DatePickerCommonProps & {
   /**
    * @zh 季度选择器
    */
-  type?: 'month'
+  type: 'month'
   /**
    * @zh 展示日期的格式，参考字符串解析格式(https://arco.design/vue/component/date-picker#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%90%E6%A0%BC%E5%BC%8F)   * @en Display the format of the date, refer to [String Parsing Format](#String Parsing Format)
    * @defaultValue 'YYYY-[Q]Q'
@@ -197,7 +197,7 @@ export type WeekPickerType = DatePickerCommonProps & {
   /**
    * @zh 周选择器
    */
-  type?: 'week'
+  type: 'week'
   /**
    * @zh 展示日期的格式，参考字符串解析格式(https://arco.design/vue/component/date-picker#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%90%E6%A0%BC%E5%BC%8F)   * @en Display the format of the date, refer to [String Parsing Format](#String Parsing Format)
    * @defaultValue 'gggg-wo'
@@ -216,7 +216,7 @@ export type YearPickerType = DatePickerCommonProps & {
   /**
    * @zh 周选择器
    */
-  type?: 'year'
+  type: 'year'
   /**
    * @zh 展示日期的格式，参考字符串解析格式(https://arco.design/vue/component/date-picker#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%90%E6%A0%BC%E5%BC%8F)   * @en Display the format of the date, refer to [String Parsing Format](#String Parsing Format)
    * @defaultValue 'YYYY'
@@ -228,7 +228,7 @@ export type RangePickerType = {
   /**
    * 范围选择器，通过mode指定类型，mode默认'date'
    */
-  type?: 'range'
+  type: 'range'
   /**
    * @zh 范围选择器的类型
    * @en Type of range selector

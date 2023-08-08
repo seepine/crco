@@ -6,7 +6,7 @@ import {
 } from '@arco-design/web-vue'
 
 export type AutoCompleteType = {
-  type?: 'autoComplete'
+  type: 'autoComplete'
   /**
    * @zh 用于自动提示的数据
    * @en Data used for auto-complete

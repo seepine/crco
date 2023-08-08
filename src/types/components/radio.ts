@@ -2,7 +2,7 @@ import { Direction, Size } from '@arco-design/web-vue'
 import { RadioOption } from '@arco-design/web-vue/es/radio/interface'
 
 export type RadioType = {
-  type?: 'radio'
+  type: 'radio'
   /**
    * @zh 单选按钮类型
    * @en type of radio

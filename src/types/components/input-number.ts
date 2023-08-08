@@ -1,7 +1,7 @@
 import { Size } from '@arco-design/web-vue'
 
 export type InputNumberType = {
-  type?: 'number'
+  type: 'number'
   /**
    * @zh 模式（`embed`：按钮内嵌模式，`button`：左右按钮模式）
    * @en Mode (`embed`: button embedded mode, `button`: left and right button mode)

@@ -9,7 +9,7 @@ import {
 import { VirtualListProps } from '@arco-design/web-vue/es/_components/virtual-list-v2/interface'
 
 export type SelectType = {
-  type?: 'select'
+  type: 'select'
   /**
    * @zh 是否开启多选模式（多选模式默认开启搜索）
    * @en Whether to open multi-select mode (The search is turned on by default in the multi-select mode)

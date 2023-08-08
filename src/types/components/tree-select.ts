@@ -4,7 +4,7 @@ import { TreeProps } from '@arco-design/web-vue/es/tree/interface'
 import { CSSProperties } from 'vue'
 
 export type TreeSelectType = {
-  type?: 'tree'
+  type: 'tree'
   /**
    * @zh 是否允许搜索
    * @en Whether to allow searching

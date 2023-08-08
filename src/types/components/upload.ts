@@ -7,7 +7,7 @@ export type UploadType = {
    *
    * @href <a href="https://arco.design/vue/component/upload">ArcoUpload</a>
    */
-  type?: 'upload'
+  type: 'upload'
   /**
    * @zh 接收的上传文件类型，具体参考 [HTML标准](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#htmlattrdefaccept "_blank")
    * @en For the received upload file type, please refer to [HTML standard](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#htmlattrdefaccept "_blank")

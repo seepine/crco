@@ -1,12 +1,15 @@
 import { AxiosInstance, Method } from 'axios'
 import { GlobalApiConfig } from './api'
-import { ListProps } from './list'
-import { TableProps } from './table'
+
+export type { FormColumn, DicItem, OnChange } from './column'
+export type { FormOption } from './form'
+export type { TableOption, TableColumn } from './table'
+export type { PageCallback, PageRes } from './page'
+export type { ListFormOption } from './list-form'
 
 export type AnyObject = {
   [propName: string]: any
 }
-export type { FormOption } from './form'
 export interface Done {
   (close?: boolean): void
 }
@@ -80,11 +83,3 @@ export interface Responsive {
   xxl?: number
 }
 export type ResponsiveValue = number | string | Responsive
-
-export interface TableOption {
-  tableProps?: TableProps
-}
-
-export interface ListFormOption {
-  listProps?: ListProps
-}

@@ -4,7 +4,7 @@ export type TextareaType = {
    *
    * @href <a href="https://arco.design/vue/component/textarea">ArcoTextarea</a>
    */
-  type?: 'textarea'
+  type: 'textarea'
   /**
    * @zh 提示文字
    * @en Prompt text

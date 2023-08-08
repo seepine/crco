@@ -24,6 +24,7 @@ import { RateType } from './components/rate'
 import { MentionType } from './components/mention'
 import { TimePickerType } from './components/time-picker'
 import { TreeSelectType } from './components/tree-select'
+import { CascaderType } from './components/cascader'
 
 export type DicItem = {
   /**
@@ -213,21 +214,21 @@ export interface FormItemExt {
    */
   formatValue?: (record: AnyObject) => Component
 }
-export interface ComponentColumn extends FormItem, FormItemExt {
-  // 接收额外任意未收录字段
-  [propName: string]: any
+export type ComponentColumn = FormItem & FormItemExt & AnyObject
+
+type CustomType = {
+  /**
+   * 自定义类型
+   * @param form 表单值，可双向绑定
+   * @returns VNode
+   */
+  type: (form: any) => VNode
 }
+type MarkdownType = { type?: 'markdown' }
 
 export type ComponentType =
-  | {
-      /**
-       * 自定义类型
-       * @param form 表单值，可双向绑定
-       * @returns VNode
-       */
-      type: (form: any) => VNode
-    }
-  | { type?: 'markdown' | 'md' }
+  | CustomType
+  | MarkdownType
   | InputType
   | InputNumberType
   | TextareaType
@@ -236,6 +237,7 @@ export type ComponentType =
   | SwitchType
   | SliderType
   | AutoCompleteType
+  | CascaderType
   | UploadType
   | DatePickerType
   | MonthPickerType
@@ -252,7 +254,7 @@ export type ComponentType =
 /**
  * 表单column
  */
-export type FormColumn = ComponentColumn & {
+export type FormColumn = ComponentType & {
   /**
    * 属性，需要保证唯一
    */
@@ -261,8 +263,4 @@ export type FormColumn = ComponentColumn & {
    * 显示在表单或表格上的label
    */
   name: string
-  /**
-   * 默认input，列类型
-   * 支持自定义 type : (form)=>h('input')
-   */
-} & ComponentType
+} & ComponentColumn

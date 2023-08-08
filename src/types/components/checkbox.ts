@@ -5,7 +5,7 @@ export type CheckboxType = {
    * 复选框
    * @href <a href="https://arco.design/vue/component/checkbox">ArcoCheckbox</a>
    */
-  type?: 'checkbox'
+  type: 'checkbox'
   /**
    * @zh 默认值（非受控状态）
    * @en Default value (uncontrolled state)

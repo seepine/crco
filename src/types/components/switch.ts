@@ -1,7 +1,7 @@
 import { Size } from '@arco-design/web-vue'
 
 export type SwitchType = {
-  type?: 'switch'
+  type: 'switch'
   /**
    * @zh 开关的类型
    * @en type of switch

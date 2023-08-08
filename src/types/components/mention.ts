@@ -6,7 +6,7 @@ export type MentionType = {
    *
    * @href <a href="https://arco.design/vue/component/mention">ArcoMention</a>
    */
-  type?: 'mention'
+  type: 'mention'
   /**
    * @zh 用于自动补全的数据
    * @en Data for automatic completion

@@ -3,7 +3,7 @@ export type RateType = {
    * 复选框
    * @href <a href="https://arco.design/vue/component/cherateckbox">ArcoRate</a>
    */
-  type?: 'rate'
+  type: 'rate'
   /**
    * @zh 评分的总数
    * @en Total number of rate

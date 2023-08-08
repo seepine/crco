@@ -4,9 +4,11 @@ export type TimePickerType = {
   /**
    * @zh 日期选择器
    */
-  type?: 'time'
+  type: 'time'
+  /**
+   * @zh 选择器模式，'time-range'为范围选择
+   */
   mode?: 'time-range'
-
   /**
    * @zh 是否允许清除
    * @en Whether to allow clear

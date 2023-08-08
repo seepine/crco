@@ -2,7 +2,7 @@ import { Size } from '@arco-design/web-vue'
 
 export type InputType =
   | {
-      type?: 'input'
+      type: 'input'
       /**
        * @zh 输入框大小
        * @en Input size

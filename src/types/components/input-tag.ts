@@ -6,7 +6,7 @@ export type InputTagType = {
    *
    * @href <a href="https://arco.design/vue/component/input-tag">ArcoInputTag</a>
    */
-  type?: 'tag'
+  type: 'tag'
   /**
    * @zh 是否允许清空输入框
    * @en Whether to allow the input to be cleared

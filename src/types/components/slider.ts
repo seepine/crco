@@ -1,5 +1,5 @@
 export type SliderType = {
-  type?: 'slider'
+  type: 'slider'
   /**
    * @zh 滑动的步长
    * @en Sliding step
