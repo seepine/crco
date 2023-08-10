@@ -17,15 +17,19 @@ const canDisplay = (btn: Btn | false | undefined, form: any) => {
   return btn.display !== false
 }
 
-export default (option: Ref<TableOption | ListFormOption>, form: Ref<any>) => {
+export default (
+  option: Ref<TableOption | ListFormOption>,
+  form: Ref<any>,
+  permissions?: Ref<any>
+) => {
   const addDisplay = computed(() => {
-    return canDisplay(option.value.addBtn, form.value)
+    return canDisplay(option.value.addBtn, form.value) && permissions?.value.addBtn
   })
   const editDisplay = computed(() => {
-    return canDisplay(option.value.editBtn, form.value)
+    return canDisplay(option.value.editBtn, form.value) && permissions?.value.editBtn
   })
   const delDisplay = computed(() => {
-    return canDisplay(option.value.delBtn, form.value)
+    return canDisplay(option.value.delBtn, form.value) && permissions?.value.delBtn
   })
   return {
     addDisplay,

@@ -19,12 +19,7 @@
                 <icon-search />
               </template>
             </a-input>
-            <a-button
-              style="margin-left: 8px"
-              v-if="myPermissions.addBtn"
-              type="primary"
-              @click="handleAdd"
-            >
+            <a-button style="margin-left: 8px" v-if="addDisplay" type="primary" @click="handleAdd">
               <template #icon>
                 <icon-plus />
               </template>
@@ -101,10 +96,10 @@
           <template #subtitle>
             <div style="margin-top: 20px">
               请先选择要查看的数据
-              <div v-if="myPermissions.addBtn">或点击下方按钮新增</div>
+              <div v-if="addDisplay">或点击下方按钮新增</div>
             </div></template
           >
-          <template #extra v-if="myPermissions.addBtn">
+          <template #extra v-if="addDisplay">
             <a-space>
               <a-button type="primary" @click="handleAdd">新增</a-button>
             </a-space>
@@ -131,6 +126,7 @@ import MyAddForm from './add-form.vue'
 import { isString, isUndefined } from '../../util/is'
 import { runCallback } from '../../util/util'
 import { tabsPaneProps } from '@/types/tabs'
+import useBtn from '../_hooks/use-btn'
 
 const props = withDefaults(
   defineProps<{
@@ -182,6 +178,8 @@ const { handleChange } = useSearch((val) => {
 })
 
 const addForm = ref({})
+const { addDisplay } = useBtn(myOption, addForm, myPermissions)
+
 const handleAdd = () => {
   if (props.option.addBtn !== false && !isUndefined(props.option.addBtn?.onBefore)) {
     runCallback(props.option.addBtn?.onBefore, selectData.value)
