@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 1080px" v-show="selectData">
+  <div style="max-width: 1080px" v-if="selectData">
     <a-space direction="vertical" fill size="medium">
       <div class="flex-row justify-between align-center">
         <a-typography-title :heading="6" style="margin: 0; padding-top: 8px">{{
@@ -42,15 +42,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import isEqual from 'lodash/isEqual'
 import { Message } from '@arco-design/web-vue'
-import { deepClone, runCallback } from '../../util/util'
+import { copyPropertiesNotEmpty, deepClone, runCallback } from '../../util/util'
 import { ListFormOption } from '../../types/list-form'
 import CDescriptions from '../descriptions/index.vue'
 import CForm from '../form/index.vue'
 import PopConfirm from '../pop-confirm/index.vue'
-import { isUndefined } from '../../util/is'
+import { isArray, isUndefined } from '../../util/is'
 import useBtn from '../_hooks/use-btn'
 
 const props = defineProps<{
@@ -68,7 +68,7 @@ const emit = defineEmits<{
   (event: 'update:isAdd', val: boolean): void
 }>()
 
-const form = ref({})
+const form = ref<any>({})
 const formRef = ref()
 const backForm = ref({})
 const isEdit = ref(false)
@@ -88,7 +88,32 @@ watch(
     immediate: true
   }
 )
-const myOption = computed(() => props.option)
+const myOption = ref<any>({})
+watch(
+  () => props.option,
+  () => {
+    copyPropertiesNotEmpty(props.option, myOption.value)
+    if (isArray(myOption.value.columns)) {
+      for (let i = 0; i < myOption.value.columns!.length; i += 1) {
+        // 初始化表单数据
+        if (
+          !isUndefined(myOption.value.columns[i].value) &&
+          isUndefined(form.value[myOption.value.columns[i].prop])
+        ) {
+          form.value[myOption.value.columns[i].prop] = myOption.value.columns[i].value
+        }
+        // 将所有组件fallbackOption默认为false
+        if (isUndefined(myOption.value.columns[i].fallbackOption)) {
+          myOption.value.columns[i].fallbackOption = false
+        }
+      }
+    }
+  },
+  {
+    deep: true,
+    immediate: true
+  }
+)
 const { editDisplay, delDisplay } = useBtn(myOption, backForm)
 
 const handleEdit = () => {
