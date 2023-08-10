@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.3](https://github.com/seepine/crco/compare/v2.9.2...v2.9.3) (2023-08-10)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **list-form:** 修复dicData动态监听问题 ([9e93ce3](https://github.com/seepine/crco/commit/9e93ce317a2fb9e7dbb0052e6205f75946c995f6))
+
 ### [2.9.2](https://github.com/seepine/crco/compare/v2.9.1...v2.9.2) (2023-08-08)
 
 
