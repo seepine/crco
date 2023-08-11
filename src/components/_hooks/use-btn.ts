@@ -1,4 +1,4 @@
-import { computed, Ref } from 'vue'
+import { computed, ComputedRef, Ref } from 'vue'
 import { isFunction, isUndefined } from '../../util/is'
 import { Btn } from '../../types/btn'
 import { ListFormOption } from '../../types/list-form'
@@ -20,16 +20,16 @@ const canDisplay = (btn: Btn | false | undefined, form: any) => {
 export default (
   option: Ref<TableOption | ListFormOption>,
   form: Ref<any>,
-  permissions?: Ref<any>
+  permissions?: Ref<any> | ComputedRef<any>
 ) => {
   const addDisplay = computed(() => {
-    return canDisplay(option.value.addBtn, form.value) && permissions?.value.addBtn
+    return canDisplay(option.value.addBtn, form.value) && permissions?.value.addBtn === true
   })
   const editDisplay = computed(() => {
-    return canDisplay(option.value.editBtn, form.value) && permissions?.value.editBtn
+    return canDisplay(option.value.editBtn, form.value) && permissions?.value.editBtn === true
   })
   const delDisplay = computed(() => {
-    return canDisplay(option.value.delBtn, form.value) && permissions?.value.delBtn
+    return canDisplay(option.value.delBtn, form.value) && permissions?.value.delBtn === true
   })
   return {
     addDisplay,

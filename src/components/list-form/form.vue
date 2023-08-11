@@ -52,6 +52,7 @@ import CForm from '../form/index.vue'
 import PopConfirm from '../pop-confirm/index.vue'
 import { isArray, isUndefined } from '../../util/is'
 import useBtn from '../_hooks/use-btn'
+import usePermission from '../_hooks/use-premission'
 
 const props = defineProps<{
   selectData: any
@@ -114,7 +115,9 @@ watch(
     immediate: true
   }
 )
-const { editDisplay, delDisplay } = useBtn(myOption, backForm)
+const { myPermissions } = usePermission(myOption)
+
+const { editDisplay, delDisplay } = useBtn(myOption, backForm, myPermissions)
 
 const handleEdit = () => {
   if (isEdit.value) {
