@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.6](https://github.com/seepine/crco/compare/v2.9.5...v2.9.6) (2023-08-24)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **types:** formatValue add string return value ([6bac6f8](https://github.com/seepine/crco/commit/6bac6f868f83ae132ca05da07513914b62757d98))
+
 ### [2.9.5](https://github.com/seepine/crco/compare/v2.9.4...v2.9.5) (2023-08-11)
 
 
