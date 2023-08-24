@@ -212,7 +212,7 @@ export interface FormItemExt {
    * @param record 数据
    * @returns 渲染节点
    */
-  formatValue?: (record: AnyObject) => Component
+  formatValue?: (record: AnyObject) => Component | string
 }
 export type ComponentColumn = FormItem & FormItemExt & AnyObject
 
