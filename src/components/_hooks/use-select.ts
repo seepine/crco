@@ -1,4 +1,5 @@
 import { computed, ref, watch } from 'vue'
+import { isEqual } from 'lodash'
 import { isArray, isUndefined } from '../../util/is'
 import { runDicData } from '../../util/dic-data'
 import { runCallback } from '../../util/util'
@@ -52,9 +53,15 @@ export default (props: any, emit: any) => {
     }
   }
 
+  let optionBack = {}
+
   watch(
     myOption,
-    () => {
+    (val) => {
+      if (isEqual(val, optionBack)) {
+        return
+      }
+      optionBack = val
       loading.value = true
       runDicData(props.option)
         .then((res) => {
