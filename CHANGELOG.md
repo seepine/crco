@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.8](https://github.com/seepine/crco/compare/v2.9.7...v2.9.8) (2023-10-13)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **list-form:** clear select keys on reload ([ff09052](https://github.com/seepine/crco/commit/ff090527051d4737a9333fe85ccf06022c2ca0dd))
+
 ### [2.9.7](https://github.com/seepine/crco/compare/v2.9.6...v2.9.7) (2023-10-03)
 
 
