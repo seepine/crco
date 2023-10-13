@@ -174,6 +174,7 @@ defineExpose({
     searchKey.value = val || ''
   },
   reload: () => {
+    selectedKeys.value = []
     fetchData()
   }
 })
