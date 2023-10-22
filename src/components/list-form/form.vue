@@ -124,13 +124,14 @@ const handleEdit = () => {
     return
   }
   if (props.option.editBtn !== false && !isUndefined(props.option.editBtn?.onBefore)) {
-    runCallback(props.option.editBtn?.onBefore, props.selectData)
+    runCallback(props.option.editBtn?.onBefore, backForm.value)
       .then((res) => {
         form.value = res || {}
         isEdit.value = true
       })
       .catch(() => {})
   } else {
+    form.value = deepClone(backForm.value)
     isEdit.value = true
   }
 }
