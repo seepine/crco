@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.11](https://github.com/seepine/crco/compare/v2.9.10...v2.9.11) (2024-12-26)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **list-form:** fix reload ([1dbdda7](https://github.com/seepine/crco/commit/1dbdda717443cd8c07e3128b486fc887ac2565ab))
+
 ### [2.9.10](https://github.com/seepine/crco/compare/v2.9.9...v2.9.10) (2023-10-22)
 
 
