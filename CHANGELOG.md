@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.12](https://github.com/seepine/crco/compare/v2.9.11...v2.9.12) (2025-01-06)
+
+
+### 👷 Continuous Integration | CI 配置
+
+* **actions:** add publish action ([423c36d](https://github.com/seepine/crco/commit/423c36d9c08b1efadf3640f59e733eb523fdbc88))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** add header css ([d98ce41](https://github.com/seepine/crco/commit/d98ce415b922a15a70422a5a33b37d1571c9aef3))
+* **table:** add showHeader option ([644246b](https://github.com/seepine/crco/commit/644246bb0e251a569d31395b3af348cbba00f062))
+
 ### [2.9.11](https://github.com/seepine/crco/compare/v2.9.10...v2.9.11) (2024-12-26)
 
 
