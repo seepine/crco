@@ -55,7 +55,7 @@
       </div>
       <a-table
         ref="aTableRef"
-        v-bind="{ ...myOption, columns: [] }"
+        v-bind="{ ...myOption, showHeader: true, columns: [] }"
         class="crco-table"
         @page-change="pageChange"
         @page-size-change="pageSizeChange"

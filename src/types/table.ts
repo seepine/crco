@@ -80,10 +80,6 @@ export interface TableProps {
    */
   rowKey?: string
   /**
-   * true,是否显示表头
-   */
-  showHeader?: boolean
-  /**
    * 传递虚拟列表属性，传入此参数以开启虚拟滚动
    */
   virtualListProps?: VirtualListProps
