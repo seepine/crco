@@ -12,7 +12,7 @@
         <slot name="top" />
       </div>
 
-      <div class="justify-between align-start md-row-column mb-sm crco-table-header">
+      <div class="justify-between align-start md-row-column mb-sm crco-table-header" v-if="myOption.showHeader !== false">
         <div class="crco-table-header-left flex-row">
           <a-space>
             <a-button

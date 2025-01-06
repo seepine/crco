@@ -214,6 +214,10 @@ export type menuProps = { display?: boolean } & TableColumnProps
  */
 export interface TablePropsExt {
   /**
+   * 是否显示头部区域，若关闭则新增按钮、刷新按钮会不可见
+   */
+  showHeader?: boolean
+  /**
    * 菜单栏配置
    */
   menuProps?: menuProps
