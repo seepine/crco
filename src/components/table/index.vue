@@ -142,6 +142,7 @@
                       rowIndex
                     })
                   "
+                  position="tr"
                   @ok="
                     (done) =>
                       handleToDel(
