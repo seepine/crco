@@ -63,7 +63,7 @@
         @change="handleTableChange"
         @selection-change="selectionChange"
         @sorter-change="sorterChange"
-        :pagination="pagination"
+        :pagination="myOption.pagination === false ? false : pagination"
         :draggable="
           isObject(myOption.draggable)
             ? myOption.draggable
