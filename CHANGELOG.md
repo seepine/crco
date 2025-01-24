@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.14](https://github.com/seepine/crco/compare/v2.9.13...v2.9.14) (2025-01-24)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix del pop confirm position ([7f49f97](https://github.com/seepine/crco/commit/7f49f97278b15f1bba70a932ada9467d4273d37b))
+* **table:** fix pagination false ([5035324](https://github.com/seepine/crco/commit/5035324b5608d3988a30bcdb99b22ae01d27d10d))
+
 ### [2.9.13](https://github.com/seepine/crco/compare/v2.9.12...v2.9.13) (2025-01-06)
 
 
