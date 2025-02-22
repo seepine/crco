@@ -119,7 +119,7 @@ const tagChecked = computed(() => {
   }
   const check: any = {}
   suggest.value.forEach((item: any) => {
-    if (value.value.includes(item)) {
+    if ((value.value || []).includes(item)) {
       check[item] = true
     }
   })
