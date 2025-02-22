@@ -39,10 +39,10 @@
       @change="handleChange"
     >
     </a-input>
-    <template v-if="option.suggest && option.suggest.length > 0">
+    <template v-if="suggest && suggest.length > 0">
       <div style="margin-top: 8px; gap: 4px; display: flex; flex-direction: row; flex-wrap: wrap">
         <a-tag
-          v-for="(item, idx) in option.suggest"
+          v-for="(item, idx) in suggest"
           :key="idx"
           :color="tagChecked[item] ? 'arcoblue' : undefined"
           style="cursor: pointer"
@@ -62,8 +62,9 @@ import {
   InputTag as AInputTag,
   Textarea as ATextarea
 } from '@arco-design/web-vue'
-import { withDefaults, computed } from 'vue'
+import { withDefaults, computed, ref, watch } from 'vue'
 import { isString } from '../../util/is'
+import { runCallback } from '../../util/util'
 
 const props = withDefaults(
   defineProps<{
@@ -94,15 +95,30 @@ const onBlur = () => {
 const handleChange = (val: any) => {
   emit('change', val)
 }
+
+const suggest = ref([])
+
+watch(
+  () => props.option.suggest,
+  () => {
+    runCallback(props.option.suggest).then((res) => {
+      suggest.value = res || []
+    })
+  },
+  {
+    immediate: true
+  }
+)
+
 const tagChecked = computed(() => {
   if (props.option.type !== 'tag') {
     return {}
   }
-  if (!props.option.suggest) {
+  if (!suggest.value) {
     return {}
   }
   const check: any = {}
-  props.option.suggest.forEach((item: any) => {
+  suggest.value.forEach((item: any) => {
     if (value.value.includes(item)) {
       check[item] = true
     }
