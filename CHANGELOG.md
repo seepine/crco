@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.16](https://github.com/seepine/crco/compare/v2.9.14...v2.9.16) (2025-02-22)
+
+
+### 🚀 Chore | 构建/工程依赖/工具
+
+* **release:** 2.9.15 ([e735c98](https://github.com/seepine/crco/commit/e735c98f767607745a56135e006f6c646752a220))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** add suggest prop for tag type ([d131484](https://github.com/seepine/crco/commit/d131484783e2692d41260744850122f2e3daa2f7))
+* **form:** fix tag default suggest checked bug ([2653046](https://github.com/seepine/crco/commit/265304650115cd0438a4b9eba8b468a52eedf6db))
+* **form:** tag of suggest support async value ([3247d8d](https://github.com/seepine/crco/commit/3247d8dee22e9b6d25fd593c8efb9a625a16f1e9))
+
 ### [2.9.15](https://github.com/seepine/crco/compare/v2.9.14...v2.9.15) (2025-02-22)
 
 
