@@ -1,41 +1,57 @@
 <template>
-  <a-input-number
-    v-if="option.type === 'number'"
-    v-bind="option"
-    v-model="value"
-    :disabled="undefined"
-    @change="handleChange"
-  ></a-input-number>
-  <a-input-password
-    v-else-if="option.type === 'password'"
-    v-bind="option"
-    v-model="value"
-    :disabled="undefined"
-    @change="handleChange"
-  ></a-input-password>
-  <a-textarea
-    v-else-if="option.type === 'textarea'"
-    v-bind="option"
-    v-model="value"
-    :disabled="undefined"
-    @change="handleChange"
-  ></a-textarea>
-  <a-input-tag
-    v-else-if="option.type === 'tag'"
-    v-bind="option"
-    v-model="value"
-    :disabled="undefined"
-    @change="handleChange"
-  ></a-input-tag>
-  <a-input
-    v-else
-    v-bind="option"
-    v-model="value"
-    :disabled="undefined"
-    @blur="onBlur"
-    @change="handleChange"
-  >
-  </a-input>
+  <div style="display: flex; flex-direction: column">
+    <a-input-number
+      v-if="option.type === 'number'"
+      v-bind="option"
+      v-model="value"
+      :disabled="undefined"
+      @change="handleChange"
+    ></a-input-number>
+    <a-input-password
+      v-else-if="option.type === 'password'"
+      v-bind="option"
+      v-model="value"
+      :disabled="undefined"
+      @change="handleChange"
+    ></a-input-password>
+    <a-textarea
+      v-else-if="option.type === 'textarea'"
+      v-bind="option"
+      v-model="value"
+      :disabled="undefined"
+      @change="handleChange"
+    ></a-textarea>
+    <a-input-tag
+      v-else-if="option.type === 'tag'"
+      :tag-nowrap="true"
+      :unique-value="true"
+      v-bind="option"
+      v-model="value"
+      :disabled="undefined"
+      @change="handleChange"
+    ></a-input-tag>
+    <a-input
+      v-else
+      v-bind="option"
+      v-model="value"
+      :disabled="undefined"
+      @blur="onBlur"
+      @change="handleChange"
+    >
+    </a-input>
+    <template v-if="option.suggest && option.suggest.length > 0">
+      <div style="margin-top: 8px; gap: 4px; display: flex; flex-direction: row; flex-wrap: wrap">
+        <a-tag
+          v-for="(item, idx) in option.suggest"
+          :key="idx"
+          :color="tagChecked[item] ? 'arcoblue' : undefined"
+          style="cursor: pointer"
+          @click="handleTag(item)"
+          >{{ item }}</a-tag
+        >
+      </div>
+    </template>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -77,5 +93,32 @@ const onBlur = () => {
 }
 const handleChange = (val: any) => {
   emit('change', val)
+}
+const tagChecked = computed(() => {
+  if (props.option.type !== 'tag') {
+    return {}
+  }
+  if (!props.option.suggest) {
+    return {}
+  }
+  const check: any = {}
+  props.option.suggest.forEach((item: any) => {
+    if (value.value.includes(item)) {
+      check[item] = true
+    }
+  })
+  return check
+})
+
+const handleTag = (item: string) => {
+  if (!value.value) {
+    value.value = []
+  }
+  const index = value.value.indexOf(item)
+  if (index === -1) {
+    value.value.push(item)
+  } else {
+    value.value.splice(index, 1)
+  }
 }
 </script>
