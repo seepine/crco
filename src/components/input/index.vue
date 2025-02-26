@@ -25,10 +25,14 @@
       v-else-if="option.type === 'tag'"
       :tag-nowrap="true"
       :unique-value="true"
+      :retain-input-value="true"
       v-bind="option"
-      v-model="value"
+      :model-value="value"
+      v-model:input-value="inputValue"
       :disabled="undefined"
-      @change="handleChange"
+      @press-enter="handlePressEnter"
+      @blur="handlePressEnter"
+      @remove="handleTagRemove"
     ></a-input-tag>
     <a-input
       v-else
@@ -62,7 +66,7 @@ import {
   InputTag as AInputTag,
   Textarea as ATextarea
 } from '@arco-design/web-vue'
-import { withDefaults, computed, ref, watch } from 'vue'
+import { withDefaults, computed, ref, watch, nextTick } from 'vue'
 import { isString } from '../../util/is'
 import { runCallback } from '../../util/util'
 
@@ -92,6 +96,7 @@ const onBlur = () => {
     }
   }
 }
+
 const handleChange = (val: any) => {
   emit('change', val)
 }
@@ -127,6 +132,9 @@ const tagChecked = computed(() => {
 })
 
 const handleTag = (item: string) => {
+  if (!item) {
+    return
+  }
   if (!value.value) {
     value.value = []
   }
@@ -136,5 +144,25 @@ const handleTag = (item: string) => {
   } else {
     value.value.splice(index, 1)
   }
+  nextTick(() => {
+    if (value.value) {
+      try {
+        props.option?.onChange(value.value)
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
+    }
+  })
+}
+
+const inputValue = ref('')
+const handlePressEnter = () => {
+  const item = inputValue.value.trim()
+  if (value.value.indexOf(item) === -1) {
+    handleTag(inputValue.value.trim())
+  }
+  inputValue.value = ''
+}
+const handleTagRemove = (val: string | number) => {
+  handleTag(val as string)
 }
 </script>
