@@ -76,7 +76,7 @@ import {
   Spin,
   ImagePreviewAction
 } from '@arco-design/web-vue'
-import { withDefaults, ref, computed, nextTick } from 'vue'
+import { withDefaults, ref, computed, nextTick, watch } from 'vue'
 import ImagePreviewGroup from './preview-group.vue'
 import { deepClone } from '../../util/util'
 import { customRequest } from '../../util/data-handle'
@@ -104,6 +104,7 @@ const props = withDefaults(
   {
     option: () => {
       return {
+        type: 'upload',
         limit: 0,
         large: false
       }
@@ -191,6 +192,18 @@ const uploadModelValue = (arr: Array<any>, uploadFinish: boolean) => {
 }
 
 const defaultFileList = ref(getFileList())
+
+if (props.readonly) {
+  watch(
+    () => props.modelValue,
+    () => {
+      defaultFileList.value = getFileList()
+    },
+    {
+      deep: true
+    }
+  )
+}
 
 const fileList = computed({
   get: getFileList,
