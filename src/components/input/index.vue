@@ -106,7 +106,7 @@ const suggest = ref([])
 watch(
   () => props.option.suggest,
   () => {
-    runCallback(props.option.suggest).then((res) => {
+    runCallback(props.option.suggest || []).then((res) => {
       suggest.value = res || []
     })
   },
