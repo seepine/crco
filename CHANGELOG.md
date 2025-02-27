@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.19](https://github.com/seepine/crco/compare/v2.9.18...v2.9.19) (2025-02-27)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **upload:** fix value change but not display when readonly ([c935feb](https://github.com/seepine/crco/commit/c935febcee6899a7b8c5527e796fc3018ee1cf6f))
+
 ### [2.9.18](https://github.com/seepine/crco/compare/v2.9.17...v2.9.18) (2025-02-27)
 
 
