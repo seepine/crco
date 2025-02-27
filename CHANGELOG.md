@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.9.18](https://github.com/seepine/crco/compare/v2.9.17...v2.9.18) (2025-02-27)
+
+
+### 🚀 Chore | 构建/工程依赖/工具
+
+* add packageManager ([b56d860](https://github.com/seepine/crco/commit/b56d86053eeaf1b60ed0206589e8d61e19d4098a))
+* fix eslint vscode setting ([61ab9dd](https://github.com/seepine/crco/commit/61ab9dd52a585f727f74380fb440f45473fe292a))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **input:** fix suggest undefined ([bd64f27](https://github.com/seepine/crco/commit/bd64f279b1d6154b012f0765a7dc1bb22c64f25e))
+
 ### [2.9.17](https://github.com/seepine/crco/compare/v2.9.16...v2.9.17) (2025-02-26)
 
 
