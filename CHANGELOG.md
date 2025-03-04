@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/seepine/crco/compare/v2.9.19...v2.10.0) (2025-03-04)
+
+
+### ⚡️ improvement | 功能优化
+
+* **table:** add form bem class ([02ea70c](https://github.com/seepine/crco/commit/02ea70cef81c03ba4924287c2a0eb4353e729276))
+
+
+### ✨ Features | 新功能
+
+* **form:** add render function ([403114c](https://github.com/seepine/crco/commit/403114c64008a7256ae6c452a379a8f5fa1da849))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** fix column of label undefined ([6d1c148](https://github.com/seepine/crco/commit/6d1c1484d3ec15bd268a41424597ea5bac044769))
+* **form:** fix render ([04520e8](https://github.com/seepine/crco/commit/04520e8a71f8d353160389219708ca4ae3e0583e))
+
 ### [2.9.19](https://github.com/seepine/crco/compare/v2.9.18...v2.9.19) (2025-02-27)
 
 
