@@ -164,7 +164,7 @@ export default defineComponent({
       return () => (
         <ASwitch
           {...mergeAttrs}
-          modelValue={form.value[prop.value]}
+          modelValue={form.value[prop.value] || false}
           onUpdate:modelValue={valueChange}
         />
       )
