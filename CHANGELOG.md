@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.1](https://github.com/seepine/crco/compare/v2.10.0...v2.10.1) (2025-03-04)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** fix switch cannot reset undefined ([cb807d7](https://github.com/seepine/crco/commit/cb807d73acdbb7872e892b4512c4e47ef7db16db))
+* **select:** fix modelValue type validate ([ee8b70f](https://github.com/seepine/crco/commit/ee8b70f7846969e9defb5bb0cb7198fd2ac9dc07))
+
+
+### ⚡️ improvement | 功能优化
+
+* **form:** add reset btn ([02515e3](https://github.com/seepine/crco/commit/02515e34a78e2fa31340ecc9ffc06580fa1e7c61))
+* **table:** add search reset btn layout ([4cc39a0](https://github.com/seepine/crco/commit/4cc39a05ed5af174b75ac7072027c74342a415a4))
+* **types:** add render type ([5a9d2dd](https://github.com/seepine/crco/commit/5a9d2dd495fb97b4743dbc0160251229511e87db))
+
 ## [2.10.0](https://github.com/seepine/crco/compare/v2.9.19...v2.10.0) (2025-03-04)
 
 
