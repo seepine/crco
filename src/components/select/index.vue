@@ -1,7 +1,7 @@
 <template>
   <a-select
-    v-model="myValue"
     v-bind="myOption"
+    v-model="myValue"
     :fallback-option="myOption.fallbackOption || false"
     :loading="loading"
     :disabled="undefined"
@@ -20,12 +20,12 @@ import { withDefaults } from 'vue'
 import { ComponentColumn } from '../../types/column'
 import useSelect from '../_hooks/use-select'
 
-type ModelValueType = string | number | Array<string | number> | undefined
+type ModelValueType = string | number | Array<string | number> | null
 
 const props = withDefaults(
   defineProps<{
     option: ComponentColumn
-    modelValue: ModelValueType
+    modelValue?: ModelValueType
     form?: any
   }>(),
   {
