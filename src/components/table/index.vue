@@ -12,7 +12,10 @@
         <slot name="top" />
       </div>
 
-      <div class="justify-between align-start md-row-column mb-sm crco-table-header" v-if="myOption.showHeader !== false">
+      <div
+        class="justify-between align-start md-row-column mb-sm crco-table-header"
+        v-if="myOption.showHeader !== false"
+      >
         <div class="crco-table-header-left flex-row">
           <a-space>
             <a-button
@@ -195,21 +198,24 @@
         <slot name="addHeader" :record="form" v-if="$slots.addHeader && type === 'add'"></slot>
         <slot name="editHeader" :record="form" v-if="$slots.editHeader && type === 'edit'"></slot>
 
-        <crco-form
+        <div
           v-if="type === 'add' || type === 'edit'"
-          :option="myOption"
-          @submit="handleSubmit"
-          v-model="form"
-          :type="type"
+          class="crco-table-form"
+          :class="{
+            'crco-table-form-add': type === 'add',
+            'crco-table-form-edit': type === 'edit'
+          }"
         >
-          <template v-for="item in myOption.columns" v-slot:[item.prop]>
-            <slot
-              :name="item.prop + 'Form'"
-              :record="form"
-              v-if="$slots[item.prop + 'Form']"
-            ></slot>
-          </template>
-        </crco-form>
+          <crco-form :option="myOption" @submit="handleSubmit" v-model="form" :type="type">
+            <template v-for="item in myOption.columns" v-slot:[item.prop]>
+              <slot
+                :name="item.prop + 'Form'"
+                :record="form"
+                v-if="$slots[item.prop + 'Form']"
+              ></slot>
+            </template>
+          </crco-form>
+        </div>
         <slot name="addFooter" :record="form" v-if="$slots.addFooter && type === 'add'"></slot>
         <slot name="editFooter" :record="form" v-if="$slots.editFooter && type === 'edit'"></slot>
       </a-space>
@@ -604,6 +610,7 @@ defineExpose({
   add: (data?: any) => {
     operation('add', isUndefined(data) ? {} : data)
   },
+  operation,
   getParams: () => {
     return {
       ...searchParams.value,
