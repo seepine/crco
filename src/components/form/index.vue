@@ -158,8 +158,9 @@
           </c-row>
         </template>
         <a-form-item v-if="btnShow || $slots.btnLeft || $slots.btnRight">
-          <div style="width: 100%" class="flex-row justify-end crco-form-footer">
+          <div class="crco-form-footer">
             <slot name="btnLeft"></slot>
+            <a-button v-if="myOption.resetBtn" @click="handleReset">重置</a-button>
             <a-button v-if="btnShow" type="primary" @click="handleSubmit" :long="btnLong">{{
               btnText
             }}</a-button>
@@ -186,6 +187,7 @@ import useBtn from './use-btn'
 import CRow from '../row/index.vue'
 import CCol from '../col/index.vue'
 import useOption from './use-option'
+import { deepClone } from '../../util/util'
 
 const props = withDefaults(
   defineProps<{
@@ -206,7 +208,8 @@ const emit = defineEmits<{
 }>()
 
 const formRef = ref()
-const { form, myOption, isGroup } = useOption({ props, emit }, props.type, props.option)
+
+const { form, formBack, myOption, isGroup } = useOption({ props, emit }, props.type, props.option)
 // @ts-ignore
 const { layout, formWidth } = useElementResize(formRef, myOption.value)
 const { btnShow, btnText, btnLong } = useBtn(myOption)
@@ -230,6 +233,9 @@ const handleSubmit = () => {
       })
     }
   })
+}
+const handleReset = () => {
+  form.value = deepClone(formBack.value)
 }
 const submit = () => {
   return new Promise((RES: any, REJ) => {
@@ -276,6 +282,13 @@ body[arco-theme='dark'] {
     margin-top: 0;
     border-bottom: 1px solid var(--color-neutral-3);
     padding-bottom: 6px;
+  }
+  .crco-form-footer {
+    width: 100%;
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
   }
 }
 </style>

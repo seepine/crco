@@ -1,7 +1,7 @@
 import { computed, ref, watch } from 'vue'
 import { isArray, isNull, isUndefined } from '../../util/is'
 import { FormOption, FormType } from '../../types/form'
-import { copyPropertiesNotEmpty } from '../../util/util'
+import { copyPropertiesNotEmpty, deepClone } from '../../util/util'
 
 export default ({ props, emit }: any, type: FormType, option: FormOption) => {
   const myOption = ref<FormOption>({
@@ -10,6 +10,7 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
       display: true,
       long: false
     },
+    resetBtn: true,
     autoLabelWidth: true,
     span: {
       xxl: 8,
@@ -32,6 +33,7 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
   })
 
   const form = ref<any>({})
+  const formBack = ref<any>({})
 
   let hasModelValue = true
   let init = false
@@ -99,6 +101,8 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
             })
           }
         }
+
+        formBack.value = deepClone(form.value)
       }
     },
     {
@@ -110,6 +114,7 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
   const isGroup = computed(() => myOption.value.groups!.length > 0)
   return {
     form,
+    formBack,
     myOption,
     isGroup
   }
