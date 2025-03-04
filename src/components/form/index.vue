@@ -23,7 +23,12 @@
                   :key="column.prop"
                   :span="column.span || myOption.span"
                 >
+                  <component
+                    v-if="typeof column.render === 'function'"
+                    :is="column.render(form)"
+                  ></component>
                   <a-form-item
+                    v-else
                     v-bind="column"
                     :field="column.prop"
                     :label="column.name"
