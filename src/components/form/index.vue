@@ -72,38 +72,44 @@
               }"
             >
               <template v-for="column in myOption.columns">
-                <a-form-item
-                  v-if="filterDisplay(type, column, form)"
-                  :key="column.prop"
-                  v-bind="column"
-                  :field="column.prop"
-                  :label="column.name"
-                  :rules="filterRules(type, column, form)"
-                  :show-colon="column.showColon || myOption.showColon"
-                  :no-style="column.noStyle || myOption.noStyle"
-                  :hide-label="column.hideLabel || myOption.hideLabel"
-                  :disabled="filterDisabled(column, form)"
-                  :type="undefined"
-                  :tooltip="undefined"
-                >
-                  <template #label
-                    >{{ column.name }}
-                    <a-tooltip
-                      style="max-width: 240px"
-                      v-if="filterString(column.tooltip, form)"
-                      :content="filterString(column.tooltip, form)"
-                    >
-                      <icon-info-circle />
-                    </a-tooltip>
-                  </template>
-                  <slot :name="column.prop" :form="form">
-                    <cl-form-item
-                      :column="column"
-                      :value="form"
-                      @change="handleChange"
-                    ></cl-form-item>
-                  </slot> </a-form-item
-              ></template>
+                <div v-if="filterDisplay(type, column, form)" :key="column.prop">
+                  <component
+                    v-if="typeof column.render === 'function'"
+                    :is="column.render(form)"
+                  ></component>
+                  <a-form-item
+                    v-else
+                    v-bind="column"
+                    :field="column.prop"
+                    :label="column.name"
+                    :rules="filterRules(type, column, form)"
+                    :show-colon="column.showColon || myOption.showColon"
+                    :no-style="column.noStyle || myOption.noStyle"
+                    :hide-label="column.hideLabel || myOption.hideLabel"
+                    :disabled="filterDisabled(column, form)"
+                    :type="undefined"
+                    :tooltip="undefined"
+                  >
+                    <template #label
+                      >{{ column.name }}
+                      <a-tooltip
+                        style="max-width: 240px"
+                        v-if="filterString(column.tooltip, form)"
+                        :content="filterString(column.tooltip, form)"
+                      >
+                        <icon-info-circle />
+                      </a-tooltip>
+                    </template>
+                    <slot :name="column.prop" :form="form">
+                      <cl-form-item
+                        :column="column"
+                        :value="form"
+                        @change="handleChange"
+                      ></cl-form-item>
+                    </slot>
+                  </a-form-item>
+                </div>
+              </template>
             </div>
           </template>
           <c-row v-else :wrap="true" :gutter="myOption.gutter" :justify="myOption.justify">
@@ -113,7 +119,12 @@
                 :key="column.prop"
                 :span="column.span || myOption.span"
               >
+                <component
+                  v-if="typeof column.render === 'function'"
+                  :is="column.render(form)"
+                ></component>
                 <a-form-item
+                  v-else
                   v-bind="column"
                   :field="column.prop"
                   :label="column.name"
@@ -147,7 +158,7 @@
           </c-row>
         </template>
         <a-form-item v-if="btnShow || $slots.btnLeft || $slots.btnRight">
-          <div style="width: 100%" class="flex-row justify-end">
+          <div style="width: 100%" class="flex-row justify-end crco-form-footer">
             <slot name="btnLeft"></slot>
             <a-button v-if="btnShow" type="primary" @click="handleSubmit" :long="btnLong">{{
               btnText
