@@ -28,7 +28,7 @@ export default (divRef: Ref, option: FormOption) => {
     let labelWordsNum = 0
     if (isArray(option.columns)) {
       option.columns.forEach((column) => {
-        labelWordsNum = column.name.length > labelWordsNum ? column.name.length : labelWordsNum
+        labelWordsNum = column.name?.length > labelWordsNum ? column.name?.length : labelWordsNum
       })
     }
     return labelWordsNum * 10
