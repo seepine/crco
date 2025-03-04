@@ -47,10 +47,8 @@ export function copyPropertiesNotEmpty(source: any, target: any) {
       target.push(copyPropertiesNotEmpty(source[i], target[i]))
     }
   } else if (isObject(source)) {
-    if (!target) {
-      // eslint-disable-next-line no-param-reassign
-      target = {}
-    }
+    // eslint-disable-next-line no-param-reassign
+    target = isObject(target) ? target : {}
     // eslint-disable-next-line no-restricted-syntax
     for (const key in source) {
       // eslint-disable-next-line no-prototype-builtins

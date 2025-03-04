@@ -42,6 +42,11 @@ export interface FormExt {
    */
   btn?: Btn | boolean
   /**
+   * 重置按钮是否显示
+   * @defaultValue true
+   */
+  resetBtn?: boolean
+  /**
    * 跨越的格数，一行24
    */
   span?: number | ResponsiveValue

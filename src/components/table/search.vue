@@ -18,10 +18,23 @@
             <crco-form ref="searchFormRef" v-model="form" :option="myOption"></crco-form>
           </div>
           <div style="border-left: 1px solid var(--color-neutral-3); margin: 0 12px 8px 0"></div>
-          <div class="flex-column justify-end">
+          <div
+            class="justify-end"
+            :class="{
+              'flex-column': myOption.resetBtn.layout !== 'horizontal',
+              'flex-row': myOption.resetBtn.layout === 'horizontal'
+            }"
+          >
             <a-button
-              v-if="myOption.resetBtn"
+              v-if="myOption.resetBtn.display"
               style="margin-bottom: 8px"
+              :style="
+                myOption.resetBtn.layout === 'horizontal'
+                  ? {
+                      marginRight: '8px'
+                    }
+                  : {}
+              "
               :disabled="isSearch"
               @click="reset"
               >重置</a-button
@@ -50,7 +63,8 @@ import CrcoButton from '../button/index.vue'
 import useTransitionEvent from './use-transition-event'
 import { Done } from '../../types/index'
 import { setStore, getStore } from '../../util/storage'
-import { isUndefined } from '../../util/is'
+import { isObject, isUndefined } from '../../util/is'
+import { deepClone } from '../../util/util'
 
 const transitionEvent = useTransitionEvent()
 const props = defineProps<{
@@ -82,13 +96,40 @@ if (window && window.location) {
 } else {
   init.value = true
 }
-const myOption = computed<FormOption>(() => {
+const myOption = computed<
+  FormOption & {
+    resetBtn: {
+      display?: boolean
+      /**
+       * 布局
+       * @defaultValue horizontal
+       */
+      layout?: 'horizontal' | 'vertical'
+    }
+  }
+  // @ts-ignore
+>(() => {
+  const resetBtn = {
+    display: false,
+    layout: 'horizontal'
+  }
+  if (props.option?.resetBtn === true) {
+    resetBtn.display = true
+  } else if (isObject(props.option?.resetBtn)) {
+    if (props.option?.resetBtn.display !== false) {
+      resetBtn.display = true
+    }
+    if (props.option?.resetBtn.layout === 'vertical') {
+      resetBtn.layout = 'vertical'
+    }
+  }
   return {
     ...props.option,
     justify: props.option?.justify || 'end',
     hideLabel: props.option?.hideLabel || true,
     layout: props.option?.layout || 'inline',
     btn: false,
+    resetBtn,
     columns: props.option?.columns?.map((item) => {
       return {
         ...item,
@@ -138,7 +179,7 @@ const handleSearch = (done: Done) => {
     })
 }
 const reset = () => {
-  form.value = formBack.value
+  form.value = deepClone(formBack.value)
   handleSearch(() => {})
 }
 </script>
