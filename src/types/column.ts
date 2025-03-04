@@ -263,4 +263,11 @@ export type FormColumn = ComponentType & {
    * 显示在表单或表格上的label
    */
   name: string
+  /**
+   * 自定义渲染，type仅自定义输入区，而render会完全替代 <form-item>
+   *
+   * @param form 数据，支持改变值
+   * @returns
+   */
+  render: (form: AnyObject) => VNode
 } & ComponentColumn
