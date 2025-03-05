@@ -269,5 +269,5 @@ export type FormColumn = ComponentType & {
    * @param form 数据，支持改变值
    * @returns
    */
-  render: (form: AnyObject) => VNode
+  render?: (form: AnyObject) => VNode
 } & ComponentColumn
