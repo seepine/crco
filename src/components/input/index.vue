@@ -33,6 +33,7 @@
       @press-enter="handlePressEnter"
       @blur="handlePressEnter"
       @remove="handleTagRemove"
+      @clear="handleTagClear"
     ></a-input-tag>
     <a-input
       v-else
@@ -138,13 +139,13 @@ const handleTag = (item: string) => {
   if (!value.value) {
     value.value = []
   }
-  const index = value.value.indexOf(item)
-  if (index === -1) {
-    value.value.push(item)
-  } else {
-    value.value.splice(index, 1)
-  }
   nextTick(() => {
+    const index = value.value.indexOf(item)
+    if (index === -1) {
+      value.value.push(item)
+    } else {
+      value.value.splice(index, 1)
+    }
     if (value.value) {
       try {
         props.option?.onChange(value.value)
@@ -157,12 +158,17 @@ const handleTag = (item: string) => {
 const inputValue = ref('')
 const handlePressEnter = () => {
   const item = inputValue.value.trim()
-  if (value.value.indexOf(item) === -1) {
+  if ((value.value || []).indexOf(item) === -1) {
     handleTag(inputValue.value.trim())
   }
   inputValue.value = ''
 }
-const handleTagRemove = (val: string | number) => {
-  handleTag(val as string)
+const handleTagRemove = (val: any) => {
+  handleTag(val)
+}
+const handleTagClear = () => {
+  inputValue.value = ''
+  value.value = []
+  handleChange([])
 }
 </script>
