@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.11.0](https://github.com/seepine/crco/compare/v2.10.2...v2.11.0) (2025-03-05)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **input-tag:** fix tag remove and clear ([da052a6](https://github.com/seepine/crco/commit/da052a62f601f68bf563c0d7a1c97c08d6e2e0b5))
+
+
+### ✨ Features | 新功能
+
+* add global form and table default option ([824d003](https://github.com/seepine/crco/commit/824d003f1dfa9b9060c8b4d79e01c04f6ea5ae2d))
+
 ### [2.10.2](https://github.com/seepine/crco/compare/v2.10.1...v2.10.2) (2025-03-05)
 
 
