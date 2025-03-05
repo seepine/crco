@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.10.2](https://github.com/seepine/crco/compare/v2.10.1...v2.10.2) (2025-03-05)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **types:** render can be undefined ([2269b1a](https://github.com/seepine/crco/commit/2269b1a5b6208bfb3c6b5b03780fe7f9664655b8))
+
 ### [2.10.1](https://github.com/seepine/crco/compare/v2.10.0...v2.10.1) (2025-03-04)
 
 
