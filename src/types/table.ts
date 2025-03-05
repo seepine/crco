@@ -233,18 +233,6 @@ export interface TablePropsExt {
      *是否过滤空字符串搜索项，例如输入""，将会被变成undefined
      */
     notBlank?: boolean
-    /**
-     * 重置按钮是否显示
-     * @defaultValue false
-     */
-    resetBtn?: {
-      display?: boolean
-      /**
-       * 布局
-       * @defaultValue horizontal
-       */
-      layout?: 'horizontal' | 'vertical'
-    }
   }
 
   /**

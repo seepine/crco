@@ -49,13 +49,6 @@ export type Callback<T, R> =
 
 export type RequestMethod = Method | (GlobalApiConfig & { dicMethod?: Method }) | 'RESTFul'
 
-export interface CrcoOptions {
-  componentPrefix?: string
-  axios?: AxiosInstance
-  // default 'RESTFul'
-  method?: RequestMethod
-}
-
 export interface Responsive {
   /**
    * < 576px 响应式配置
@@ -83,3 +76,19 @@ export interface Responsive {
   xxl?: number
 }
 export type ResponsiveValue = number | string | Responsive
+
+export interface CrcoOptions {
+  componentPrefix?: string
+  axios?: AxiosInstance
+  // default 'RESTFul'
+  method?: RequestMethod
+
+  form: {
+    resetBtn: boolean
+    span: ResponsiveValue
+  }
+  table: {
+    resetBtn: boolean
+    span: ResponsiveValue
+  }
+}

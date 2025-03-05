@@ -63,8 +63,9 @@ import CrcoButton from '../button/index.vue'
 import useTransitionEvent from './use-transition-event'
 import { Done } from '../../types/index'
 import { setStore, getStore } from '../../util/storage'
-import { isObject, isUndefined } from '../../util/is'
+import { isObject, isUndefined, isBoolean } from '../../util/is'
 import { deepClone } from '../../util/util'
+import { getOption } from '../../util/global-config'
 
 const transitionEvent = useTransitionEvent()
 const props = defineProps<{
@@ -109,12 +110,10 @@ const myOption = computed<
   }
   // @ts-ignore
 >(() => {
-  const resetBtn = {
-    display: false,
-    layout: 'horizontal'
-  }
-  if (props.option?.resetBtn === true) {
-    resetBtn.display = true
+  const { resetBtn } = getOption().table.searchOption
+
+  if (isBoolean(props.option?.resetBtn)) {
+    resetBtn.display = props.option?.resetBtn
   } else if (isObject(props.option?.resetBtn)) {
     if (props.option?.resetBtn.display !== false) {
       resetBtn.display = true

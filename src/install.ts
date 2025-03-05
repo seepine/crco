@@ -17,6 +17,7 @@ import CTreeSelect from './components/tree-select'
 
 import { setHttp, setMethod } from './util/http'
 import { CrcoOptions } from './types'
+import { setOption } from './util/global-config'
 
 const components: any = {
   CRow,
@@ -44,6 +45,7 @@ export default {
         setMethod(options.method)
       }
     }
+    setOption(options)
     Object.keys(components).forEach((key: string) => {
       app.use(components[key], options)
     })

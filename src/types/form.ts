@@ -43,9 +43,18 @@ export interface FormExt {
   btn?: Btn | boolean
   /**
    * 重置按钮是否显示
-   * @defaultValue true
+   * @defaultValue 表单默认true，搜索默认false
    */
-  resetBtn?: boolean
+  resetBtn?:
+    | boolean
+    | {
+        display?: boolean
+        /**
+         * 布局
+         * @defaultValue horizontal
+         */
+        layout?: 'horizontal' | 'vertical'
+      }
   /**
    * 跨越的格数，一行24
    */

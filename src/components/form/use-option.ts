@@ -2,6 +2,7 @@ import { computed, ref, watch } from 'vue'
 import { isArray, isNull, isUndefined } from '../../util/is'
 import { FormOption, FormType } from '../../types/form'
 import { copyPropertiesNotEmpty, deepClone } from '../../util/util'
+import { getOption } from '../../util/global-config'
 
 export default ({ props, emit }: any, type: FormType, option: FormOption) => {
   const myOption = ref<FormOption>({
@@ -10,24 +11,7 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
       display: true,
       long: false
     },
-    resetBtn: true,
-    autoLabelWidth: true,
-    span: {
-      xxl: 8,
-      xl: 8,
-      lg: 8,
-      md: 12,
-      sm: 12,
-      xs: 24
-    },
-    gutter: {
-      xxl: 32,
-      xl: 24,
-      lg: 16,
-      md: 12,
-      sm: 12,
-      xs: 8
-    },
+    ...getOption().form,
     groups: [],
     columns: []
   })
