@@ -110,7 +110,7 @@ const myOption = computed<
   }
   // @ts-ignore
 >(() => {
-  const { resetBtn } = getOption().table.searchOption
+  const resetBtn = deepClone(getOption().table.searchOption)
 
   if (isBoolean(props.option?.resetBtn)) {
     resetBtn.display = props.option?.resetBtn
