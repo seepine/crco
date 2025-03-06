@@ -82,13 +82,21 @@ export interface CrcoOptions {
   axios?: AxiosInstance
   // default 'RESTFul'
   method?: RequestMethod
-
-  form: {
-    resetBtn: boolean
-    span: ResponsiveValue
+  form?: {
+    resetBtn?: boolean
+    span?: ResponsiveValue
   }
-  table: {
-    resetBtn: boolean
-    span: ResponsiveValue
+  table?: {
+    searchOption?: {
+      resetBtn?: {
+        display?: boolean
+        /**
+         * 布局
+         * @defaultValue horizontal
+         */
+        layout?: 'horizontal' | 'vertical'
+      }
+    }
+    span?: ResponsiveValue
   }
 }
