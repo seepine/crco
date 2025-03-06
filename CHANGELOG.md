@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.1](https://github.com/seepine/crco/compare/v2.11.0...v2.11.1) (2025-03-06)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix search resetBtn default ([3eb5238](https://github.com/seepine/crco/commit/3eb523866aa7b7105b6bcbf32782e6c0bea4a55a))
+
+
+### ⚡️ improvement | 功能优化
+
+* **form:** fix justify flex end ([9ef3388](https://github.com/seepine/crco/commit/9ef3388ed4ffe04a9b9bef77a014b0812789a24c))
+* **types:** fix crcoOptions type ([ac7ed32](https://github.com/seepine/crco/commit/ac7ed3250094091d6750791e3c88b8838ca0ca1f))
+
 ## [2.11.0](https://github.com/seepine/crco/compare/v2.10.2...v2.11.0) (2025-03-05)
 
 
