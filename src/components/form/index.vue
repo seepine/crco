@@ -288,7 +288,7 @@ body[arco-theme='dark'] {
     gap: 8px;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
   }
 }
 </style>
