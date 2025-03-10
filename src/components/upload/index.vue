@@ -203,6 +203,22 @@ if (props.readonly) {
       deep: true
     }
   )
+} else {
+  const watchHandler = watch(
+    () => props.modelValue,
+    () => {
+      try {
+        if (defaultFileList.value.length === 0) {
+          defaultFileList.value = getFileList()
+        }
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
+      watchHandler()
+    },
+    {
+      deep: true
+    }
+  )
 }
 
 const fileList = computed({
