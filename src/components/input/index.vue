@@ -67,9 +67,12 @@ import {
   InputTag as AInputTag,
   Textarea as ATextarea
 } from '@arco-design/web-vue'
-import { withDefaults, computed, ref, watch, nextTick } from 'vue'
+import { withDefaults, computed, ref, watch, inject } from 'vue'
+import { FormContext, formInjectionKey } from '@arco-design/web-vue/es/form/context'
 import { isString } from '../../util/is'
 import { runCallback } from '../../util/util'
+
+const formCtx = inject<Partial<FormContext>>(formInjectionKey, {})
 
 const props = withDefaults(
   defineProps<{
@@ -139,20 +142,19 @@ const handleTag = (item: string) => {
   if (!value.value) {
     value.value = []
   }
-  nextTick(() => {
-    const index = value.value.indexOf(item)
-    if (index === -1) {
-      value.value.push(item)
-    } else {
-      value.value.splice(index, 1)
-    }
-    if (value.value) {
-      try {
-        props.option?.onChange(value.value)
-        // eslint-disable-next-line no-empty
-      } catch (e) {}
-    }
-  })
+  const index = value.value.indexOf(item)
+  if (index === -1) {
+    value.value.push(item)
+  } else {
+    value.value.splice(index, 1)
+  }
+  emit('update:modelValue', value.value)
+  if (props.option.rules) {
+    try {
+      formCtx.validateField!(props.option.prop)
+      // eslint-disable-next-line no-empty
+    } catch (e) {}
+  }
 }
 
 const inputValue = ref('')
@@ -170,5 +172,12 @@ const handleTagClear = () => {
   inputValue.value = ''
   value.value = []
   handleChange([])
+  emit('update:modelValue', [])
+  if (props.option.rules) {
+    try {
+      formCtx.validateField!(props.option.prop)
+      // eslint-disable-next-line no-empty
+    } catch (e) {}
+  }
 }
 </script>
