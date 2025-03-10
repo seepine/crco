@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.3](https://github.com/seepine/crco/compare/v2.11.2...v2.11.3) (2025-03-10)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **input-password:** fix switch visible icon error ([96ab0e5](https://github.com/seepine/crco/commit/96ab0e52cc21de593c8d6697e8f9bc6b2b7ccbae))
+* **input-tag:** fix validate error ([c2f0431](https://github.com/seepine/crco/commit/c2f0431ec8e794ec8ad90e2e388585f7e413fa36))
+* **upload:** fix default file list dynamic value ([9813b0e](https://github.com/seepine/crco/commit/9813b0e87c05b6626a8874a1d4843052ceef794f))
+
 ### [2.11.2](https://github.com/seepine/crco/compare/v2.11.1...v2.11.2) (2025-03-07)
 
 
