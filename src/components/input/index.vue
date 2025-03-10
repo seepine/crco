@@ -9,7 +9,6 @@
     ></a-input-number>
     <a-input-password
       v-else-if="option.type === 'password'"
-      v-bind="option"
       v-model="value"
       :disabled="undefined"
       @change="handleChange"
