@@ -66,7 +66,7 @@ import {
   InputTag as AInputTag,
   Textarea as ATextarea
 } from '@arco-design/web-vue'
-import { withDefaults, computed, ref, watch, inject } from 'vue'
+import { withDefaults, computed, ref, watch, inject, nextTick } from 'vue'
 import { FormContext, formInjectionKey } from '@arco-design/web-vue/es/form/context'
 import { isString } from '../../util/is'
 import { runCallback } from '../../util/util'
@@ -141,19 +141,21 @@ const handleTag = (item: string) => {
   if (!value.value) {
     value.value = []
   }
-  const index = value.value.indexOf(item)
-  if (index === -1) {
-    value.value.push(item)
-  } else {
-    value.value.splice(index, 1)
-  }
-  emit('update:modelValue', value.value)
-  if (props.option.rules) {
-    try {
-      formCtx.validateField!(props.option.prop)
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
-  }
+  nextTick(() => {
+    const index = value.value.indexOf(item)
+    if (index === -1) {
+      value.value.push(item)
+    } else {
+      value.value.splice(index, 1)
+    }
+    emit('update:modelValue', value.value)
+    if (props.option.rules) {
+      try {
+        formCtx.validateField!(props.option.prop)
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
+    }
+  })
 }
 
 const inputValue = ref('')
