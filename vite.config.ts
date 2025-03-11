@@ -20,6 +20,7 @@ export default defineConfig({
         return format === 'es' ? 'index.js' : `index.${format}.js`
       }
     },
+    sourcemap: true,
     cssCodeSplit: true,
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
