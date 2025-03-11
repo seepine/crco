@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.5](https://github.com/seepine/crco/compare/v2.11.4...v2.11.5) (2025-03-11)
+
+
+### 🚀 Chore | 构建/工程依赖/工具
+
+* **vite:** add sourcemap ([f2a89d2](https://github.com/seepine/crco/commit/f2a89d26b45f44fb3890c99b996f0b4af21bd1d2))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **input-tag:** fix input rules validate error ([1388e06](https://github.com/seepine/crco/commit/1388e06c3655c1f7c17076b9b3661e69916c3327))
+
 ### [2.11.4](https://github.com/seepine/crco/compare/v2.11.3...v2.11.4) (2025-03-10)
 
 
