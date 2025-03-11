@@ -26,13 +26,11 @@
       :unique-value="true"
       :retain-input-value="true"
       v-bind="option"
-      :model-value="value"
+      v-model="value"
       v-model:input-value="inputValue"
       :disabled="undefined"
-      @press-enter="handlePressEnter"
       @blur="handlePressEnter"
-      @remove="handleTagRemove"
-      @clear="handleTagClear"
+      @change="handleTagChange"
     ></a-input-tag>
     <a-input
       v-else
@@ -66,12 +64,9 @@ import {
   InputTag as AInputTag,
   Textarea as ATextarea
 } from '@arco-design/web-vue'
-import { withDefaults, computed, ref, watch, inject, nextTick } from 'vue'
-import { FormContext, formInjectionKey } from '@arco-design/web-vue/es/form/context'
+import { withDefaults, computed, ref, watch, nextTick } from 'vue'
 import { isString } from '../../util/is'
 import { runCallback } from '../../util/util'
-
-const formCtx = inject<Partial<FormContext>>(formInjectionKey, {})
 
 const props = withDefaults(
   defineProps<{
@@ -149,12 +144,6 @@ const handleTag = (item: string) => {
       value.value.splice(index, 1)
     }
     emit('update:modelValue', value.value)
-    if (props.option.rules) {
-      try {
-        formCtx.validateField!(props.option.prop)
-        // eslint-disable-next-line no-empty
-      } catch (e) {}
-    }
   })
 }
 
@@ -166,19 +155,8 @@ const handlePressEnter = () => {
   }
   inputValue.value = ''
 }
-const handleTagRemove = (val: any) => {
-  handleTag(val)
-}
-const handleTagClear = () => {
+const handleTagChange = (val: any[]) => {
   inputValue.value = ''
-  value.value = []
-  handleChange([])
-  emit('update:modelValue', [])
-  if (props.option.rules) {
-    try {
-      formCtx.validateField!(props.option.prop)
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
-  }
+  handleChange(val)
 }
 </script>
