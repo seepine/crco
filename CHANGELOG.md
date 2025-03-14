@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.9](https://github.com/seepine/crco/compare/v2.11.8...v2.11.9) (2025-03-14)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix pagination option not work ([d9ba52e](https://github.com/seepine/crco/commit/d9ba52e6837e9058db59f4f8479e206c68cfae45))
+
 ### [2.11.8](https://github.com/seepine/crco/compare/v2.11.7...v2.11.8) (2025-03-14)
 
 
