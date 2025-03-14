@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.8](https://github.com/seepine/crco/compare/v2.11.7...v2.11.8) (2025-03-14)
+
+
+### ⚡️ improvement | 功能优化
+
+* **table:** add panel class to support custom ([30a0c51](https://github.com/seepine/crco/commit/30a0c517bf4e47bc88db1833b244f5ba909695f2))
+
 ### [2.11.7](https://github.com/seepine/crco/compare/v2.11.6...v2.11.7) (2025-03-14)
 
 
