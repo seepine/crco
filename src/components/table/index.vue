@@ -174,8 +174,8 @@
       </a-table>
     </div>
     <div v-if="type">
-      <a-space v-if="type" direction="vertical" style="width: 100%" size="medium">
-        <a-breadcrumb>
+      <div v-if="type" class="crco-table-panel" :class="`crco-table-panel__${type}`" size="medium">
+        <a-breadcrumb class="crco-table-panel-navbar">
           <a-breadcrumb-item>
             <a-button type="text" @click="handleBack">
               <template #icon>
@@ -185,7 +185,7 @@
           </a-breadcrumb-item>
           <a-breadcrumb-item>{{ typeLabel }}</a-breadcrumb-item>
         </a-breadcrumb>
-        <div v-if="type === 'view'" class="crco-table-view">
+        <div v-if="type === 'view'" class="crco-table-panel-descriptions">
           <crco-descriptions :type="type" :option="myOption" v-model="form">
             <template v-for="item in myOption.columns" v-slot:[slotViewName(item.prop)]>
               <slot
@@ -200,14 +200,7 @@
         <slot name="addHeader" :record="form" v-if="$slots.addHeader && type === 'add'"></slot>
         <slot name="editHeader" :record="form" v-if="$slots.editHeader && type === 'edit'"></slot>
 
-        <div
-          v-if="type === 'add' || type === 'edit'"
-          class="crco-table-form"
-          :class="{
-            'crco-table-form-add': type === 'add',
-            'crco-table-form-edit': type === 'edit'
-          }"
-        >
+        <div v-if="type === 'add' || type === 'edit'" class="crco-table-panel-form">
           <crco-form :option="myOption" @submit="handleSubmit" v-model="form" :type="type">
             <template v-for="item in myOption.columns" v-slot:[item.prop]>
               <slot
@@ -220,7 +213,7 @@
         </div>
         <slot name="addFooter" :record="form" v-if="$slots.addFooter && type === 'add'"></slot>
         <slot name="editFooter" :record="form" v-if="$slots.editFooter && type === 'edit'"></slot>
-      </a-space>
+      </div>
     </div>
   </div>
 </template>

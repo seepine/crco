@@ -47,4 +47,10 @@
       padding: 0 8px;
     }
   }
+
+  .crco-table-panel{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 }
