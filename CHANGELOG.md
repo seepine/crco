@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.7](https://github.com/seepine/crco/compare/v2.11.6...v2.11.7) (2025-03-14)
+
+
+### ⚡️ improvement | 功能优化
+
+* **table:** add mode-change event ([ce1b488](https://github.com/seepine/crco/commit/ce1b488dddd265a9543d06e30c1ee66e7bd8cf51))
+
 ### [2.11.6](https://github.com/seepine/crco/compare/v2.11.4...v2.11.6) (2025-03-11)
 
 
