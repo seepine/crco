@@ -332,6 +332,9 @@ watch(
       pagination.value.pageSizeOptions =
         myOption.value.pagination.pageSizeOptions || pagination.value.pageSizeOptions
     }
+  },
+  {
+    immediate: true
   }
 )
 
