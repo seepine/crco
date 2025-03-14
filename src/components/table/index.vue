@@ -300,8 +300,15 @@ const emit = defineEmits<{
   (event: 'change', extraType: string, data: any): void
   (event: 'selection-change', values: string[]): void
   (event: 'sorter-change', dataIndex: string, direction: string): void
+  (event: 'mode-change', val: FormType): void
 }>()
-
+// 触发事件
+watch(
+  () => type.value,
+  () => {
+    emit('mode-change', type.value)
+  }
+)
 const aTableRef = ref()
 const { myOption } = useOption(props.option)
 const { requestPage, requestAdd, requestEdit, requestDel } = useCrud(emit, myOption)
@@ -612,6 +619,7 @@ defineExpose({
   add: (data?: any) => {
     operation('add', isUndefined(data) ? {} : data)
   },
+  operate: operation,
   operation,
   getParams: () => {
     return {
