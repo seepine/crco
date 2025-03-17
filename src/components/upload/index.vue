@@ -163,7 +163,7 @@ const getFileList = () => {
 }
 
 const uploadModelValue = (arr: Array<any>, uploadFinish: boolean) => {
-  if (!uploadFinish) {
+  if (!uploadFinish && props.option.action) {
     return
   }
   let tmpArr = arr
