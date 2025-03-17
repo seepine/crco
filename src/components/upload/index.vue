@@ -163,6 +163,9 @@ const getFileList = () => {
 }
 
 const uploadModelValue = (arr: Array<any>, uploadFinish: boolean) => {
+  if (!uploadFinish) {
+    return
+  }
   let tmpArr = arr
   if (props.option.urlOnly === true) {
     tmpArr = arr.map((item) => item.url)
@@ -209,7 +212,10 @@ if (props.readonly) {
     () => {
       try {
         if (defaultFileList.value.length === 0) {
-          defaultFileList.value = getFileList()
+          const getDefault = getFileList()
+          if (JSON.stringify(getDefault).indexOf('blob:http') < 0) {
+            defaultFileList.value = getDefault
+          }
         }
         // eslint-disable-next-line no-empty
       } catch (e) {}
