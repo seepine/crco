@@ -236,6 +236,7 @@ const handleSubmit = () => {
 }
 const handleReset = () => {
   form.value = deepClone(formBack.value)
+  formRef.value?.resetFields()
 }
 const submit = () => {
   return new Promise((RES: any, REJ) => {
@@ -257,7 +258,13 @@ const submit = () => {
   })
 }
 defineExpose({
-  submit
+  submit,
+  reset: () => {
+    handleReset()
+  },
+  getFormRef: () => {
+    return formRef.value
+  }
 })
 </script>
 <style lang="scss">
