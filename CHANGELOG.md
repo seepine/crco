@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.11](https://github.com/seepine/crco/compare/v2.11.10...v2.11.11) (2025-03-17)
+
+
+### ⚡️ improvement | 功能优化
+
+* **form:** expose reset and ref ([6b834ba](https://github.com/seepine/crco/commit/6b834ba6b13f0dfe0cf414a45a26c6b51cb63695))
+* **upload:** fix modelValue change can be blob when action is blank ([ea3de58](https://github.com/seepine/crco/commit/ea3de58947ca792b29618c3ec95e12ef67a0c2bc))
+
 ### [2.11.10](https://github.com/seepine/crco/compare/v2.11.9...v2.11.10) (2025-03-17)
 
 
