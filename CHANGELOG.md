@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.10](https://github.com/seepine/crco/compare/v2.11.9...v2.11.10) (2025-03-17)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **upload:** fix modelValue of blob change ([262780c](https://github.com/seepine/crco/commit/262780ce7a696f2ea28f49def24515e331caa743))
+
 ### [2.11.9](https://github.com/seepine/crco/compare/v2.11.8...v2.11.9) (2025-03-14)
 
 
