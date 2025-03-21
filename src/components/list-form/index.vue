@@ -24,7 +24,7 @@
                 <icon-plus />
               </template>
             </a-button>
-            <slot name="searchRight"></slot>
+            <slot name="searchRight" :record="selectData"></slot>
           </div>
           <tree
             ref="treeRef"
@@ -227,7 +227,16 @@ defineExpose({
     handleReload(unselect)
   },
   add: handleAdd,
-  reset: handleReset
+  reset: handleReset,
+  getSelectData: () => {
+    return selectData.value
+  },
+  select: (data: any) => {
+    selectData.value = data
+  },
+  unselect: () => {
+    selectData.value = undefined
+  }
 })
 </script>
 <style>
