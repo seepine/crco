@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.12](https://github.com/seepine/crco/compare/v2.11.11...v2.11.12) (2025-03-21)
+
+
+### ⚡️ improvement | 功能优化
+
+* **list-form:** add slot and expose function ([34a2197](https://github.com/seepine/crco/commit/34a21979b994ae4d92d1277f2cff2ff7d665c5e1))
+
 ### [2.11.11](https://github.com/seepine/crco/compare/v2.11.10...v2.11.11) (2025-03-17)
 
 
