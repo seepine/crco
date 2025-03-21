@@ -5,11 +5,13 @@
     @edit="handleEdit"
     @del="handleDel"
    -->
-  <c-list-form :option="option" @load="handleLoad" @edit="handleEdit"> </c-list-form>
+  <c-list-form :option="option" @load="handleLoad" @add="handleAdd" @edit="handleEdit">
+  </c-list-form>
 </template>
 <script setup lang="ts">
 // 可引入类型，查看支持的参数
 import type { ListFormOption } from 'crco/src/types/list-form'
+import { ref } from 'vue'
 
 const option: ListFormOption = {
   // 也和表格一样，支持api参数，无需自己写请求和事件
@@ -72,18 +74,23 @@ const option: ListFormOption = {
     }
   ]
 }
-
+const data = ref([
+  { id: '1', fullName: '张三', hobby: 0 },
+  { id: '2', fullName: '李四', hobby: 2 }
+])
 const handleLoad = (params: any, done: Function) => {
-  done([
-    { id: '1', fullName: '张三', hobby: 0 },
-    { id: '2', fullName: '李四', hobby: 2 }
-  ])
+  done(data.value)
 }
 
-const handleEdit = (data: any, done: Function) => {
+const handleAdd = (val: any, done: Function) => {
+  data.value.push(val)
+  done()
+}
+
+const handleEdit = (val: any, done: Function) => {
   // 请求后端进行数据修改
   setTimeout(() => {
-    console.log(data)
+    console.log(val)
     done()
   }, 1000)
 }
