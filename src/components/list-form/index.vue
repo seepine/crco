@@ -24,6 +24,7 @@
                 <icon-plus />
               </template>
             </a-button>
+            <slot name="searchRight"></slot>
           </div>
           <tree
             ref="treeRef"
@@ -224,7 +225,9 @@ watch(
 defineExpose({
   load: (unselect?: boolean) => {
     handleReload(unselect)
-  }
+  },
+  add: handleAdd,
+  reset: handleReset
 })
 </script>
 <style>
