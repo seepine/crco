@@ -2,8 +2,24 @@
   <a-space direction="vertical" fill size="medium">
     <div class="flex-row justify-between align-center">
       <a-typography-title :heading="6" style="margin: 0; padding-top: 8px">新增</a-typography-title>
-
       <a-space>
+        <a-checkbox
+          v-if="option.showAddContinue"
+          v-model="addContinue"
+          style="margin-right: 8px"
+          size="mini"
+        >
+          <div
+            style="
+              color: var(--color-text-2);
+              font-size: 13px;
+              margin-left: -2px;
+              user-select: none;
+            "
+          >
+            连续新增
+          </div>
+        </a-checkbox>
         <a-button @click="handleCancel">取消</a-button>
         <c-button type="primary" @click="handleSave">提交</c-button>
       </a-space>
@@ -16,6 +32,7 @@ import { ref } from 'vue'
 import { Message } from '@arco-design/web-vue'
 import { ListFormOption } from '../../types/list-form'
 import CForm from '../form/index.vue'
+import { deepClone } from '../../util/util'
 
 const props = defineProps<{
   option: ListFormOption
@@ -30,20 +47,23 @@ const emit = defineEmits<{
   (event: 'update:form', val: any): void
 }>()
 
-const addForm = ref(props.form)
+const addForm = ref(deepClone(props.form))
+const formBack = ref(deepClone(props.form))
 const formRef = ref()
+const addContinue = ref(false)
 
 const handleSave = (done: Function) => {
   formRef.value
     .submit()
     .then((res: any) => {
-      props.requestAdd(res.form, (err: any) => {
-        if (err) {
-          res.done()
-          done()
+      props.requestAdd(res.form, () => {
+        res.done()
+        done()
+        if (addContinue.value) {
+          Message.success('新增成功')
+          addForm.value = deepClone(formBack.value)
+          emit('reload', true)
         } else {
-          res.done()
-          done()
           emit('update:isAdd', false)
           emit('update:form', {})
           emit('reload', true)

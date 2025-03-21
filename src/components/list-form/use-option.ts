@@ -1,6 +1,7 @@
 import { ref, watch } from 'vue'
 import { ListFormOption } from '../../types/list-form'
 import { copyPropertiesNotEmpty } from '../../util/util'
+import { getOption } from '../../util/global-config'
 
 export default (option: ListFormOption) => {
   const myOption = ref<ListFormOption>({
@@ -30,6 +31,7 @@ export default (option: ListFormOption) => {
       pageSize: 50
     },
     rowKey: 'id',
+    showAddContinue: getOption().listForm?.showAddContinue,
     props: {
       name: 'name',
       description: 'description',

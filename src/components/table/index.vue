@@ -201,13 +201,33 @@
         <slot name="editHeader" :record="form" v-if="$slots.editHeader && type === 'edit'"></slot>
 
         <div v-if="type === 'add' || type === 'edit'" class="crco-table-panel-form">
-          <crco-form :option="myOption" @submit="handleSubmit" v-model="form" :type="type">
+          <crco-form
+            ref="formRef"
+            :option="myOption"
+            @submit="handleSubmit"
+            v-model="form"
+            :type="type"
+          >
             <template v-for="item in myOption.columns" v-slot:[item.prop]>
               <slot
                 :name="item.prop + 'Form'"
                 :record="form"
                 v-if="$slots[item.prop + 'Form']"
               ></slot>
+            </template>
+            <template #btnLeft v-if="type === 'add' && myOption.showAddContinue">
+              <a-checkbox v-model="addContinue" style="margin-right: 8px" size="mini">
+                <div
+                  style="
+                    color: var(--color-text-2);
+                    font-size: 13px;
+                    margin-left: -2px;
+                    user-select: none;
+                  "
+                >
+                  连续{{ typeLabel }}
+                </div>
+              </a-checkbox>
             </template>
           </crco-form>
         </div>
@@ -228,6 +248,7 @@ import {
   Button as AButton,
   Breadcrumb as ABreadcrumb,
   BreadcrumbItem as ABreadcrumbItem,
+  Checkbox as ACheckbox,
   TableChangeExtra,
   TableData,
   PaginationProps
@@ -253,7 +274,7 @@ const crcoTableDivRef = ref()
 const { divWidth } = useElementResize(crcoTableDivRef)
 provide('crcoTableDivWidth', divWidth)
 const type = ref<FormType>()
-
+const addContinue = ref(false)
 /** ==========================     处理物理返回逻辑     ================== */
 const popState = usePopstate(() => {
   if (type.value !== undefined) {
@@ -303,6 +324,7 @@ watch(
   }
 )
 const aTableRef = ref()
+const formRef = ref()
 const { myOption } = useOption(props.option)
 const { requestPage, requestAdd, requestEdit, requestDel } = useCrud(emit, myOption)
 const { myPermissions } = usePermission(myOption)
@@ -496,7 +518,13 @@ const handleSubmit = (val: any, done: Function) => {
     if (flag === true) {
       Message.success(`${typeLabel.value}成功`)
       // type.value = undefined
-      handleBack()
+      if (type.value === 'add' && addContinue.value) {
+        done()
+        formRef.value.reset()
+        operation('add', deepClone(form.value))
+      } else {
+        handleBack()
+      }
       load()
     } else {
       done()

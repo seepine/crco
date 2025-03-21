@@ -28,6 +28,10 @@ export interface ListFormOption extends MenuProps, PermissionProps {
    */
   props?: TreeFieldProps | ListFieldProps
   /**
+   * 新增时，是否显示连续新增
+   */
+  showAddContinue?: boolean
+  /**
    * 是否为树形结构，
    * 是的话接口必须返回 list tree结构
    * 否的话接口可返回分页结构 {records:[]}

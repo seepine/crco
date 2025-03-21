@@ -255,6 +255,10 @@ export interface TablePropsExt {
    * 是否默认加载数据
    */
   defaultLoadData?: boolean
+  /**
+   * 新增时，是否显示连续新增
+   */
+  showAddContinue?: boolean
 }
 export type TableColumn = FormColumn & TableColumnProps
 

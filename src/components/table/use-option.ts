@@ -3,6 +3,7 @@ import { isString } from '../../util/is'
 import { TableOption } from '../../types/table'
 import { copyPropertiesNotEmpty } from '../../util/util'
 import { runDicData } from '../../util/dic-data'
+import { getOption } from '../../util/global-config'
 
 export default (option: TableOption) => {
   // 设置option相关
@@ -32,6 +33,7 @@ export default (option: TableOption) => {
       width: 120,
       nowrap: true
     },
+    showAddContinue: getOption().table?.showAddContinue,
     rowKey: 'id',
     defaultLoadData: true,
     bordered: false,

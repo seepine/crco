@@ -29,12 +29,16 @@ const globalCrcoOption = {
     }
   },
   table: {
+    showAddContinue: false,
     searchOption: {
       resetBtn: {
         display: false,
         layout: 'horizontal'
       }
     }
+  },
+  listForm: {
+    showAddContinue: false
   }
 }
 type CrcoOpt = typeof globalCrcoOption
