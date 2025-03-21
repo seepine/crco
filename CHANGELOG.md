@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.13](https://github.com/seepine/crco/compare/v2.11.12...v2.11.13) (2025-03-21)
+
+
+### 📝 Documentation | 文档
+
+* **list-form:** fix add demo ([bff6b8e](https://github.com/seepine/crco/commit/bff6b8e3bb1f1006c91000f963cbb7931c9c2624))
+
+
+### ⚡️ improvement | 功能优化
+
+* **list-form:** expose select function ([a9394cd](https://github.com/seepine/crco/commit/a9394cd128a2cb38e2b3c50e8abb464776ec57b8))
+* support add continue ([89e1d44](https://github.com/seepine/crco/commit/89e1d44fa53c540319b0a677e5781ff5ba6d450b))
+
 ### [2.11.12](https://github.com/seepine/crco/compare/v2.11.11...v2.11.12) (2025-03-21)
 
 
