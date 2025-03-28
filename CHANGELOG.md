@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.14](https://github.com/seepine/crco/compare/v2.11.13...v2.11.14) (2025-03-28)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **list-form:** fix unselect and add form reset bug ([bafc26e](https://github.com/seepine/crco/commit/bafc26ef7fba57b6ce46b70b613d3e23bf12228d))
+* **table:** fix add continue form reset bug ([2e0b831](https://github.com/seepine/crco/commit/2e0b8313037d1eeec88d8730aa6518c0a357d784))
+
+
+### ⚡️ improvement | 功能优化
+
+* **table:** fix table search item col default 6/24 ([1836482](https://github.com/seepine/crco/commit/18364823b02ca0723fa4fa83499bc2bc5d92e263))
+
 ### [2.11.13](https://github.com/seepine/crco/compare/v2.11.12...v2.11.13) (2025-03-21)
 
 
