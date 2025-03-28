@@ -173,8 +173,10 @@ defineExpose({
   search: (val?: string) => {
     searchKey.value = val || ''
   },
-  reload: () => {
-    selectedKeys.value = []
+  reload: (unselect = false) => {
+    if (unselect) {
+      selectedKeys.value = []
+    }
     fetchData()
   }
 })
@@ -183,9 +185,6 @@ defineExpose({
 .crco-list-form-tree-header {
   .arco-icon {
     cursor: pointer;
-    padding: 4px;
-    padding-top: 8px;
-    padding-right: 6px;
   }
 }
 .crco-list-form {

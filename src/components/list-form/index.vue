@@ -199,9 +199,9 @@ const handleReload = (unselect?: boolean) => {
     selectData.value = undefined
   }
   if (myOption.value.isTree) {
-    treeRef.value.reload()
+    treeRef.value.reload(unselect)
   } else {
-    listRef.value.reload()
+    listRef.value.reload(unselect)
   }
 }
 

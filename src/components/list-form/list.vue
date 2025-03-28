@@ -106,7 +106,7 @@ const fetchData = (params: any = {}) => {
         if (len < props.option.listProps?.pageSize!) {
           noMore.value = true
         }
-        if(current.value === 1){
+        if (current.value === 1) {
           data.value = []
         }
         data.value.push(...res.records)

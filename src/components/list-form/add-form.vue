@@ -24,7 +24,13 @@
         <c-button type="primary" @click="handleSave">提交</c-button>
       </a-space>
     </div>
-    <c-form ref="formRef" v-model="addForm" :option="{ ...option, btn: false }" type="add"></c-form>
+    <c-form
+      v-if="show"
+      ref="formRef"
+      v-model="addForm"
+      :option="{ ...option, btn: false }"
+      type="add"
+    ></c-form>
   </a-space>
 </template>
 <script setup lang="ts">
@@ -47,6 +53,7 @@ const emit = defineEmits<{
   (event: 'update:form', val: any): void
 }>()
 
+const show = ref(true)
 const addForm = ref(deepClone(props.form))
 const formBack = ref(deepClone(props.form))
 const formRef = ref()
@@ -56,13 +63,20 @@ const handleSave = (done: Function) => {
   formRef.value
     .submit()
     .then((res: any) => {
-      props.requestAdd(res.form, () => {
+      props.requestAdd(res.form, (err = true) => {
         res.done()
         done()
+        if (err !== true) {
+          return
+        }
         if (addContinue.value) {
           Message.success('新增成功')
+          emit('reload', false)
           addForm.value = deepClone(formBack.value)
-          emit('reload', true)
+          show.value = false
+          setTimeout(() => {
+            show.value = true
+          }, 0)
         } else {
           emit('update:isAdd', false)
           emit('update:form', {})
