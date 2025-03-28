@@ -202,6 +202,7 @@
 
         <div v-if="type === 'add' || type === 'edit'" class="crco-table-panel-form">
           <crco-form
+            v-if="showForm"
             ref="formRef"
             :option="myOption"
             @submit="handleSubmit"
@@ -507,7 +508,7 @@ const operation = (val: FormType, data: any) => {
     type.value = val
   }
 }
-
+const showForm = ref(true)
 const handleSubmit = (val: any, done: Function) => {
   if (!type.value) {
     // eslint-disable-next-line no-console
@@ -521,7 +522,11 @@ const handleSubmit = (val: any, done: Function) => {
       if (type.value === 'add' && addContinue.value) {
         done()
         formRef.value.reset()
-        operation('add', deepClone(form.value))
+        showForm.value = false
+        setTimeout(() => {
+          showForm.value = true
+          operation('add', deepClone(form.value))
+        }, 0)
       } else {
         handleBack()
       }
