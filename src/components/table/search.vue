@@ -19,7 +19,6 @@
           </div>
           <div style="border-left: 1px solid var(--color-neutral-3); margin: 0 12px 8px 0"></div>
           <div
-            class="justify-end"
             :class="{
               'flex-column': myOption.resetBtn.layout !== 'horizontal',
               'flex-row': myOption.resetBtn.layout === 'horizontal'
@@ -40,8 +39,8 @@
               >重置</a-button
             >
             <crco-button
-              style="margin-bottom: 8px"
               type="outline"
+              style="margin-bottom: 8px"
               :show-loading="false"
               :loading="isSearch"
               @click="handleSearch"
@@ -111,7 +110,9 @@ const myOption = computed<
   // @ts-ignore
 >(() => {
   const resetBtn = deepClone(getOption().table.searchOption.resetBtn)
-
+  if ((props.option?.columns?.length || 0) > 4) {
+    resetBtn.layout = 'vertical'
+  }
   if (isBoolean(props.option?.resetBtn)) {
     resetBtn.display = props.option?.resetBtn
   } else if (isObject(props.option?.resetBtn)) {
@@ -124,14 +125,32 @@ const myOption = computed<
   }
   return {
     ...props.option,
-    justify: props.option?.justify || 'end',
+    justify:
+      props.option?.justify || ((props.option?.columns?.length || 0) > 4 ? undefined : 'end'),
     hideLabel: props.option?.hideLabel || true,
-    layout: props.option?.layout || 'inline',
+    layout: props.option?.layout, // || 'inline'
     btn: false,
     resetBtn,
+    span: {
+      xxl: 6,
+      xl: 6,
+      lg: 6,
+      md: 6,
+      sm: 8,
+      xs: 24
+    },
+    gutter: {
+      xxl: 16,
+      xl: 16,
+      lg: 16,
+      md: 16,
+      sm: 16,
+      xs: 16
+    },
     columns: props.option?.columns?.map((item) => {
       return {
         ...item,
+        style: item.style || { marginBottom: '0px' },
         placeholder: item.placeholder || `搜索${item.name}`
       }
     })
