@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.15](https://github.com/seepine/crco/compare/v2.11.14...v2.11.15) (2025-04-02)
+
+
+### ⚡️ improvement | 功能优化
+
+* **form/time:** impr timePicker width ([2f5c84c](https://github.com/seepine/crco/commit/2f5c84c5d6dec7144e97309a9ef1f8573099262b))
+
 ### [2.11.14](https://github.com/seepine/crco/compare/v2.11.13...v2.11.14) (2025-03-28)
 
 
