@@ -240,6 +240,10 @@ export default defineComponent({
           type={mergeAttrs.value.mode === 'time-range' ? 'time-range' : undefined}
           modelValue={form.value[prop.value]}
           onUpdate:modelValue={valueChange}
+          style={{
+            width: mergeAttrs.value.mode === 'time-range' ? '240px' : '194px',
+            ...props.column.style
+          }}
         ></ATimePicker>
       )
     }
