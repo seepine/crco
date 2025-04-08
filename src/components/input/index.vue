@@ -151,12 +151,15 @@ const inputValue = ref('')
 const handlePressEnter = () => {
   const item = inputValue.value.trim()
   if ((value.value || []).indexOf(item) === -1) {
-    handleTag(inputValue.value.trim())
+    handleTag(item)
   }
   inputValue.value = ''
 }
 const handleTagChange = (val: any[]) => {
+  if (props.option.trim !== false) {
+    value.value = val.filter((item) => item.trim())
+  }
   inputValue.value = ''
-  handleChange(val)
+  handleChange(value.value || [])
 }
 </script>
