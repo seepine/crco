@@ -8,6 +8,7 @@
       :style="{ maxWidth: `${maxWidth}px` }"
       :layout="clientWidth < 500 ? 'inline-vertical' : undefined"
       :label-style="{ width: '200px' }"
+      v-bind="$attrs"
     >
       <template #label="{ label }">
         <slot :name="label.column.prop + 'Label'">{{ label.column.name }}</slot>

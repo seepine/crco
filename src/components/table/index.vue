@@ -185,8 +185,13 @@
           </a-breadcrumb-item>
           <a-breadcrumb-item>{{ typeLabel }}</a-breadcrumb-item>
         </a-breadcrumb>
-        <div v-if="type === 'view'" class="crco-table-panel-descriptions">
-          <crco-descriptions :type="type" :option="myOption" v-model="form">
+        <div v-if="type === 'view'">
+          <crco-descriptions
+            class="crco-table-panel-descriptions"
+            :type="type"
+            :option="myOption"
+            v-model="form"
+          >
             <template v-for="item in myOption.columns" v-slot:[slotViewName(item.prop)]>
               <slot
                 :name="item.prop + 'View'"
@@ -194,8 +199,8 @@
                 v-if="$slots[item.prop + 'View']"
               ></slot>
             </template>
-            <slot name="viewFooter" :record="form" v-if="$slots.viewFooter"></slot>
           </crco-descriptions>
+          <slot name="viewFooter" :record="form" v-if="$slots.viewFooter"></slot>
         </div>
         <slot name="addHeader" :record="form" v-if="$slots.addHeader && type === 'add'"></slot>
         <slot name="editHeader" :record="form" v-if="$slots.editHeader && type === 'edit'"></slot>
