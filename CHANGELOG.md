@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.19](https://github.com/seepine/crco/compare/v2.11.18...v2.11.19) (2025-04-10)
+
+
+### ⚡️ improvement | 功能优化
+
+* **descriptions:** fix span prop ([a7e875a](https://github.com/seepine/crco/commit/a7e875a8f0f0d9b3f26c82344c587f11b2a9eddb))
+
 ### [2.11.18](https://github.com/seepine/crco/compare/v2.11.17...v2.11.18) (2025-04-10)
 
 
