@@ -8,10 +8,10 @@ import { request } from './http'
  * @param option
  * @returns
  */
-export const runDicData = async (column: any): Promise<any[]> => {
+export const runDicData = async (column: any, form?: any): Promise<any[]> => {
   let dicData
   try {
-    dicData = await runCallback(column.dicData, column)
+    dicData = await runCallback(column.dicData, form)
     // eslint-disable-next-line no-empty
   } catch (e) {}
   if (!isArray(dicData) && isString(column.dicUrl)) {

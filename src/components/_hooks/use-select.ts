@@ -63,7 +63,7 @@ export default (props: any, emit: any) => {
       }
       optionBack = val
       loading.value = true
-      runDicData(props.option)
+      runDicData(props.option, props.form)
         .then((res) => {
           dicData.value = res
           loading.value = false

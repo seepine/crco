@@ -206,7 +206,12 @@ export interface FormItemExt {
    * eg:
    * dicData: ()=> axios.get('/sys/role/list')
    */
-  dicData?: readonly any[] | any[] | (() => any[]) | (() => readonly any[]) | (() => Promise<any>)
+  dicData?:
+    | readonly any[]
+    | any[]
+    | ((form?: any) => any[])
+    | ((form?: any) => readonly any[])
+    | ((form?: any) => Promise<any>)
   /**
    * 自定义值展示
    * @param record 数据
