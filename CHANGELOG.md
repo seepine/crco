@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.17](https://github.com/seepine/crco/compare/v2.11.16...v2.11.17) (2025-04-10)
+
+
+### ⚡️ improvement | 功能优化
+
+* **descriptions:** fix class custom ([caae465](https://github.com/seepine/crco/commit/caae465af82d96275c282e99bcf91f3d755df7de))
+
 ### [2.11.16](https://github.com/seepine/crco/compare/v2.11.15...v2.11.16) (2025-04-08)
 
 
