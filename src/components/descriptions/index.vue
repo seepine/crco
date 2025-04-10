@@ -5,7 +5,7 @@
       :title="props.title"
       :column="1"
       :bordered="clientWidth >= 500"
-      :style="{ maxWidth: `${maxWidth}px` }"
+      :style="maxWidth ? { maxWidth: `${maxWidth}px` } : undefined"
       :layout="clientWidth < 500 ? 'inline-vertical' : undefined"
       :label-style="{ width: '200px' }"
       v-bind="$attrs"
@@ -67,6 +67,7 @@ const data = computed(() => {
         large: item.type === 'upload' ? true : undefined
       }
       arr.push({
+        span: item.span,
         label: {
           column,
           record: props.modelValue
