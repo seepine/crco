@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.18](https://github.com/seepine/crco/compare/v2.11.17...v2.11.18) (2025-04-10)
+
+
+### ⚡️ improvement | 功能优化
+
+* dicData function can get form data ([27da205](https://github.com/seepine/crco/commit/27da205cccd7f131d084b85ccdd271b926d19ef7))
+
 ### [2.11.17](https://github.com/seepine/crco/compare/v2.11.16...v2.11.17) (2025-04-10)
 
 
