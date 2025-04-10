@@ -67,7 +67,6 @@ const data = computed(() => {
         large: item.type === 'upload' ? true : undefined
       }
       arr.push({
-        span: item.span,
         label: {
           column,
           record: props.modelValue
