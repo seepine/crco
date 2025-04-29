@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.21](https://github.com/seepine/crco/compare/v2.11.20...v2.11.21) (2025-04-29)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix search span ([b61284d](https://github.com/seepine/crco/commit/b61284de2a848dd96ab3ca82d8ce32f88326e3bd))
+
 ### [2.11.20](https://github.com/seepine/crco/compare/v2.11.19...v2.11.20) (2025-04-10)
 
 
