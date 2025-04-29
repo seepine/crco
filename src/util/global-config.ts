@@ -34,6 +34,22 @@ const globalCrcoOption = {
       resetBtn: {
         display: false,
         layout: 'horizontal'
+      },
+      span: {
+        xxl: 6,
+        xl: 6,
+        lg: 6,
+        md: 6,
+        sm: 8,
+        xs: 24
+      },
+      gutter: {
+        xxl: 16,
+        xl: 16,
+        lg: 16,
+        md: 16,
+        sm: 16,
+        xs: 16
       }
     }
   },

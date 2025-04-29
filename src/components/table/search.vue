@@ -124,6 +124,8 @@ const myOption = computed<
     }
   }
   return {
+    span: getOption().table.searchOption.span,
+    gutter: getOption().table.searchOption.gutter,
     ...props.option,
     justify:
       props.option?.justify || ((props.option?.columns?.length || 0) > 4 ? undefined : 'end'),
@@ -131,22 +133,6 @@ const myOption = computed<
     layout: props.option?.layout, // || 'inline'
     btn: false,
     resetBtn,
-    span: {
-      xxl: 6,
-      xl: 6,
-      lg: 6,
-      md: 6,
-      sm: 8,
-      xs: 24
-    },
-    gutter: {
-      xxl: 16,
-      xl: 16,
-      lg: 16,
-      md: 16,
-      sm: 16,
-      xs: 16
-    },
     columns: props.option?.columns?.map((item) => {
       return {
         ...item,
