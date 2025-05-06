@@ -119,8 +119,8 @@ const myOption = computed<
     if (props.option?.resetBtn.display !== false) {
       resetBtn.display = true
     }
-    if (props.option?.resetBtn.layout === 'vertical') {
-      resetBtn.layout = 'vertical'
+    if (props.option?.resetBtn.layout !== undefined) {
+      resetBtn.layout = props.option?.resetBtn.layout
     }
   }
   return {
