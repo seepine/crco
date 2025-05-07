@@ -207,19 +207,20 @@ if (props.readonly) {
     }
   )
 } else {
-  const watchHandler = watch(
+  // const watchHandler =
+  watch(
     () => props.modelValue,
     () => {
       try {
-        if (defaultFileList.value.length === 0) {
-          const getDefault = getFileList()
-          if (JSON.stringify(getDefault).indexOf('blob:http') < 0) {
-            defaultFileList.value = getDefault
-          }
+        // if (defaultFileList.value.length === 0) {
+        const getDefault = getFileList()
+        if (JSON.stringify(getDefault).indexOf('blob:http') < 0) {
+          defaultFileList.value = getDefault
         }
+        // }
         // eslint-disable-next-line no-empty
       } catch (e) {}
-      watchHandler()
+      // watchHandler()
     },
     {
       deep: true
