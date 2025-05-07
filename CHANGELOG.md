@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.22](https://github.com/seepine/crco/compare/v2.11.21...v2.11.22) (2025-05-07)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix search resetBtn layout ([e3960db](https://github.com/seepine/crco/commit/e3960db6f18bbc0a4d65f856f559b00bc9235404))
+* **upload:** fix modelValue change ([f19b64a](https://github.com/seepine/crco/commit/f19b64a703ebb9c22629d274bf007b5560c13e2e))
+
 ### [2.11.21](https://github.com/seepine/crco/compare/v2.11.20...v2.11.21) (2025-04-29)
 
 
