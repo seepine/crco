@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.23](https://github.com/seepine/crco/compare/v2.11.22...v2.11.23) (2025-05-08)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **list-form:** fix multiple tabs column ([c1921c3](https://github.com/seepine/crco/commit/c1921c38a38e82ef772999251776113b854553a7))
+
 ### [2.11.22](https://github.com/seepine/crco/compare/v2.11.21...v2.11.22) (2025-05-07)
 
 
