@@ -72,8 +72,13 @@
                 @reset="handleReset"
               ></my-form
             ></a-tab-pane>
-            <template v-for="item in myOption.tabsProps!.columns" :key="item.slotName">
-              <a-tab-pane v-bind="item" :title="item.title" v-if="filterPermission(item)">
+            <template v-for="item in myOption.tabsProps!.columns">
+              <a-tab-pane
+                v-bind="item"
+                :title="item.title"
+                :key="item.slotName"
+                v-if="filterPermission(item)"
+              >
                 <slot :name="item.slotName" :record="selectData"></slot>
               </a-tab-pane>
             </template>
