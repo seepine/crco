@@ -171,6 +171,26 @@
             </template>
           </a-table-column>
         </template>
+
+        <template #pagination-left>
+          <div style="width: 100%; display: flex">
+            <span v-if="selectRowKeys.length > 0" style="padding: 0 0px; font-size: 13px"
+              >已选择<span style="margin: 0 2px">{{ selectRowKeys.length }}</span
+              >条<span
+                style="color: rgb(var(--primary-5)); margin-left: 4px; cursor: pointer"
+                @click="handleClearSelections"
+                >清除</span
+              ></span
+            >
+            <slot name="paginationLeft" v-if="$slots['paginationLeft']"></slot>
+          </div>
+        </template>
+        <template #pagination-right v-if="$slots['paginationRight']">
+          <slot name="paginationRight"></slot>
+        </template>
+        <template #footer v-if="$slots['footer']">
+          <slot name="footer"></slot>
+        </template>
       </a-table>
     </div>
     <div v-if="type">
@@ -617,9 +637,14 @@ const handleToDel = (record: any, done: (closed?: boolean) => void) => {
   requestDel(record, handleDone)
 }
 
+const selectRowKeys = ref<string[]>([])
 // 直接抛出a-table事件
 const selectionChange = (rowKeys: string[]) => {
+  selectRowKeys.value = rowKeys
   emit('selection-change', rowKeys)
+}
+const handleClearSelections = () => {
+  aTableRef.value.select(selectRowKeys.value, false)
 }
 const sorterChange = (dataIndex: string, direction: string) => {
   emit('sorter-change', dataIndex, direction)
@@ -653,6 +678,7 @@ defineExpose({
   add: (data?: any) => {
     operation('add', isUndefined(data) ? {} : data)
   },
+  clearSelections: handleClearSelections,
   operate: operation,
   operation,
   getParams: () => {

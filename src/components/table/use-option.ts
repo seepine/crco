@@ -83,6 +83,11 @@ export default (option: TableOption) => {
       //     delPath: myOption.value.delPath
       //   })
       // }
+      if (myOption.value.rowSelection?.type === 'checkbox') {
+        if (myOption.value.rowSelection.showCheckedAll === undefined) {
+          myOption.value.rowSelection.showCheckedAll = true
+        }
+      }
     },
     {
       immediate: true,
