@@ -338,7 +338,7 @@ const emit = defineEmits<{
   (event: 'edit', data: any, done: Function): void
   (event: 'del', data: any, done: Function): void
   (event: 'change', extraType: string, data: any): void
-  (event: 'selection-change', values: string[]): void
+  (event: 'selection-change', values: string[], data: any[]): void
   (event: 'sorter-change', dataIndex: string, direction: string): void
   (event: 'mode-change', val: FormType): void
 }>()
@@ -638,10 +638,33 @@ const handleToDel = (record: any, done: (closed?: boolean) => void) => {
 }
 
 const selectRowKeys = ref<string[]>([])
+const selectData = ref<any[]>([])
 // 直接抛出a-table事件
 const selectionChange = (rowKeys: string[]) => {
   selectRowKeys.value = rowKeys
-  emit('selection-change', rowKeys)
+  if (rowKeys.length === 0) {
+    selectData.value = []
+  } else {
+    // 找出 selectData.map(item => item.id) 不在 selectRowKeys 中的值
+    const selectRowKeysSet = new Set(rowKeys)
+    const transferList = tableDatas.value.map((item) => {
+      return {
+        type: selectRowKeysSet.has(item[myOption.value.rowKey || 'id']) ? 'add' : 'del',
+        data: item
+      }
+    })
+    transferList.forEach((item) => {
+      const index = selectData.value.findIndex(
+        (data) => data[myOption.value.rowKey || 'id'] === item.data[myOption.value.rowKey || 'id']
+      )
+      if (item.type === 'add' && index === -1) {
+        selectData.value.push(item.data)
+      } else if (item.type === 'del' && index !== -1) {
+        selectData.value.splice(index, 1)
+      }
+    })
+  }
+  emit('selection-change', rowKeys, selectData.value)
 }
 const handleClearSelections = () => {
   aTableRef.value.select(selectRowKeys.value, false)
@@ -677,6 +700,12 @@ defineExpose({
   load,
   add: (data?: any) => {
     operation('add', isUndefined(data) ? {} : data)
+  },
+  getData: () => {
+    return tableDatas.value
+  },
+  getSelectionData: () => {
+    return selectData.value
   },
   clearSelections: handleClearSelections,
   operate: operation,
