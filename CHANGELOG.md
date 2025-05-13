@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.24](https://github.com/seepine/crco/compare/v2.11.23...v2.11.24) (2025-05-13)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** add select num show and support clearAll ([a7c3ad5](https://github.com/seepine/crco/commit/a7c3ad5909b1a33f7ee22776d917dca9ae718df8))
+* **table:** selection-change event support selectData ([f3d54db](https://github.com/seepine/crco/commit/f3d54db3b808a9d22cd929bf5c5573630e64055f))
+
 ### [2.11.23](https://github.com/seepine/crco/compare/v2.11.22...v2.11.23) (2025-05-08)
 
 
