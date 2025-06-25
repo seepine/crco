@@ -241,8 +241,13 @@
                 v-if="$slots[item.prop + 'Form']"
               ></slot>
             </template>
-            <template #btnLeft v-if="type === 'add' && myOption.showAddContinue">
-              <a-checkbox v-model="addContinue" style="margin-right: 8px" size="mini">
+            <template #btnLeft>
+              <a-checkbox
+                v-model="addContinue"
+                style="margin-right: 8px"
+                size="mini"
+                v-if="type === 'add' && myOption.showAddContinue"
+              >
                 <div
                   style="
                     color: var(--color-text-2);
@@ -254,6 +259,7 @@
                   连续{{ typeLabel }}
                 </div>
               </a-checkbox>
+              <solt :name="type + 'BtnLeft'"></solt>
             </template>
           </crco-form>
         </div>
