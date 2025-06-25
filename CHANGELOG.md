@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.12.0](https://github.com/seepine/crco/compare/v2.11.24...v2.12.0) (2025-06-25)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix form span bug ([9dd468e](https://github.com/seepine/crco/commit/9dd468e03f0a51e10c89cc25a38b752ff1dfd41e))
+
+
+### ✨ Features | 新功能
+
+* **table:** add typeBtnLeft slot ([9722833](https://github.com/seepine/crco/commit/9722833c4ce7299c0674398eb696651a648e0f25))
+
 ### [2.11.24](https://github.com/seepine/crco/compare/v2.11.23...v2.11.24) (2025-05-13)
 
 
