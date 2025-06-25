@@ -11,7 +11,7 @@ export default ({ props, emit }: any, type: FormType, option: FormOption) => {
       display: true,
       long: false
     },
-    ...getOption().form,
+    ...deepClone(getOption().form),
     groups: [],
     columns: []
   })

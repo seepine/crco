@@ -124,8 +124,8 @@ const myOption = computed<
     }
   }
   return {
-    span: getOption().table.searchOption.span,
-    gutter: getOption().table.searchOption.gutter,
+    span: deepClone(getOption().table.searchOption.span),
+    gutter: deepClone(getOption().table.searchOption.gutter),
     ...props.option,
     justify:
       props.option?.justify || ((props.option?.columns?.length || 0) > 4 ? undefined : 'end'),
