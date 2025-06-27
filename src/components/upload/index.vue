@@ -15,6 +15,7 @@
     :show-upload-button="readonly ? false : option.showUploadButton"
     :disabled="option.disabled"
     :class="{
+      'crco-upload-disabled-preview': option.disabledPreview || false,
       'crco-upload-readonly': readonly || option.readonly,
       'crco-upload-large': option.large
     }"
@@ -314,8 +315,15 @@ const handleDownloadFile = () => {
   window.open(clickFile.value.originUrl)
 }
 const preview = (file: any) => {
+  if (props.option.disabledPreview) {
+    return
+  }
   if (props.option.listType !== 'picture' && props.option.listType !== 'picture-card') {
     const url = file.response && file.response.url ? file.response.url : file.url
+    if (!url) {
+      console.warn('Not fount url', file)
+      return
+    }
     if (!isImg(url)) {
       if (!isPdf(url) && !isOffice(url) && !isTxt(url)) {
         window.open(url)
@@ -429,6 +437,11 @@ const download = (url: string) => {
   text-overflow: ellipsis;
   white-space: normal;
   cursor: pointer;
+}
+.crco-upload-disabled-preview {
+  ::v-deep(.arco-upload-list-item-name-text) {
+    cursor: unset;
+  }
 }
 .crco-upload-readonly {
   ::v-deep(.arco-upload-list-picture) {

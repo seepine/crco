@@ -205,4 +205,10 @@ export type UploadType = {
    * @default false
    */
   large?: boolean
+
+  /**
+   * @zh 是否禁用点击预览，默认false
+   * @default false
+   */
+  disabledPreview?: boolean
 }
