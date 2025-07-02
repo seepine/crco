@@ -259,7 +259,7 @@
                   连续{{ typeLabel }}
                 </div>
               </a-checkbox>
-              <solt :name="type + 'BtnLeft'"></solt>
+              <slot :name="type + 'BtnLeft'"></slot>
             </template>
           </crco-form>
         </div>
