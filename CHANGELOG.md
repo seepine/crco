@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.2](https://github.com/seepine/crco/compare/v2.12.1...v2.12.2) (2025-07-04)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** fix upload onChange ([e01b2d0](https://github.com/seepine/crco/commit/e01b2d04974b81d38b3fdebdd4a0caa45fc12cb6))
+* **table:** fix slot name ([2a2c5c2](https://github.com/seepine/crco/commit/2a2c5c26b20997ee28e18c6d79690f74aff6d183))
+
 ### [2.12.1](https://github.com/seepine/crco/compare/v2.12.0...v2.12.1) (2025-06-27)
 
 
