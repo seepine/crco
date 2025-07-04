@@ -150,7 +150,7 @@
                     <cl-form-item
                       :column="column"
                       :value="form"
-                      @change="handleChange"
+                      @change="(val) => handleChange(column, val)"
                     ></cl-form-item>
                   </slot>
                 </a-form-item> </c-col
@@ -178,7 +178,7 @@ import {
   Button as AButton,
   Spin as ASpin
 } from '@arco-design/web-vue'
-import { ref, withDefaults } from 'vue'
+import { ref, nextTick, withDefaults } from 'vue'
 import { filterDisplay, filterDisabled, filterRules, filterString } from '../../util/filter'
 import ClFormItem from './item'
 import useElementResize from './element-resize'
@@ -216,10 +216,13 @@ const { btnShow, btnText, btnLong } = useBtn(myOption)
 
 const isLoading = ref(false)
 
-const handleChange = (val: any) => {
-  setTimeout(() => {
-    form.value = val
-  })
+const handleChange = (column: any, val: any) => {
+  form.value = val
+  if (column && column.prop) {
+    nextTick(() => {
+      formRef.value.validateField(column.prop).catch()
+    })
+  }
 }
 // end
 const handleSubmit = () => {

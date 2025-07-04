@@ -1,11 +1,12 @@
 <template>
   <upload
-    v-bind="option"
+    v-bind="myOption"
     :custom-request="customRequest"
     :file-list="defaultFileList"
     :default-file-list="defaultFileList"
     @change="change"
     @preview="preview"
+    @success="handleSuccess"
     :on-before-remove="onBeforeRemove"
     :on-before-upload="onBeforeUpload"
     :show-link="false"
@@ -113,6 +114,12 @@ const props = withDefaults(
     readonly: false
   }
 )
+
+const myOption = computed(() => {
+  const opt = deepClone(props.option)
+  opt.onChange = undefined
+  return opt
+})
 
 const emit = defineEmits<{
   (event: 'update:modelValue', value: ModelValueType): void
@@ -370,6 +377,11 @@ const preview = (file: any) => {
 }
 const change = (files: any) => {
   fileList.value = files
+}
+const handleSuccess = (fileItem) => {
+  if (myOption.value.onSuccess) {
+    myOption.value.onSuccess(fileItem)
+  }
 }
 const onBeforeRemove = (e: any) => {
   if (isFunction(props.option.onBeforeRemove)) {
