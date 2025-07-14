@@ -1,5 +1,6 @@
 <template>
   <a-tree-select
+    autocomplete="off"
     v-bind="myOption"
     v-model="value"
     :data="dicData"

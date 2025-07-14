@@ -1,5 +1,6 @@
 <template>
   <a-select
+    autocomplete="off"
     v-bind="myOption"
     v-model="myValue"
     :fallback-option="myOption.fallbackOption || false"
