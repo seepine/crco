@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.3](https://github.com/seepine/crco/compare/v2.12.2...v2.12.3) (2025-07-14)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **select:** set autocomplete off ([41ee794](https://github.com/seepine/crco/commit/41ee79420ad42f3e8473cde9279675d3956067b7))
+
 ### [2.12.2](https://github.com/seepine/crco/compare/v2.12.1...v2.12.2) (2025-07-04)
 
 
