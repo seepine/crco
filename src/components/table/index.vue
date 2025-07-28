@@ -174,7 +174,10 @@
 
         <template #pagination-left>
           <div style="width: 100%; display: flex">
-            <span v-if="selectRowKeys.length > 0" style="padding: 0 0px; font-size: 13px"
+            <span
+              class="crco-table-selection-total"
+              v-if="selectRowKeys.length > 0"
+              style="padding: 0 0px; font-size: 13px"
               >已选择<span style="margin: 0 2px">{{ selectRowKeys.length }}</span
               >条<span
                 style="color: rgb(var(--primary-5)); margin-left: 4px; cursor: pointer"
@@ -271,7 +274,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, withDefaults, computed, watch, watchEffect, provide } from 'vue'
+import { ref, withDefaults, computed, watch, watchEffect, provide, nextTick } from 'vue'
 import {
   Message,
   Space as ASpace,
@@ -392,6 +395,20 @@ watch(
   }
 )
 
+const selectRowKeys = ref<string[]>([])
+const selectData = ref<any[]>([])
+const handleClearSelections = () => {
+  if (selectRowKeys.value.length === 0) {
+    return
+  }
+  nextTick(() => {
+    aTableRef.value.select(
+      myOption.value.rowSelection?.type === 'radio' ? undefined : selectRowKeys.value,
+      false
+    )
+  })
+}
+
 const slotViewName = (prop: string) => {
   return `${prop}Value`
 }
@@ -431,6 +448,11 @@ const load = (reset = false, done?: Function) => {
   if (reset) {
     pagination.value.current = 1
   }
+  // 清除选中
+  if (myOption.value.rowSelection !== undefined) {
+    handleClearSelections()
+  }
+
   const params = {
     ...searchParams.value,
     ...props.params,
@@ -643,16 +665,22 @@ const handleToDel = (record: any, done: (closed?: boolean) => void) => {
   requestDel(record, handleDone)
 }
 
-const selectRowKeys = ref<string[]>([])
-const selectData = ref<any[]>([])
 // 直接抛出a-table事件
 const selectionChange = (rowKeys: string[]) => {
-  selectRowKeys.value = rowKeys
-  if (rowKeys.length === 0) {
+  if (myOption.value.rowSelection?.type === 'radio') {
+    if (rowKeys.length > 0 && rowKeys[0] !== undefined) {
+      selectRowKeys.value = rowKeys
+    } else {
+      selectRowKeys.value = []
+    }
+  } else {
+    selectRowKeys.value = rowKeys
+  }
+  if (selectRowKeys.value.length === 0) {
     selectData.value = []
   } else {
     // 找出 selectData.map(item => item.id) 不在 selectRowKeys 中的值
-    const selectRowKeysSet = new Set(rowKeys)
+    const selectRowKeysSet = new Set(selectRowKeys.value)
     const transferList = tableDatas.value.map((item) => {
       return {
         type: selectRowKeysSet.has(item[myOption.value.rowKey || 'id']) ? 'add' : 'del',
@@ -670,10 +698,7 @@ const selectionChange = (rowKeys: string[]) => {
       }
     })
   }
-  emit('selection-change', rowKeys, selectData.value)
-}
-const handleClearSelections = () => {
-  aTableRef.value.select(selectRowKeys.value, false)
+  emit('selection-change', selectRowKeys.value, selectData.value)
 }
 const sorterChange = (dataIndex: string, direction: string) => {
   emit('sorter-change', dataIndex, direction)
