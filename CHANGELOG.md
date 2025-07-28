@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.4](https://github.com/seepine/crco/compare/v2.12.3...v2.12.4) (2025-07-28)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix selection clear of radio ([2627522](https://github.com/seepine/crco/commit/26275225f08255c98bcbf60a09f9bc4e56abf030))
+
 ### [2.12.3](https://github.com/seepine/crco/compare/v2.12.2...v2.12.3) (2025-07-14)
 
 
