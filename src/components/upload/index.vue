@@ -1,7 +1,7 @@
 <template>
   <upload
     v-bind="myOption"
-    :custom-request="customRequest"
+    :custom-request="handleCustomRequest"
     :file-list="defaultFileList"
     :default-file-list="defaultFileList"
     @change="change"
@@ -76,7 +76,8 @@ import {
   ImagePreview,
   Modal,
   Spin,
-  ImagePreviewAction
+  ImagePreviewAction,
+  RequestOption
 } from '@arco-design/web-vue'
 import { withDefaults, ref, computed, nextTick, watch } from 'vue'
 import ImagePreviewGroup from './preview-group.vue'
@@ -120,6 +121,10 @@ const myOption = computed(() => {
   opt.onChange = undefined
   return opt
 })
+
+const handleCustomRequest = (reqOpt: RequestOption) => {
+  return customRequest(reqOpt, myOption.value.headers)
+}
 
 const emit = defineEmits<{
   (event: 'update:modelValue', value: ModelValueType): void
@@ -378,7 +383,7 @@ const preview = (file: any) => {
 const change = (files: any) => {
   fileList.value = files
 }
-const handleSuccess = (fileItem) => {
+const handleSuccess = (fileItem: any) => {
   if (myOption.value.onSuccess) {
     myOption.value.onSuccess(fileItem)
   }
