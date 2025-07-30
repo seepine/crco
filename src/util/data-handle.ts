@@ -2,16 +2,16 @@ import { RequestOption } from '@arco-design/web-vue/es/upload/interfaces'
 import axios from 'axios'
 import { getHttp } from './http'
 import { isArray, isBoolean, isNull, isString, isUndefined } from './is'
-import { copyPropertiesNotEmpty, deepClone } from './util'
+import { copyPropertiesNotEmpty, deepClone, runCallback } from './util'
 
-export const customRequest = (option: RequestOption) => {
+export const customRequest = async (option: RequestOption) => {
   const { onProgress, onError, onSuccess, fileItem } = option
   if (isUndefined(fileItem.file)) {
     onError('not find file')
     return {}
   }
   const forms = new FormData()
-  forms.append('file', fileItem.file)
+  forms.append((await runCallback(option.name)) || 'file', fileItem.file)
   let cancel = () => {}
   if (!option.action) {
     return {
@@ -22,7 +22,7 @@ export const customRequest = (option: RequestOption) => {
   }
   getHttp()
     .post(option.action, forms, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { 'Content-Type': 'multipart/form-data', ...option.headers },
       onUploadProgress: (progressEvent: ProgressEvent) => {
         onProgress(progressEvent.loaded / progressEvent.total, progressEvent)
       },
