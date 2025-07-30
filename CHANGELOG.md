@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.5](https://github.com/seepine/crco/compare/v2.12.4...v2.12.5) (2025-07-30)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **upload:** fix option of headers ([8a9c2d5](https://github.com/seepine/crco/commit/8a9c2d5cb5636a0bb85c59e2190d62092feb6a2e))
+
 ### [2.12.4](https://github.com/seepine/crco/compare/v2.12.3...v2.12.4) (2025-07-28)
 
 
