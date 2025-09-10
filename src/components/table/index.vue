@@ -726,8 +726,15 @@ const handleExport = (done: Function) => {
   // }
 }
 
+const currentMode = computed(() => {
+  return type.value
+})
+
 defineExpose({
   aTableRef,
+  currentMode,
+  form,
+  formRef,
   load,
   add: (data?: any) => {
     operation('add', isUndefined(data) ? {} : data)
