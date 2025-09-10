@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.8](https://github.com/seepine/crco/compare/v2.12.7...v2.12.8) (2025-09-10)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** expose form and mode ([7018102](https://github.com/seepine/crco/commit/7018102ecf10c2dc7959f483e715eef12a5977ea))
+
 ### [2.12.7](https://github.com/seepine/crco/compare/v2.12.6...v2.12.7) (2025-09-10)
 
 
