@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.7](https://github.com/seepine/crco/compare/v2.12.6...v2.12.7) (2025-09-10)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** support validateFields prop ([e8c31b5](https://github.com/seepine/crco/commit/e8c31b5642b3bd7bb21781451b325a43b72c432a))
+
 ### [2.12.6](https://github.com/seepine/crco/compare/v2.12.5...v2.12.6) (2025-07-30)
 
 
