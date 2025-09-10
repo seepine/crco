@@ -219,8 +219,31 @@ const isLoading = ref(false)
 const handleChange = (column: any, val: any) => {
   form.value = val
   if (column && column.prop) {
+    const validateFields = [column.prop]
+
+    if (column.validateFields) {
+      column.validateFields.forEach((field: string) => {
+        if (field) {
+          validateFields.push(field)
+        }
+      })
+    }
+
+    if (column.validateFieldsIfNotEmpty) {
+      column.validateFieldsIfNotEmpty.forEach((field: string) => {
+        if (
+          form.value[field] !== undefined &&
+          form.value[field] !== null &&
+          form.value[field] !== '' &&
+          field
+        ) {
+          validateFields.push(field)
+        }
+      })
+    }
+
     nextTick(() => {
-      formRef.value.validateField(column.prop).catch()
+      formRef.value.validateField(validateFields).catch()
     })
   }
 }

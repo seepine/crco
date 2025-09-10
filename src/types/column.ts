@@ -177,6 +177,14 @@ export interface FormItemExt {
    */
   trim?: boolean
   /**
+   * 字段修改后，是否同步校验其他字段，等同调用 formRef.validateField([currentProp, ...validateFields])
+   */
+  validateFields?: string[]
+  /**
+   * 字段修改后，是否同步校验其他字段（若字段有值），等同调用 formRef.validateField([currentProp, ...validateFieldsIfNotEmpty])
+   */
+  validateFieldsIfNotEmpty?: string[]
+  /**
    *  跨越的格数，一行24，支持响应式
    */
   span?: number | ResponsiveValue
