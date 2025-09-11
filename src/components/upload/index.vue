@@ -71,7 +71,7 @@
 
 <script setup lang="ts">
 import {
-  Notification,
+  Message,
   Upload,
   ImagePreview,
   Modal,
@@ -394,13 +394,73 @@ const onBeforeRemove = (e: any) => {
   }
   return Promise.resolve(true)
 }
-const onBeforeUpload = (e: any) => {
+const onBeforeUpload = (e: File) => {
   // 如果有大小限制
   if (isNumber(props.option.limitSize)) {
     // 判断一下
     if (e.size > props.option.limitSize) {
-      Notification.warning('超出可上传文件大小限制')
+      Message.warning('超出可上传文件大小限制')
       return Promise.resolve(false)
+    }
+  }
+  // 如果有 accept 判断类型
+  if (e.type && props.option.acceptAutoValidate !== false) {
+    let { accept } = props.option
+    if (props.option.listType === 'picture' || props.option.listType === 'picture-card') {
+      if (!accept) {
+        accept = '.png, .jpg, .jpeg'
+      }
+    }
+    if (accept) {
+      // 校验
+      const accepts = accept
+        .split(' ')
+        .join(',')
+        .split(',')
+        .filter((item) => item !== '')
+      let match = false
+      // eslint-disable-next-line no-restricted-syntax
+      for (const item of accepts) {
+        // .开头，匹配文件后缀
+        if (item.startsWith('.')) {
+          if (e.name.endsWith(item)) {
+            match = true
+            break
+          }
+        }
+        // 以/*结尾，匹配大类
+        else if (item.endsWith('/*')) {
+          const type = item.replace('/*', '')
+          if (e.type.startsWith(`${type}/`)) {
+            match = true
+            break
+          }
+        }
+        // 全匹配，例如 image/png
+        else if (item.includes('/')) {
+          if (e.type === item) {
+            match = true
+            break
+          }
+        } else {
+          // 其他情况，兼容后缀缺失，例如 png, jpg
+          // eslint-disable-next-line no-lonely-if
+          if (e.name.endsWith(`.${item}`)) {
+            match = true
+            break
+          }
+        }
+      }
+      if (!match) {
+        let msg = `仅支持上传 ${accepts.join(' ')} 类型的文件`
+        if (props.option.acceptErrorMessage) {
+          msg = isFunction(props.option.acceptErrorMessage)
+            ? props.option.acceptErrorMessage(e)
+            : props.option.acceptErrorMessage
+        }
+        Message.warning(msg)
+        return Promise.resolve(false)
+      }
     }
   }
   if (isFunction(props.option.onBeforeUpload)) {

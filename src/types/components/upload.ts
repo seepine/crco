@@ -9,10 +9,30 @@ export type UploadType = {
    */
   type: 'upload'
   /**
+   * 上传文件类型，支持媒体类型，或者文件后缀识别，多个必须使用逗号隔开
+   *
+   * 配置后会自动校验上传的文件，若不希望组件自动校验，可设置 acceptAutoValidate=false
+   * @code
+   * ```ts
+   * accept: 'image/*, .doc, .docx'
+   * // or
+   * accept: '.png, .jpg, .jpeg'
+   * ```
+   *
    * @zh 接收的上传文件类型，具体参考 [HTML标准](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#htmlattrdefaccept "_blank")
    * @en For the received upload file type, please refer to [HTML standard](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#htmlattrdefaccept "_blank")
    */
   accept?: string
+  /**
+   * 是否自动校验accept，true时则类型不符合会抛出提示语
+   * @defaultValue true
+   */
+  acceptAutoValidate?: boolean
+  /**
+   * 文件类型提示语自定义
+   * @defaultValue 上传的文件类型不支持
+   */
+  acceptErrorMessage?: string | ((file: File) => string)
   /**
    * @zh 上传的URL
    * @en Uploaded URL

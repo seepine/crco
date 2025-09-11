@@ -11,6 +11,7 @@ const option = {
       name: '文件列表',
       prop: 'fileList',
       type: 'upload',
+      accept: '.txt, .doc, .png, .jpg',
       action: '/file/upload' // 请替换为真实的上传地址
     },
     {
