@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.9](https://github.com/seepine/crco/compare/v2.12.8...v2.12.9) (2025-09-11)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **uplpad:** add accept validate ([cc9ae32](https://github.com/seepine/crco/commit/cc9ae323d247da8be5ae5ee520f4c71f380c42c9))
+
 ### [2.12.8](https://github.com/seepine/crco/compare/v2.12.7...v2.12.8) (2025-09-10)
 
 
