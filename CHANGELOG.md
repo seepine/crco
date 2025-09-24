@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.10](https://github.com/seepine/crco/compare/v2.12.9...v2.12.10) (2025-09-24)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** auto remove invalid value ([595fda9](https://github.com/seepine/crco/commit/595fda9893d88cdb77b6c87bd4ba3b0d9bbc2a28))
+
 ### [2.12.9](https://github.com/seepine/crco/compare/v2.12.8...v2.12.9) (2025-09-11)
 
 
