@@ -160,7 +160,9 @@ const handleSelect = (
   }
 }
 
-const isExpand = ref(false)
+const isExpand = ref(
+  props.option.treeProps?.defaultExpandRoot || props.option.treeProps?.defaultExpandAll || false
+)
 const expandAll = (expand: boolean) => {
   isExpand.value = expand
   crcoTreeRef.value.expandAll(expand)
