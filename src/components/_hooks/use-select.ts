@@ -7,7 +7,7 @@ import { runCallback } from '../../util/util'
 /**
  * 供select/radio等使用
  */
-export default (props: any, emit: any) => {
+export default (props: any, emit: any, onDicLoad?: (res: any[]) => void) => {
   const loading = ref(false)
   const dicData = ref<any[]>([])
 
@@ -83,6 +83,9 @@ export default (props: any, emit: any) => {
               )
             }
           }
+          if (onDicLoad) {
+            onDicLoad(res)
+          }
         })
         .catch(() => {
           loading.value = false
@@ -107,6 +110,7 @@ export default (props: any, emit: any) => {
     loading,
     dicData,
     myOption,
-    fieldNames
+    fieldNames,
+    onChange
   }
 }

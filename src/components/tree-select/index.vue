@@ -16,6 +16,7 @@ import { isArray, isUndefined } from '../../util/is'
 import { runDicData } from '../../util/dic-data'
 import { ComponentColumn, DicItem } from '../../types/column'
 import { runCallback } from '../../util/util'
+import { treeFind } from '../../util/tree'
 
 type ModelValueType = string | number | Array<string | number> | undefined
 
@@ -85,6 +86,15 @@ const onChange = (val: any) => {
   }
 }
 
+const value = computed({
+  get: () => {
+    return props.modelValue
+  },
+  set: (val) => {
+    onChange(val)
+  }
+})
+
 watch(
   myOption,
   () => {
@@ -105,6 +115,29 @@ watch(
             onChange(props.option.multiple ? [res[0].value] : res[0].value)
           }
         }
+        // 寻找当前值，若不存在则去除选中值
+        const find = treeFind(res, (item: any) => {
+          if (props.option.multiple) {
+            return (
+              ((value.value || []) as string[]).findIndex(
+                (v) => v === item[treeProps.value.key || 'key']
+              ) >= 0
+            )
+          }
+          if (item[treeProps.value.key || 'key'] === value.value) {
+            return true
+          }
+          return false
+        })
+        if (props.option.multiple) {
+          onChange(
+            ((value.value || []) as string[]).filter((item) => {
+              return find.findIndex((i) => i[treeProps.value.key || 'key'] === item) >= 0
+            })
+          )
+        } else if (find.length === 0) {
+          onChange('')
+        }
       })
       .catch(() => {
         loading.value = false
@@ -115,13 +148,4 @@ watch(
     immediate: true
   }
 )
-
-const value = computed({
-  get: () => {
-    return props.modelValue
-  },
-  set: (val) => {
-    onChange(val)
-  }
-})
 </script>

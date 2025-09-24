@@ -39,5 +39,33 @@ const emit = defineEmits<{
   (event: 'change', val: ModelValueType, item: any): void
 }>()
 
-const { loading, dicData, myOption, fieldNames, myValue } = useSelect(props, emit)
+const { loading, dicData, myOption, fieldNames, myValue, onChange } = useSelect(
+  props,
+  emit,
+  (res) => {
+    // 寻找当前值，若不存在则去除选中值
+    const find = res.filter((item: any) => {
+      if (props.option.multiple) {
+        return (
+          ((myValue.value || []) as string[]).findIndex(
+            (v) => v === item[fieldNames.value.value]
+          ) >= 0
+        )
+      }
+      if (item[fieldNames.value.value] === myValue.value) {
+        return true
+      }
+      return false
+    })
+    if (props.option.multiple) {
+      onChange(
+        ((myValue.value || []) as string[]).filter((item) => {
+          return find.findIndex((i) => i[fieldNames.value.value] === item) >= 0
+        })
+      )
+    } else if (find.length === 0) {
+      onChange('')
+    }
+  }
+)
 </script>
