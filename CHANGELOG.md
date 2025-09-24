@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.11](https://github.com/seepine/crco/compare/v2.12.10...v2.12.11) (2025-09-24)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **list-form:** add rightRender ([08fa80c](https://github.com/seepine/crco/commit/08fa80cc45085a5d669ed246966d8f81eebc8d23))
+
 ### [2.12.10](https://github.com/seepine/crco/compare/v2.12.9...v2.12.10) (2025-09-24)
 
 
