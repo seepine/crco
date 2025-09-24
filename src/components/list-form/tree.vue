@@ -7,7 +7,7 @@
       <div
         class="crco-list-form-tree-header flex-row justify-end px-xs pt-xs absolute"
         style="right: 0; z-index: 1"
-        v-if="realTreeData.length !== 0"
+        v-if="realTreeData.length !== 0 && option.treeProps?.virtualListProps === undefined"
       >
         <a-tooltip :content="isExpand ? '收缩' : '展开'">
           <icon-menu-unfold @click="expandAll(true)" v-if="!isExpand" />
@@ -30,7 +30,9 @@
           :field-names="treeFieldProps"
           :selected-keys="selectedKeys"
           :data="realTreeData"
-          :default-expanded-keys="defaultExpandedKeys"
+          :default-expanded-keys="
+            option.treeProps?.defaultExpandRoot ? defaultExpandedKeys : undefined
+          "
           @select="handleSelect"
           @drop="handleDrop"
         >
@@ -38,11 +40,18 @@
             <render-function :render-func="treeProps.iconRender!" :record="node"></render-function>
           </template>
           <template #title="nodeData">
-            <item-node
-              :item-data="nodeData"
-              :search-key="searchKey"
-              :title-field="treeFieldProps.title"
-            ></item-node>
+            <span style="display: inline-flex; align-items: center">
+              <item-node
+                :item-data="nodeData"
+                :search-key="searchKey"
+                :title-field="treeFieldProps.title"
+              ></item-node>
+              <render-function
+                v-if="treeProps.rightRender"
+                :render-func="treeProps.rightRender"
+                :record="nodeData"
+              ></render-function>
+            </span>
           </template>
         </a-tree>
       </a-scrollbar>

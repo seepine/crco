@@ -73,8 +73,37 @@ export interface treeProps {
    * 是否默认展开已选中节点的父节点,true
    */
   defaultExpandSelected?: boolean
+
+  virtualListProps?: {
+    /**
+     * 可视区域高度
+     */
+    height: number | string
+    /**
+     * 开启虚拟滚动的元素数量阈值，当数据数量小于阈值时不会开启虚拟滚动。
+     */
+    threshold?: number
+    /**
+     * 元素高度是否是固定的。
+     * @default false
+     */
+    fixedSize?: boolean
+    /**
+     * 元素高度不固定时的预估高度。
+     */
+    estimatedSize?: number
+    /**
+     * 视口边界外提前挂载的元素数量。
+     * @default 10
+     */
+    buffer?: number
+  }
   /**
    * 树节点图标自定义
    */
   iconRender?: (node: any) => VNode
+  /**
+   * 树节点右侧自定义
+   */
+  rightRender?: (node: any) => VNode
 }

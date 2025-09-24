@@ -10,7 +10,7 @@
           <div class="crco-list-form-left-search">
             <a-input
               class="flex-1"
-              placeholder="搜索 ..."
+              placeholder="搜索"
               allow-clear
               @input="handleChange"
               @clear="handleChange('')"

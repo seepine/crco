@@ -52,7 +52,8 @@ const treeProps = computed<TreeFieldNames>(() => {
     isLeaf: fields.isLeaf || 'isLeaf',
     disableCheckbox: fields.disableCheckbox || 'disableCheckbox',
     checkable: fields.checkable || 'checkable',
-    icon: fields.icon || 'icon'
+    icon: fields.icon || 'icon',
+    draggable: fields.draggable || '_draggable'
   }
 })
 
