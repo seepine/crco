@@ -20,6 +20,7 @@ import { Select as ASelect, Option as AOption } from '@arco-design/web-vue'
 import { withDefaults } from 'vue'
 import { ComponentColumn } from '../../types/column'
 import useSelect from '../_hooks/use-select'
+import { isArray, isUndefined } from '../../util/is'
 
 type ModelValueType = string | number | Array<string | number> | null
 
@@ -43,7 +44,14 @@ const { loading, dicData, myOption, fieldNames, myValue, onChange } = useSelect(
   props,
   emit,
   (res) => {
-    // 寻找当前值，若不存在则去除选中值
+    // 若值不为空，寻找当前值，若不存在则去除选中值
+    if (
+      isUndefined(myValue.value) ||
+      myValue.value === '' ||
+      (isArray(myValue.value) && myValue.value.length === 0)
+    ) {
+      return
+    }
     const find = res.filter((item: any) => {
       if (props.option.multiple) {
         return (

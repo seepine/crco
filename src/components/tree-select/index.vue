@@ -116,7 +116,14 @@ watch(
             onChange(props.option.multiple ? [res[0].value] : res[0].value)
           }
         }
-        // 寻找当前值，若不存在则去除选中值
+        // 非空时寻找当前值，若不存在则去除选中值
+        if (
+          isUndefined(value.value) ||
+          value.value === '' ||
+          (isArray(value.value) && value.value.length === 0)
+        ) {
+          return
+        }
         const find = treeFind(res, (item: any) => {
           if (props.option.multiple) {
             return (
