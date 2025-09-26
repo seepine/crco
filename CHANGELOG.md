@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.12](https://github.com/seepine/crco/compare/v2.12.11...v2.12.12) (2025-09-26)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **list-form:** fix expand default status ([1b83311](https://github.com/seepine/crco/commit/1b83311e592a461c3355d2e81809a1555d42943d))
+* **select:** fix auto remove invalid value when not empty ([5787b9d](https://github.com/seepine/crco/commit/5787b9d2e14d5ca4688783cc80063ff4859478b7))
+
 ### [2.12.11](https://github.com/seepine/crco/compare/v2.12.10...v2.12.11) (2025-09-24)
 
 
