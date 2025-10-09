@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.12.13](https://github.com/seepine/crco/compare/v2.12.12...v2.12.13) (2025-10-09)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **select:** set true of update at scroll ([a8e6c83](https://github.com/seepine/crco/commit/a8e6c83297bbfa452adf9b5428ec321853d1d64c))
+
 ### [2.12.12](https://github.com/seepine/crco/compare/v2.12.11...v2.12.12) (2025-09-26)
 
 
