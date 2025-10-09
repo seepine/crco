@@ -14,6 +14,10 @@ export default (props: any, emit: any, onDicLoad?: (res: any[]) => void) => {
   const myOption = computed<any>(() => {
     return {
       ...props.option,
+      triggerProps: {
+        ...props.option?.triggerProps,
+        updateAtScroll: true
+      },
       onChange: undefined
     }
   })

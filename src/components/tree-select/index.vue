@@ -33,6 +33,10 @@ const props = withDefaults(
 const myOption = computed<any>(() => {
   return {
     ...props.option,
+    triggerProps: {
+      ...props.option?.triggerProps,
+      updateAtScroll: true
+    },
     onChange: undefined
   }
 })
