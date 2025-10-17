@@ -209,6 +209,10 @@ export default defineComponent({
       return () => (
         <ACascader
           {...mergeAttrs}
+          triggerProps={{
+            updateAtScroll: true,
+            ...mergeAttrs.value.triggerProps
+          }}
           modelValue={form.value[prop.value]}
           onUpdate:modelValue={valueChange}
         ></ACascader>
@@ -237,6 +241,10 @@ export default defineComponent({
       return () => (
         <ATimePicker
           {...mergeAttrs}
+          triggerProps={{
+            updateAtScroll: true,
+            ...mergeAttrs.value.triggerProps
+          }}
           type={mergeAttrs.value.mode === 'time-range' ? 'time-range' : undefined}
           modelValue={form.value[prop.value]}
           onUpdate:modelValue={valueChange}

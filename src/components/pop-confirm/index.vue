@@ -1,5 +1,6 @@
 <template>
   <pop-confirm
+    :update-at-scroll="true"
     v-bind="$attrs"
     :content-class="{ 'crco-pop-confirm-icon-hide': isUndefined(props.type) }"
     :type="type"

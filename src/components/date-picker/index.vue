@@ -1,7 +1,7 @@
 <template>
   <a-date-picker
     v-if="type === 'date' || type === 'datetime'"
-    v-bind="option"
+    v-bind="myOption"
     v-model="value"
     :show-time="type === 'datetime'"
     :class="customClass"
@@ -9,35 +9,35 @@
   ></a-date-picker>
   <a-week-picker
     v-if="type === 'week'"
-    v-bind="option"
+    v-bind="myOption"
     v-model="value"
     :class="customClass"
     @change="handleChange"
   ></a-week-picker>
   <a-month-picker
     v-if="type === 'month'"
-    v-bind="option"
+    v-bind="myOption"
     v-model="value"
     :class="customClass"
     @change="handleChange"
   ></a-month-picker>
   <a-quarter-picker
     v-if="type === 'quarter'"
-    v-bind="option"
+    v-bind="myOption"
     v-model="value"
     :class="customClass"
     @change="handleChange"
   ></a-quarter-picker>
   <a-year-picker
     v-if="type === 'year'"
-    v-bind="option"
+    v-bind="myOption"
     v-model="value"
     :class="customClass"
     @change="handleChange"
   ></a-year-picker>
   <a-range-picker
     v-if="type === 'range'"
-    v-bind="option"
+    v-bind="myOption"
     v-model="value"
     :class="customClass"
     @change="handleChange"
@@ -77,6 +77,16 @@ const type = computed(() => {
 const value = computed({
   get: () => props.modelValue,
   set: (val: any) => emit('update:modelValue', val)
+})
+
+const myOption = computed<any>(() => {
+  return {
+    ...props.option,
+    triggerProps: {
+      ...props.option?.triggerProps,
+      updateAtScroll: true
+    }
+  }
 })
 
 const handleChange = (val: any) => {
