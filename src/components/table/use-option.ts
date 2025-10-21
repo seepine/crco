@@ -34,6 +34,8 @@ export default (option: TableOption) => {
       nowrap: true
     },
     showAddContinue: getOption().table?.showAddContinue,
+    refreshBtn: getOption().table?.refreshBtn,
+    changeColumnBtn: getOption().table?.changeColumnBtn,
     rowKey: 'id',
     defaultLoadData: true,
     bordered: false,

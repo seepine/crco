@@ -30,6 +30,8 @@ const globalCrcoOption = {
   },
   table: {
     showAddContinue: false,
+    refreshBtn: true,
+    changeColumnBtn: true,
     searchOption: {
       resetBtn: {
         display: false,

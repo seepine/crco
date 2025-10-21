@@ -21,6 +21,16 @@ export interface MenuProps {
    * 导出按钮配置
    */
   exportBtn?: Btn
+  /**
+   * 刷新按钮是否显示
+   * @default true
+   */
+  refreshBtn?: boolean
+  /**
+   * 改变列按钮是否显示
+   * @default true
+   */
+  changeColumnBtn?: boolean
 }
 export interface PermissionProps {
   /**

@@ -6465,6 +6465,11 @@ svg-tags@^1.0.0:
   resolved "https://registry.npmmirror.com/svg-tags/-/svg-tags-1.0.0.tgz#58f71cee3bd519b59d4b2a843b6c7de64ac04764"
   integrity sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==
 
+swapy@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/swapy/-/swapy-1.0.5.tgz#f280c568800c0a74112c25e91bbe987bb142a367"
+  integrity sha512-XEzy5HCw7yESb7QajKTBJ+NA/BL0kAKlE7XhSMPZawF740X4ws/5CFtXRsVDQ+EztISC759a9+DJM9mxjz4hXg==
+
 table@^6.0.9:
   version "6.8.1"
   resolved "https://registry.npmmirror.com/table/-/table-6.8.1.tgz#ea2b71359fe03b017a5fbc296204471158080bdf"

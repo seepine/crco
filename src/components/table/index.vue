@@ -43,7 +43,7 @@
         <div class="crco-table-header-right md-row-column">
           <a-space>
             <slot name="headerRight" v-if="$slots['headerRight']"></slot>
-            <a-button @click="() => load()" shape="circle">
+            <a-button @click="() => load()" shape="circle" v-if="myOption.refreshBtn !== false">
               <template #icon>
                 <icon-refresh />
               </template>
@@ -53,6 +53,31 @@
                 <icon-search />
               </template>
             </a-button>
+            <a-popover
+              trigger="click"
+              position="br"
+              :unmount-on-close="false"
+              :content-style="{
+                padding: '6px 0 8px 8px'
+              }"
+              v-if="myOption.changeColumnBtn !== false"
+            >
+              <a-button shape="circle">
+                <template #icon>
+                  <icon-settings />
+                </template>
+              </a-button>
+              <template #content>
+                <div class="change-column-btn-wrapper">
+                  <a-scrollbar style="max-height: 400px; min-height: 100px; overflow-y: auto">
+                    <change-column
+                      :value="readColumns"
+                      @change="(val) => (readColumns = val)"
+                    ></change-column>
+                  </a-scrollbar>
+                </div>
+              </template>
+            </a-popover>
           </a-space>
         </div>
       </div>
@@ -78,7 +103,7 @@
         :loading="loading"
       >
         <template #columns>
-          <template v-for="(column, index) in myOption.columns" :key="column.prop">
+          <template v-for="(column, index) in readColumns" :key="column.prop">
             <a-table-column
               v-bind="column as any"
               :title="column.name"
@@ -284,11 +309,13 @@ import {
   Breadcrumb as ABreadcrumb,
   BreadcrumbItem as ABreadcrumbItem,
   Checkbox as ACheckbox,
+  Popover as APopover,
+  Scrollbar as AScrollbar,
   TableChangeExtra,
   TableData,
   PaginationProps
 } from '@arco-design/web-vue'
-import { IconRefresh, IconArrowLeft, IconSearch } from '@arco-design/web-vue/es/icon'
+import { IconRefresh, IconArrowLeft, IconSearch, IconSettings } from '@arco-design/web-vue/es/icon'
 import { isFunction, isString, isUndefined, isObject } from '../../util/is'
 import { filterBtnDisplay, filterDisplay, filterCellStyle } from '../../util/filter'
 import { deepClone, runDone } from '../../util/util'
@@ -297,13 +324,14 @@ import CrcoDescriptions from '../descriptions/index.vue'
 import CrcoForm from '../form/index.vue'
 import CrcoPopConfirm from '../pop-confirm/index.vue'
 import usePopstate from '../_hooks/use-popstate'
-import { TableOption } from '../../types/table'
+import { TableColumn, TableOption } from '../../types/table'
 import useOption from './use-option'
 import usePermission from '../_hooks/use-premission'
 import SearchBox from './search.vue'
 import useCrud from '../_hooks/use-crud'
 import { FormType } from '../../types/form'
 import useElementResize from '../_hooks/use-element-resize'
+import ChangeColumn from './change-column.vue'
 
 const crcoTableDivRef = ref()
 const { divWidth } = useElementResize(crcoTableDivRef)
@@ -393,6 +421,15 @@ watch(
   {
     immediate: true
   }
+)
+
+const readColumns = ref<TableColumn[]>([])
+watch(
+  () => myOption.value.columns,
+  (newVal) => {
+    readColumns.value = deepClone(newVal.filter((column) => filterDisplay('', column, {})))
+  },
+  { immediate: true, deep: true }
 )
 
 const selectRowKeys = ref<string[]>([])

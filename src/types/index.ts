@@ -97,6 +97,8 @@ export interface CrcoOptions {
         layout?: 'horizontal' | 'vertical'
       }
     }
+    refreshBtn?: boolean
+    changeColumnBtn?: boolean
     span?: ResponsiveValue
   }
 }
