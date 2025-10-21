@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.0](https://github.com/seepine/crco/compare/v2.12.14...v2.13.0) (2025-10-21)
+
+
+### ✨ Features | 新功能
+
+* **table:** add change column btn ([d4e9d81](https://github.com/seepine/crco/commit/d4e9d8161ebc5e6015a350c02bbb0a52c26ec404))
+
 ### [2.12.14](https://github.com/seepine/crco/compare/v2.12.13...v2.12.14) (2025-10-17)
 
 

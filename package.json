@@ -2,7 +2,7 @@
   "name": "crco",
   "author": "seepine",
   "license": "MIT",
-  "version": "2.12.14",
+  "version": "2.13.0",
   "description": "collect arco",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.js",
