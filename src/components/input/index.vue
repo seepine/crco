@@ -2,6 +2,7 @@
   <div style="display: flex; flex-direction: column">
     <a-input-number
       v-if="option.type === 'number'"
+      :hide-button="true"
       v-bind="option"
       v-model="value"
       :disabled="undefined"
@@ -9,6 +10,7 @@
     ></a-input-number>
     <a-input-password
       v-else-if="option.type === 'password'"
+      v-bind="option"
       v-model="value"
       :disabled="undefined"
       @change="handleChange"
