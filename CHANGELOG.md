@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.13.1](https://github.com/seepine/crco/compare/v2.13.0...v2.13.1) (2025-10-23)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **input:** fix number hide button and password bind option ([b19c19c](https://github.com/seepine/crco/commit/b19c19caaed421ec203dbac3a02cfcbc84084154))
+
 ## [2.13.0](https://github.com/seepine/crco/compare/v2.12.14...v2.13.0) (2025-10-21)
 
 
