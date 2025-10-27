@@ -71,11 +71,13 @@
                 <div class="change-column-btn-wrapper">
                   <a-scrollbar style="max-height: 400px; min-height: 100px; overflow-y: auto">
                     <change-column
+                      v-if="readColumns.length > 0"
                       :value="readColumns"
                       :default-hide-props="defaultHideColumnsProps"
                       @change="(val) => (readColumns = val)"
                       @event="handleChangeColumnEvent"
                     ></change-column>
+                    <a-empty v-else description="无列数据"></a-empty>
                   </a-scrollbar>
                 </div>
               </template>
@@ -313,6 +315,7 @@ import {
   Checkbox as ACheckbox,
   Popover as APopover,
   Scrollbar as AScrollbar,
+  Empty as AEmpty,
   TableChangeExtra,
   TableData,
   PaginationProps
