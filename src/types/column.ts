@@ -202,6 +202,12 @@ export interface FormItemExt {
    */
   display?: boolean | ((record: any) => boolean)
   /**
+   * 是否可以改变显隐，若true，则就算display=false，也可以在右上角的列显隐控制中展示
+   *
+   * @default false
+   */
+  displayChange?: boolean
+  /**
    * 是否禁用
    */
   disabled?: boolean | ((record: any) => boolean)

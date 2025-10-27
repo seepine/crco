@@ -72,7 +72,9 @@
                   <a-scrollbar style="max-height: 400px; min-height: 100px; overflow-y: auto">
                     <change-column
                       :value="readColumns"
+                      :default-hide-props="defaultHideColumnsProps"
                       @change="(val) => (readColumns = val)"
+                      @event="handleChangeColumnEvent"
                     ></change-column>
                   </a-scrollbar>
                 </div>
@@ -424,13 +426,73 @@ watch(
 )
 
 const readColumns = ref<TableColumn[]>([])
+const defaultHideColumnsProps = ref<string[]>([])
 watch(
   () => myOption.value.columns,
-  (newVal) => {
-    readColumns.value = deepClone(newVal.filter((column) => filterDisplay('', column, {})))
+  async (newVal) => {
+    let cacheColumn: { prop: string; display: boolean }[] = []
+    if (isString(myOption.value.changeColumnCache)) {
+      cacheColumn = JSON.parse(
+        localStorage.getItem(`ctable_column_${myOption.value.changeColumnCache}`) || '[]'
+      )
+    } else if (isFunction(myOption.value.changeColumnCache)) {
+      const cache = await runDone(myOption.value.changeColumnCache)
+      if (Array.isArray(cache)) {
+        cacheColumn = cache
+      }
+    }
+    defaultHideColumnsProps.value = newVal
+      .filter((column) => {
+        const find = cacheColumn.find((item) => item.prop === column.prop)
+        if (find) {
+          return find.display === false
+        }
+        return filterDisplay('', column, {}) === false && column.displayChange === true
+      })
+      .map((col) => col.prop)
+    let options: any[] = deepClone(
+      newVal
+        .filter((column) => filterDisplay('', column, {}) || column.displayChange === true)
+        .map((item) => {
+          return {
+            ...item,
+            display: !defaultHideColumnsProps.value.includes(item.prop)
+          }
+        })
+    )
+    const propIndexMap = new Map()
+    cacheColumn.forEach((item, index) => {
+      propIndexMap.set(item.prop, index)
+    })
+    if (propIndexMap.size > 0) {
+      options = options.sort((a, b) => {
+        const indexA = propIndexMap.get(a.prop)
+        const indexB = propIndexMap.get(b.prop)
+        // 处理 cacheColumn 中不存在的 prop
+        if (indexA === undefined && indexB === undefined) {
+          return 0 // 两者都不存在，保持相对顺序
+        }
+        if (indexA === undefined) {
+          return 1 // 只有a不存在，a排最后
+        }
+        if (indexB === undefined) {
+          return -1 // 只有b不存在，b排最后
+        }
+        return indexA - indexB
+      })
+    }
+    readColumns.value = options
   },
   { immediate: true, deep: true }
 )
+const handleChangeColumnEvent = (val: any) => {
+  if (isString(myOption.value.changeColumnCache)) {
+    localStorage.setItem(`ctable_column_${myOption.value.changeColumnCache}`, JSON.stringify(val))
+  }
+  if (myOption.value.changeColumnEvent && isFunction(myOption.value.changeColumnEvent)) {
+    myOption.value.changeColumnEvent(val)
+  }
+}
 
 const selectRowKeys = ref<string[]>([])
 const selectData = ref<any[]>([])

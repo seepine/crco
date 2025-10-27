@@ -13,18 +13,23 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, withDefaults } from 'vue'
 import { Checkbox as ACheckbox } from '@arco-design/web-vue'
 import { IconDragArrow } from '@arco-design/web-vue/es/icon'
 import { createSwapy, Swapy } from 'swapy'
 import { TableColumn } from '../../types'
 import { deepClone } from '../../util/util'
 
-const props = defineProps<{
-  value: TableColumn[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    value: TableColumn[]
+    defaultHideProps?: string[]
+  }>(),
+  { defaultHideProps: () => [] }
+)
 const emit = defineEmits<{
   (event: 'change', data: TableColumn[]): void
+  (event: 'event', data: any[]): void
 }>()
 
 const columns = ref<TableColumn[]>(deepClone(props.value || []))
@@ -32,7 +37,11 @@ const displayObj = ref<{
   [x: string]: boolean
 }>({})
 columns.value.forEach((item) => {
-  displayObj.value[item.prop] = true
+  if (props.defaultHideProps?.includes(item.prop)) {
+    displayObj.value[item.prop] = false
+  } else {
+    displayObj.value[item.prop] = true
+  }
 })
 // watch(
 //   () => props.value,
@@ -56,6 +65,15 @@ const handleChange = (prop: string) => {
       item.display = displayObj.value[prop]
     }
   })
+  emit(
+    'event',
+    newColumns.map((col) => {
+      return {
+        prop: col.prop,
+        display: displayObj.value[col.prop]
+      }
+    })
+  )
   emit('change', deepClone(newColumns))
 }
 const contentRef = ref<HTMLElement>()
@@ -79,6 +97,15 @@ onMounted(() => {
         console.warn(`Column with prop "${prop}" not found.`)
       }
     })
+    emit(
+      'event',
+      newColumns.map((col) => {
+        return {
+          prop: col.prop,
+          display: displayObj.value[col.prop]
+        }
+      })
+    )
     emit('change', deepClone(newColumns))
   })
 })

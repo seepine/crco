@@ -31,6 +31,38 @@ export interface MenuProps {
    * @default true
    */
   changeColumnBtn?: boolean
+  /**
+   * 列缓存key或者提供者
+   *
+   * @example 缓存key
+   * ```ts
+   * changeColumnCache: "table_column_key"
+   * ```
+   *
+   * @example 提供者
+   * ```ts
+   * changeColumnCache: async ()=>{
+   *   // 返回缓存列 [{prop:string; display:boolean}]
+   *   return await axios.get("/setting/table_column_key")
+   * }
+   * ```
+   */
+  changeColumnCache?:
+    | string
+    | (() => { prop: string; display: boolean }[] | Promise<{ prop: string; display: boolean }[]>)
+  /**
+   * 列显隐改变事件
+   *
+   * @param columns 改变后的字段
+   *
+   * @example
+   * ```ts
+   *   changeColumnEvent: (columns) => {
+   *     localStorage.setItem('table-change-column-demo', JSON.stringify(columns))
+   *   }
+   * ```
+   */
+  changeColumnEvent?: (columns: { prop: string; display: boolean }[]) => void
 }
 export interface PermissionProps {
   /**
