@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.13.3](https://github.com/seepine/crco/compare/v2.13.2...v2.13.3) (2025-10-27)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **table:** fix column async data ([6fc4a09](https://github.com/seepine/crco/commit/6fc4a09639fc6bd7f3d8a948b87e2fe8f9cfd635))
+
 ### [2.13.2](https://github.com/seepine/crco/compare/v2.13.1...v2.13.2) (2025-10-27)
 
 
