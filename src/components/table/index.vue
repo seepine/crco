@@ -115,6 +115,11 @@
               :ellipsis="column.ellipsis || myOption.ellipsis"
               :tooltip="column.ellipsis || myOption.ellipsis"
               :cell-style="filterCellStyle(column, { nowrap: column.nowrap || myOption.nowrap })"
+              :sortable="{
+                sorter: true,
+                ...((column.sortable as any) || {}),
+                sortOrder: sortOrderCache[column.prop]
+              }"
               v-if="filterDisplay('', column, tableDatas[index])"
             >
               <template #cell="{ record }">
@@ -802,7 +807,11 @@ const selectionChange = (rowKeys: string[]) => {
   }
   emit('selection-change', selectRowKeys.value, selectData.value)
 }
+const sortOrderCache = ref<Record<string, 'ascend' | 'descend' | ''>>({})
 const sorterChange = (dataIndex: string, direction: string) => {
+  sortOrderCache.value = {
+    [dataIndex]: direction as 'ascend' | 'descend' | ''
+  }
   emit('sorter-change', dataIndex, direction)
 }
 // 直接抛出a-table事件  end
