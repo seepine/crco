@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { h, computed, defineComponent, PropType } from 'vue'
+import { h, computed, defineComponent, PropType, ref } from 'vue'
 import {
   Switch as ASwitch,
   Slider as ASlider,
@@ -54,6 +54,15 @@ export default defineComponent({
     const type = computed<ComponentType>(() => props.column.type)
     const prop = computed<string>(() => props.column.prop)
     const form = computed<any>(() => props.value)
+    const disabled = ref(false)
+    const calcDisabled = () => {
+      if (props.column.disabled !== undefined) {
+        runCallback(props.column.disabled, form.value).then((res) => {
+          disabled.value = res
+        })
+      }
+    }
+    calcDisabled()
     const valueChangeOnly = (val: any) => {
       const old: any = props.value
       old[props.column.prop] = val
@@ -71,15 +80,20 @@ export default defineComponent({
       } else {
         valueChangeOnly(val)
       }
+      calcDisabled()
     }
     const onUpdateForm = (val: any) => {
       emit('change', val)
     }
     const mergeAttrs = computed<any>(() => {
-      return {
+      const attrs = {
         ...props.column,
         class: 'full-width'
       }
+      if (props.column.disabled !== undefined) {
+        attrs.disabled = disabled.value
+      }
+      return attrs
     })
     if (!isString(type.value) && !isUndefined(type.value)) {
       // @ts-ignore
@@ -233,7 +247,7 @@ export default defineComponent({
         <CDatePicker
           customClass="full-width"
           modelValue={form.value[prop.value]}
-          option={props.column}
+          option={mergeAttrs.value}
           onUpdate:modelValue={valueChange}
         />
       )
