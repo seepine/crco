@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.13.4](https://github.com/seepine/crco/compare/v2.13.3...v2.13.4) (2025-10-29)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **form:** fix disabled typo of datePicker ([23ac43f](https://github.com/seepine/crco/commit/23ac43fd693d4be51786c4da55f5724720cc3f4e))
+* **table:** fix sort state reset err ([c4c22a9](https://github.com/seepine/crco/commit/c4c22a96e1283740be8440be4f7ea548fbb2b5b4))
+
 ### [2.13.3](https://github.com/seepine/crco/compare/v2.13.2...v2.13.3) (2025-10-27)
 
 
