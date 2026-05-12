@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.14.0](https://github.com/seepine/crco/compare/v2.13.4...v2.14.0) (2026-05-12)
+
+
+### ✨ Features | 新功能
+
+* **upload:** add online preview control for files ([c46fb5f](https://github.com/seepine/crco/commit/c46fb5f86fa732931636ffddde4110aa0b516ef6))
+
 ### [2.13.4](https://github.com/seepine/crco/compare/v2.13.3...v2.13.4) (2025-10-29)
 
 
