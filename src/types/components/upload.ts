@@ -184,6 +184,18 @@ export type UploadType = {
    */
   imagePreview?: boolean
   /**
+   * @zh 是否在线预览文件，支持pdf、office等在线预览
+   * @version 2.14.0
+   * @defaultValue false
+   */
+  previewFile?: boolean
+  /**
+   * @zh 是否使用 office 在线预览
+   * @version 2.14.0
+   * @defaultValue false
+   */
+  previewOffice?: boolean
+  /**
    * @zh 上传文件前触发
    * @en Trigger before uploading a file
    */
@@ -193,6 +205,11 @@ export type UploadType = {
    * @en Triggered before removing the file
    */
   onBeforeRemove?: (fileItem: FileItem) => Promise<boolean>
+  /**
+   * @zh 点击下载按钮触发
+   * @en Triggered when the download button is clicked
+   */
+  onDownload?: (file: { name: string; originUrl: string; url: string }) => void
   /**
    * @zh 点击上传按钮触发（如果返回 Promise 则会关闭默认 input 上传）
    * @en Click the upload button to trigger (if the Promise is returned, the default input upload will be closed)

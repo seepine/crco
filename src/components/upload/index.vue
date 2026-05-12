@@ -50,6 +50,7 @@
     </template>
   </image-preview-group>
   <modal
+    v-if="option.previewFile === true"
     v-model:visible="modalVisible"
     :title="clickFile.name"
     ok-text="下载"
@@ -64,8 +65,22 @@
         v-if="modalVisible"
         style="width: 100%; height: 100%"
         :src="clickFile.url"
-      ></iframe
-    ></spin>
+      ></iframe>
+    </spin>
+  </modal>
+  <modal
+    v-else
+    v-model:visible="modalVisible"
+    title=" "
+    ok-text="下载"
+    @ok="handleDownloadFile"
+    cancel-text="关闭"
+    @cancel="closePreview"
+  >
+    <div class="crco-upload-preview-file">
+      <icon-file class="crco-upload-preview-file-icon" />
+      <div class="crco-upload-preview-file-name">{{ clickFile.name }}</div>
+    </div>
   </modal>
 </template>
 
@@ -79,6 +94,7 @@ import {
   ImagePreviewAction,
   RequestOption
 } from '@arco-design/web-vue'
+import { IconDownload, IconFile } from '@arco-design/web-vue/es/icon'
 import { withDefaults, ref, computed, nextTick, watch } from 'vue'
 import ImagePreviewGroup from './preview-group.vue'
 import { deepClone } from '../../util/util'
@@ -109,7 +125,9 @@ const props = withDefaults(
       return {
         type: 'upload',
         limit: 0,
-        large: false
+        large: false,
+        previewFile: false,
+        previewOffice: false
       }
     },
     readonly: false
@@ -301,16 +319,16 @@ const isImg = (url: string) => {
   if (url.startsWith('data:image')) {
     return true
   }
-  return /\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(url)
+  return /\.(gif|jpg|jpeg|png|GIF|JPG|PNG)(\?|#|$)/.test(url)
 }
 const isOffice = (url: string) => {
-  return /\.(doc|docx|ppt|pptx|xls|xlsx)$/.test(url)
+  return /\.(doc|docx|ppt|pptx|xls|xlsx)(\?|#|$)/.test(url)
 }
 const isPdf = (url: string) => {
-  return /\.(pdf)$/.test(url)
+  return /\.(pdf)(\?|#|$)/i.test(url)
 }
 const isTxt = (url: string) => {
-  return /\.(txt)$/.test(url)
+  return /\.(txt)(\?|#|$)/.test(url)
 }
 const getHost = () => {
   return window.document.location.origin
@@ -324,7 +342,15 @@ const modalVisible = ref(false)
 const modalLoading = ref(false)
 const modalIframeRef = ref()
 const handleDownloadFile = () => {
+  if(props.option.onDownload){
+    props.option.onDownload(clickFile.value)
+    return
+  }
   window.open(clickFile.value.originUrl)
+}
+const closePreview = () => {
+  modalVisible.value = false
+  modalLoading.value = false
 }
 const preview = (file: any) => {
   if (props.option.disabledPreview) {
@@ -341,17 +367,22 @@ const preview = (file: any) => {
         window.open(url)
         return
       }
+      const isPreviewFile = props.option.previewFile === true
+      const isPreviewOffice = props.option.previewOffice === true
       clickFile.value = {
         name: file.name,
         originUrl: url,
-        url: isOffice(url)
+        url: isOffice(url) && isPreviewOffice
           ? `https://view.officeapps.live.com/op/view.aspx?src=${getHost() + url}`
           : `${url}?view`
       }
-      modalLoading.value = true
+      modalLoading.value = isPreviewFile
       modalVisible.value = true
+      if (!isPreviewFile) {
+        return
+      }
       nextTick(() => {
-        if (modalIframeRef.value.attachEvent) {
+        if (modalIframeRef.value?.attachEvent) {
           // IE
           modalIframeRef.value.attachEvent('onload', () => {
             modalLoading.value = false
@@ -571,5 +602,27 @@ const download = (url: string) => {
     height: 90%;
     overflow-y: hidden;
   }
+}
+
+.crco-upload-preview-file {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.crco-upload-preview-file-icon {
+  display: block;
+  margin: 0 auto 24px;
+  font-size: 56px;
+  color: rgb(var(--gray-8));
+}
+
+.crco-upload-preview-file-name {
+  max-width: 100%;
+  word-break: break-all;
+  color: rgb(var(--gray-8));
 }
 </style>
