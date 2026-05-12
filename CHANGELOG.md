@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.14.1](https://github.com/seepine/crco/compare/v2.14.0...v2.14.1) (2026-05-12)
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* **upload:** update file preview handling and adjust download callback parameters ([eafb966](https://github.com/seepine/crco/commit/eafb966d836ccdb20d4ca919f501a3273fb2b407))
+
 ## [2.14.0](https://github.com/seepine/crco/compare/v2.13.4...v2.14.0) (2026-05-12)
 
 
