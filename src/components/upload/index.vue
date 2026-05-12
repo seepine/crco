@@ -50,7 +50,7 @@
     </template>
   </image-preview-group>
   <modal
-    v-if="option.previewFile === true"
+    v-if="isPreviewFile === true"
     v-model:visible="modalVisible"
     :title="clickFile.name"
     ok-text="下载"
@@ -64,7 +64,7 @@
         frameborder="0"
         v-if="modalVisible"
         style="width: 100%; height: 100%"
-        :src="clickFile.url"
+        :src="clickFile.viewUrl"
       ></iframe>
     </spin>
   </modal>
@@ -336,14 +336,18 @@ const getHost = () => {
 const clickFile = ref({
   name: '',
   originUrl: '',
-  url: ''
+  viewUrl: ''
 })
 const modalVisible = ref(false)
 const modalLoading = ref(false)
 const modalIframeRef = ref()
+const isPreviewFile = ref(false)
 const handleDownloadFile = () => {
   if(props.option.onDownload){
-    props.option.onDownload(clickFile.value)
+    props.option.onDownload({
+      name: clickFile.value.name,
+      url: clickFile.value.originUrl
+    })
     return
   }
   window.open(clickFile.value.originUrl)
@@ -363,24 +367,26 @@ const preview = (file: any) => {
       return
     }
     if (!isImg(url)) {
+      isPreviewFile.value = props.option.previewFile === true
       if (!isPdf(url) && !isOffice(url) && !isTxt(url)) {
-        window.open(url)
-        return
+        isPreviewFile.value = false
       }
-      const isPreviewFile = props.option.previewFile === true
       const isPreviewOffice = props.option.previewOffice === true
+      if(isOffice(url) && !isPreviewOffice){
+        isPreviewFile.value = false
+      }
       clickFile.value = {
         name: file.name,
         originUrl: url,
-        url: isOffice(url) && isPreviewOffice
+        viewUrl: isOffice(url) && isPreviewOffice
           ? `https://view.officeapps.live.com/op/view.aspx?src=${getHost() + url}`
           : `${url}?view`
       }
-      modalLoading.value = isPreviewFile
       modalVisible.value = true
-      if (!isPreviewFile) {
+      if (!isPreviewFile.value) {
         return
       }
+      modalLoading.value = true
       nextTick(() => {
         if (modalIframeRef.value?.attachEvent) {
           // IE

@@ -209,7 +209,7 @@ export type UploadType = {
    * @zh 点击下载按钮触发
    * @en Triggered when the download button is clicked
    */
-  onDownload?: (file: { name: string; originUrl: string; url: string }) => void
+  onDownload?: (file: { name: string; url: string }) => void
   /**
    * @zh 点击上传按钮触发（如果返回 Promise 则会关闭默认 input 上传）
    * @en Click the upload button to trigger (if the Promise is returned, the default input upload will be closed)
