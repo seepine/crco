@@ -853,6 +853,9 @@ defineExpose({
   getData: () => {
     return tableDatas.value
   },
+  getColumns: () => {
+    return deepClone(readColumns.value)
+  },
   getSelectionData: () => {
     return selectData.value
   },

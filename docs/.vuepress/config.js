@@ -111,6 +111,7 @@ module.exports = {
             'draggable',
             'selection',
             'ext',
+            'expose',
             'typescript'
           ]
         }
