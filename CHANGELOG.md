@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.0](https://github.com/seepine/crco/compare/v2.14.1...v2.15.0) (2026-07-11)
+
+
+### ✨ Features | 新功能
+
+* **table:** expose getColumns to get currently displayed columns ([b5d1fc3](https://github.com/seepine/crco/commit/b5d1fc31ac83603a709257e0819e7deee085cdc3))
+
 ### [2.14.1](https://github.com/seepine/crco/compare/v2.14.0...v2.14.1) (2026-05-12)
 
 
